@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "browse": "Parcourir les expériences",
+    "map": "Explorer la carte",
+    "listExperience": "Listez votre expérience",
+    "about": "À propos",
+    "portal": "Mon portail",
+    "listFree": "Lister gratuitement",
+    "language": "Langue"
+  },
+  "hero": {
+    "badge": "La marketplace d'expériences locales au Maroc",
+    "headline": "Découvrez le vrai Maroc.",
+    "highlight": "Avec des experts locaux.",
+    "subheadline": "Cours de surf, tours dans le Sahara, cours de cuisine, balades en médina et plus — directement auprès d'opérateurs locaux vérifiés.",
+    "searchCategory": "Toutes les catégories",
+    "searchCity": "Toutes les villes",
+    "searchBtn": "Rechercher",
+    "trustVerified": "Opérateurs vérifiés",
+    "trustRated": "Évalué par de vrais voyageurs",
+    "trustCommission": "Seulement 10% de commission",
+    "trustCities": "13 villes"
+  },
+  "experiences": {
+    "title": "Réservez des expériences authentiques au Maroc",
+    "badge": "Opérateurs locaux vérifiés · 100% expériences authentiques",
+    "noViator": "directement auprès d'experts locaux. Sans commissions gonflées.",
+    "count": "expérience",
+    "countPlural": "expériences",
+    "found": "trouvée(s)",
+    "noResults": "Aucune expérience listée pour le moment",
+    "noResultsSub": "Soyez le premier opérateur local à lister dans cette catégorie.",
+    "listCta": "Listez votre expérience — gratuitement",
+    "operatorCta": "Êtes-vous un guide ou instructeur local ?",
+    "operatorCtaSub": "Listez vos expériences sur Atlas Experiences. Nous prélevons 10% de commission — moitié moins que les autres plateformes. Gratuit pour lister, zéro frais mensuel.",
+    "listBtn": "Listez votre expérience →"
+  },
+  "operators": {
+    "registerTitle": "Listez votre expérience au Maroc",
+    "registerBadge": "Inscription gratuite · Seulement 10% de commission sur les réservations",
+    "registerSub": "Coachs de surf, guides du désert, professeurs de cuisine, opérateurs de hammam — rejoignez Atlas Experiences et atteignez des milliers de voyageurs internationaux.",
+    "benefit1Title": "10% de commission seulement",
+    "benefit1Desc": "Les autres plateformes prennent 20-30%. Vous gardez 90% de chaque réservation.",
+    "benefit2Title": "Trafic SEO optimisé",
+    "benefit2Desc": "Nous nous positionnons sur les mots-clés voyage Maroc. Vous obtenez les réservations.",
+    "benefit3Title": "Contact direct avec les voyageurs",
+    "benefit3Desc": "Vous communiquez directement avec vos clients via WhatsApp ou téléphone.",
+    "benefit4Title": "Gratuit pour lister",
+    "benefit4Desc": "Pas de frais mensuels, pas d'abonnement. Payez uniquement quand vous gagnez.",
+    "joinBtn": "Rejoindre en tant qu'opérateur local →",
+    "joinNote": "Inscription gratuite · Vérification sous 48h · Aucun paiement avant de gagner"
+  },
+  "tips": {
+    "title": "Guide de sécurité pour les voyageurs au Maroc",
+    "subtitle": "Conseils pratiques des locaux et voyageurs expérimentés — comment profiter du Maroc sans tomber dans les arnaques."
+  },
+  "map": {
+    "title": "Explorer le Maroc",
+    "subtitle": "Survolez une ville pour découvrir son ambiance, la meilleure saison et les activités. Cliquez pour verrouiller le panneau d'info.",
+    "hover": "Survolez une ville",
+    "hoverSub": "Déplacez votre souris sur n'importe quel point de la carte pour voir les détails de la ville et les expériences locales.",
+    "allCities": "Toutes les villes",
+    "bestFor": "Idéal pour",
+    "bestTime": "Meilleure période pour visiter",
+    "mustSee": "À ne pas manquer",
+    "climate": "Climat",
+    "browseBtn": "Voir les expériences",
+    "legend1": "Ville sélectionnée",
+    "legend2": "Survolez ou cliquez pour explorer"
+  },
+  "testimonials": {
+    "title": "Vrais voyageurs. Vraies expériences.",
+    "subtitle": "Ce que disent nos voyageurs — en leurs propres mots.",
+    "featured": "Vous voulez être mis en avant ?",
+    "featuredSub": "Vous avez adoré votre expérience ? Partagez une courte vidéo témoignage et nous vous mettrons en avant ici."
+  },
+  "newsletter": {
+    "title": "Recevez des conseils exclusifs sur le Maroc",
+    "subtitle": "Guides mensuels, alertes saisonnières et offres exclusives — jamais de spam.",
+    "placeholder": "Votre adresse email",
+    "subscribe": "S'abonner",
+    "success": "Vous êtes inscrit ! Vérifiez votre boîte de réception.",
+    "privacy": "Nous respectons votre vie privée."
+  },
+  "footer": {
+    "tagline": "La marketplace d'expériences locales au Maroc — opérateurs vérifiés, prix justes.",
+    "platform": "Plateforme",
+    "legal": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "commission": "10% de commission",
+    "freeListing": "Gratuit pour lister",
+    "suggest": "Partager une suggestion",
+    "builtWith": "Construit avec honnêteté.",
+    "copyright": "Atlas Experiences. Tous droits réservés."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Quelque chose s'est mal passé.",
+    "notFound": "Page non trouvée.",
+    "backHome": "Retour à l'accueil",
+    "learnMore": "En savoir plus",
+    "seeAll": "Voir tout",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "book": "Réserver",
+    "perPerson": "/ personne",
+    "verified": "Vérifié",
+    "featured": "En vedette",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "save": "Enregistrer",
+    "cancel": "Annuler"
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "q": "Quelle est la meilleure période pour visiter le Maroc ?",
+        "a": "Le printemps (mars–mai) et l'automne (septembre–novembre) offrent les températures les plus confortables. L'été est idéal pour la côte ; l'hiver pour le Sahara."
+      },
+      {
+        "q": "Ai-je besoin d'un visa pour visiter le Maroc ?",
+        "a": "La plupart des ressortissants occidentaux (USA, UE, UK, Canada, Australie) peuvent entrer au Maroc sans visa pour 90 jours."
+      },
+      {
+        "q": "Quelle monnaie le Maroc utilise-t-il ?",
+        "a": "Le Maroc utilise le Dirham marocain (MAD). Il n'est pas librement convertible hors du Maroc, donc échangez de l'argent à l'arrivée."
+      },
+      {
+        "q": "Le Maroc est-il sûr pour les touristes ?",
+        "a": "Le Maroc est généralement sûr pour les touristes. Les principaux risques sont les petits vols dans les médinas et les arnaques touristiques."
+      },
+      {
+        "q": "Comment fonctionne la commission de 10% ?",
+        "a": "Atlas Experiences prélève 10% de la valeur de la réservation confirmée, facturée mensuellement. Les voyageurs paient directement les opérateurs — Atlas Experiences ne gère pas les paiements."
+      }
+    ]
+  }
+}

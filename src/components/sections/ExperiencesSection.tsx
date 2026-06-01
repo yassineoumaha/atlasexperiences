@@ -1,0 +1,237 @@
+import Link from "next/link";
+import Image from "next/image";
+import { createClient } from "@/lib/supabase/server";
+import { CATEGORIES, CATEGORY_LIST } from "@/lib/experiences-data";
+import { Star, Clock, MapPin, ArrowRight } from "lucide-react";
+import type { Locale, Dictionary } from "@/lib/dictionaries";
+
+interface Props { locale: Locale; dict: Dictionary; }
+
+async function getFeaturedExperiences() {
+  try {
+    const supabase = await createClient();
+    const { data } = await (supabase as unknown as any)
+      .from("experiences")
+      .select("id, title, slug, category, city, price_per_person, images, avg_rating, review_count, duration_hours, operators(business_name, verified)")
+      .eq("published", true)
+      .eq("approved", true)
+      .eq("featured", true)
+      .order("total_bookings", { ascending: false })
+      .limit(8);
+    return (data as any[]) ?? [];
+  } catch { return []; }
+}
+
+// Category cards with Morocco-specific destination images
+const DISCOVER_CARDS = [
+  { key: "desert",    label: "Sahara Desert",     img: "https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "surf",      label: "Atlantic Coast",     img: "https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "culture",   label: "Imperial Cities",    img: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "food",      label: "Moroccan Cuisine",   img: "https://images.pexels.com/photos/5560779/pexels-photo-5560779.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "wellness",  label: "Hammam & Spa",       img: "https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "adventure", label: "Atlas Mountains",    img: "https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+];
+
+export default async function ExperiencesSection({ locale, dict }: Props) {
+  const experiences = await getFeaturedExperiences();
+  const d = dict.experiences;
+  const c = dict.common;
+
+  return (
+    <>
+      {/* ══ DISCOVER SECTION (bedimcode discover pattern) ══════════════════ */}
+      <section className="py-20 bg-stone-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <span className="block text-amber-600 font-semibold text-sm mb-2 uppercase tracking-wider">
+                {d.badge}
+              </span>
+              <h2
+                className="text-3xl sm:text-4xl text-stone-900 section-title"
+              >
+                Discover the most<br />
+                <span className="text-amber-500">attractive places</span>
+              </h2>
+            </div>
+            <Link
+              href={`/${locale}/map`}
+              className="hidden sm:flex items-center gap-1.5 text-stone-500 hover:text-amber-600 text-sm font-semibold transition-colors"
+            >
+              Explore map <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Horizontal scroll carousel — bedimcode discover pattern */}
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-scroll no-scrollbar">
+            {DISCOVER_CARDS.map((card) => (
+              <Link
+                key={card.key}
+                href={`/${locale}/experiences?category=${card.key}`}
+                className="discover-card snap-start flex-shrink-0 w-44 sm:w-52 h-72 sm:h-80 rounded-2xl group"
+              >
+                <img
+                  src={card.img}
+                  alt={card.label}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent rounded-2xl" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h3 className="text-white font-bold text-base leading-tight">{card.label}</h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ EXPERIENCES SECTION (place-card + grid patterns) ══════════════ */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <span className="block text-amber-600 font-semibold text-sm mb-2 uppercase tracking-wider">
+                ✅ {d.badge}
+              </span>
+              <h2 className="text-3xl sm:text-4xl text-stone-900 section-title">
+                {d.title}
+              </h2>
+              <p className="text-stone-500 mt-2 max-w-xl">{d.noViator}</p>
+            </div>
+            <Link
+              href={`/${locale}/experiences`}
+              className="hidden sm:flex items-center gap-1.5 text-amber-600 font-semibold hover:text-amber-700 transition-colors text-sm"
+            >
+              {c.seeAll} <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Category pills */}
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-8 no-scrollbar">
+            {CATEGORY_LIST.slice(0, 7).map((cat) => (
+              <Link
+                key={cat.key}
+                href={`/${locale}/experiences?category=${cat.key}`}
+                className="flex items-center gap-1.5 px-4 py-2 bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-300 rounded-full text-sm font-medium text-stone-600 hover:text-amber-700 transition-all whitespace-nowrap"
+              >
+                {cat.emoji} {cat.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Place-card grid (bedimcode place pattern) */}
+          {experiences.length === 0 ? (
+            /* Fallback: category showcase using place-card overlay style */
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {DISCOVER_CARDS.slice(0, 8).map((card) => (
+                <Link
+                  key={card.key}
+                  href={`/${locale}/experiences?category=${card.key}`}
+                  className="place-card h-56 sm:h-64 group"
+                >
+                  <img src={card.img} alt={card.label} className="place-img w-full h-full object-cover" />
+                  <div className="place-overlay" />
+                  <div className="absolute inset-0 flex flex-col justify-end p-4">
+                    <div>
+                      <h3 className="text-white font-bold text-base mb-0.5">{card.label}</h3>
+                      <span className="text-white/70 text-xs">Morocco</span>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-0 right-0 w-10 h-10 bg-amber-500 group-hover:bg-amber-600 flex items-center justify-center transition-colors rounded-tl-xl">
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            /* Real place cards from database */
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {experiences.map((exp: any) => {
+                const cat = CATEGORIES[exp.category as keyof typeof CATEGORIES];
+                return (
+                  <Link
+                    key={exp.id}
+                    href={`/${locale}/experiences/${exp.slug}`}
+                    className="place-card h-60 sm:h-72 group"
+                  >
+                    {exp.images?.[0] ? (
+                      <Image
+                        src={exp.images[0]}
+                        alt={exp.title}
+                        fill
+                        className="place-img object-cover"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-stone-200 text-5xl">
+                        {cat?.emoji}
+                      </div>
+                    )}
+                    <div className="place-overlay" />
+
+                    {/* Top: rating */}
+                    <div className="absolute top-0 left-0 w-full flex items-start justify-between p-3">
+                      {exp.avg_rating && (
+                        <span className="flex items-center gap-1 bg-black/40 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded-full">
+                          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                          {exp.avg_rating}
+                        </span>
+                      )}
+                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${cat?.bgColor ?? "bg-stone-100"} ml-auto`}>
+                        {cat?.emoji}
+                      </span>
+                    </div>
+
+                    {/* Bottom: info */}
+                    <div className="absolute bottom-0 left-0 w-full p-4">
+                      <h3 className="text-white font-bold text-sm leading-snug line-clamp-2 mb-1">{exp.title}</h3>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3 text-white/70 text-xs">
+                          <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{exp.city}</span>
+                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{exp.duration_hours}h</span>
+                        </div>
+                        <span className="text-white font-black text-sm">${exp.price_per_person}</span>
+                      </div>
+                    </div>
+
+                    {/* Arrow button */}
+                    <div className="absolute bottom-0 right-0 w-10 h-10 bg-amber-500 group-hover:bg-amber-600 flex items-center justify-center transition-colors rounded-tl-xl">
+                      <ArrowRight className="w-4 h-4 text-white" />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {/* CTA row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 pt-8 border-t border-stone-100">
+            <Link
+              href={`/${locale}/experiences`}
+              className="flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white font-bold px-6 py-3.5 rounded-xl transition-colors"
+            >
+              Browse all experiences <ArrowRight className="w-4 h-4" />
+            </Link>
+
+            {/* Local operator CTA — no commission details shown here */}
+            <div className="flex items-center gap-4 bg-amber-50 border border-amber-200 rounded-2xl px-6 py-4">
+              <div>
+                <p className="font-bold text-stone-900 text-sm">{d.operatorCta}</p>
+                <p className="text-stone-500 text-xs">List your experiences and reach international travelers.</p>
+              </div>
+              <Link
+                href={`/${locale}/operators/register`}
+                className="shrink-0 bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors whitespace-nowrap"
+              >
+                List Free →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

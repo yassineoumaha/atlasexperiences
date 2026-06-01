@@ -1,0 +1,94 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getDictionary, hasLocale, rtlLocales, type Locale } from "@/lib/dictionaries";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import SchemaScript from "@/components/SchemaScript";
+import CookieConsent from "@/components/CookieConsent";
+import LocaleAttributes from "@/components/LocaleAttributes";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
+import { createClient } from "@/lib/supabase/server";
+
+export async function generateStaticParams() {
+  return [
+    { locale: "en" },
+    { locale: "fr" },
+    { locale: "es" },
+    { locale: "ar" },
+  ];
+}
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://atlasexperiences.world";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: {
+      absolute: "Atlas Experiences — Book Local Morocco Experiences",
+      template: "%s | Atlas Experiences",
+    },
+    description:
+      "Morocco's local experience marketplace. Book surf lessons, Sahara tours, cooking classes, hammams and more from verified local operators.",
+    keywords: ["Morocco experiences", "Morocco activities", "surf lessons Morocco", "Sahara tour", "Morocco cooking class", "Atlas Experiences"],
+    metadataBase: new URL(SITE_URL),
+    openGraph: {
+      type: "website",
+      locale: locale,
+      siteName: "Atlas Experiences",
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Atlas Experiences" }],
+    },
+    twitter: { card: "summary_large_image" },
+    alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+      languages: {
+        "en": `${SITE_URL}/en`,
+        "fr": `${SITE_URL}/fr`,
+        "es": `${SITE_URL}/es`,
+        "ar": `${SITE_URL}/ar`,
+        "x-default": `${SITE_URL}/en`,
+      },
+    },
+  };
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  if (!hasLocale(locale)) notFound();
+
+  const dict = await getDictionary(locale as Locale);
+  const isRTL = rtlLocales.includes(locale as Locale);
+
+  const supabase = await createClient();
+  const { data: announcements } = await supabase
+    .from("announcements")
+    .select("id,message,type,link_url,link_label")
+    .eq("active", true)
+    .or("expires_at.is.null,expires_at.gt." + new Date().toISOString())
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  return (
+    <>
+      <LocaleAttributes locale={locale} isRTL={isRTL} />
+      <SchemaScript schema={{ "@context": "https://schema.org", "@type": "WebSite", name: "Atlas Experiences", url: SITE_URL }} />
+      <AnnouncementBanner announcements={announcements ?? []} />
+      <Navbar dict={dict} locale={locale as Locale} />
+      <main className="flex-1">{children}</main>
+      <Footer dict={dict} locale={locale as Locale} />
+      <CookieConsent />
+      <WhatsAppButton />
+    </>
+  );
+}

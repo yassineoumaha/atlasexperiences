@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "browse": "Ver experiencias",
+    "map": "Explorar mapa",
+    "listExperience": "Lista tu experiencia",
+    "about": "Acerca de",
+    "portal": "Mi portal",
+    "listFree": "Listar gratis",
+    "language": "Idioma"
+  },
+  "hero": {
+    "badge": "El marketplace de experiencias locales de Marruecos",
+    "headline": "Reserva el Marruecos real.",
+    "highlight": "De expertos locales.",
+    "subheadline": "Clases de surf, tours por el Sahara, clases de cocina, paseos por la medina y más — directamente de operadores locales verificados.",
+    "searchCategory": "Todas las categorías",
+    "searchCity": "Todas las ciudades",
+    "searchBtn": "Buscar",
+    "trustVerified": "Operadores verificados",
+    "trustRated": "Valorado por viajeros reales",
+    "trustCommission": "Solo 10% de comisión",
+    "trustCities": "13 ciudades"
+  },
+  "experiences": {
+    "title": "Reserva experiencias auténticas en Marruecos",
+    "badge": "Operadores locales verificados · 100% experiencias auténticas",
+    "noViator": "directamente de expertos locales. Sin comisiones infladas.",
+    "count": "experiencia",
+    "countPlural": "experiencias",
+    "found": "encontrada(s)",
+    "noResults": "Aún no hay experiencias listadas",
+    "noResultsSub": "Sé el primer operador local en listar en esta categoría.",
+    "listCta": "Lista tu experiencia — gratis",
+    "operatorCta": "¿Eres un guía o instructor local?",
+    "operatorCtaSub": "Lista tus experiencias en Atlas Experiences. Cobramos 10% de comisión — la mitad que otras plataformas. Gratis para listar, sin cuotas mensuales.",
+    "listBtn": "Lista tu experiencia →"
+  },
+  "operators": {
+    "registerTitle": "Lista tu experiencia en Marruecos",
+    "registerBadge": "Registro gratuito · Solo 10% de comisión en reservas",
+    "registerSub": "Entrenadores de surf, guías del desierto, profesores de cocina, operadores de hammam — únete a Atlas Experiences y llega a miles de viajeros internacionales.",
+    "benefit1Title": "Solo 10% de comisión",
+    "benefit1Desc": "Otras plataformas cobran 20-30%. Tú te quedas con el 90% de cada reserva.",
+    "benefit2Title": "Tráfico SEO optimizado",
+    "benefit2Desc": "Nos posicionamos en palabras clave de viaje a Marruecos. Tú obtienes las reservas.",
+    "benefit3Title": "Contacto directo con el viajero",
+    "benefit3Desc": "Te comunicas directamente con tus clientes por WhatsApp o teléfono.",
+    "benefit4Title": "Gratis para listar",
+    "benefit4Desc": "Sin cuotas mensuales, sin suscripción. Paga solo cuando ganes.",
+    "joinBtn": "Únete como operador local →",
+    "joinNote": "Registro gratuito · Verificado en 48 horas · Sin pago hasta que ganes"
+  },
+  "tips": {
+    "title": "Guía de seguridad para viajeros en Marruecos",
+    "subtitle": "Consejos prácticos de locales y viajeros experimentados — cómo disfrutar Marruecos sin caer en estafas ni pagar de más."
+  },
+  "map": {
+    "title": "Explorar Marruecos",
+    "subtitle": "Pasa el cursor sobre cualquier ciudad para descubrir su ambiente, la mejor temporada y qué hacer. Haz clic para fijar el panel de información.",
+    "hover": "Pasa el cursor sobre una ciudad",
+    "hoverSub": "Mueve el ratón sobre cualquier punto del mapa para ver los detalles de la ciudad y las experiencias locales.",
+    "allCities": "Todas las ciudades",
+    "bestFor": "Ideal para",
+    "bestTime": "Mejor época para visitar",
+    "mustSee": "No te lo pierdas",
+    "climate": "Clima",
+    "browseBtn": "Ver experiencias",
+    "legend1": "Ciudad seleccionada",
+    "legend2": "Pasa el cursor o haz clic para explorar"
+  },
+  "testimonials": {
+    "title": "Viajeros reales. Experiencias reales.",
+    "subtitle": "Lo que dicen nuestros viajeros — en sus propias palabras.",
+    "featured": "¿Quieres aparecer aquí?",
+    "featuredSub": "¿Te encantó tu experiencia? Comparte un breve testimonio en vídeo y te presentaremos aquí."
+  },
+  "newsletter": {
+    "title": "Recibe consejos exclusivos sobre Marruecos",
+    "subtitle": "Guías mensuales, alertas estacionales y ofertas exclusivas — sin spam.",
+    "placeholder": "Tu dirección de email",
+    "subscribe": "Suscribirse",
+    "success": "¡Estás dentro! Revisa tu bandeja de entrada.",
+    "privacy": "Respetamos tu privacidad."
+  },
+  "footer": {
+    "tagline": "El marketplace de experiencias locales de Marruecos — operadores verificados, precios justos.",
+    "platform": "Plataforma",
+    "legal": "Legal",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "commission": "10% de comisión",
+    "freeListing": "Gratis para listar",
+    "suggest": "Compartir una sugerencia",
+    "builtWith": "Construido con honestidad.",
+    "copyright": "Atlas Experiences. Todos los derechos reservados."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal.",
+    "notFound": "Página no encontrada.",
+    "backHome": "Volver al inicio",
+    "learnMore": "Saber más",
+    "seeAll": "Ver todo",
+    "close": "Cerrar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "book": "Reservar",
+    "perPerson": "/ persona",
+    "verified": "Verificado",
+    "featured": "Destacado",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "items": [
+      {
+        "q": "¿Cuál es la mejor época para visitar Marruecos?",
+        "a": "La primavera (marzo–mayo) y el otoño (septiembre–noviembre) ofrecen las temperaturas más cómodas. El verano es ideal para la costa; el invierno para el Sahara."
+      },
+      {
+        "q": "¿Necesito visa para visitar Marruecos?",
+        "a": "La mayoría de los ciudadanos occidentales (EE.UU., UE, UK, Canadá, Australia) pueden entrar a Marruecos sin visa por hasta 90 días."
+      },
+      {
+        "q": "¿Qué moneda usa Marruecos?",
+        "a": "Marruecos usa el Dírham marroquí (MAD). Cambia dinero a la llegada, ya que no es libremente convertible fuera del país."
+      },
+      {
+        "q": "¿Es seguro Marruecos para los turistas?",
+        "a": "Marruecos es generalmente seguro para los turistas. Los principales riesgos son los pequeños robos en las medinas y las estafas turísticas."
+      },
+      {
+        "q": "¿Cómo funciona la comisión del 10%?",
+        "a": "Atlas Experiences cobra el 10% del valor de la reserva confirmada, facturado mensualmente. Los viajeros pagan directamente a los operadores — Atlas Experiences no gestiona pagos."
+      }
+    ]
+  }
+}

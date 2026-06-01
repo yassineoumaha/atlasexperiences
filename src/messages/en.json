@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "browse": "Browse Experiences",
+    "map": "Explore Map",
+    "listExperience": "List Your Experience",
+    "about": "About",
+    "portal": "My Portal",
+    "listFree": "List Free",
+    "language": "Language"
+  },
+  "hero": {
+    "badge": "Morocco's Local Experience Marketplace",
+    "headline": "Book Real Morocco.",
+    "highlight": "From Local Experts.",
+    "subheadline": "Surf lessons, Sahara tours, cooking classes, medina walks and more — directly from verified local operators.",
+    "searchCategory": "All categories",
+    "searchCity": "All cities",
+    "searchBtn": "Search",
+    "trustVerified": "Verified operators",
+    "trustRated": "Rated by real travelers",
+    "trustCommission": "Only 10% commission",
+    "trustCities": "13 cities"
+  },
+  "experiences": {
+    "title": "Book Authentic Morocco Experiences",
+    "badge": "Verified local operators · 100% authentic experiences",
+    "noViator": "directly from local experts. No inflated platform commissions.",
+    "count": "experience",
+    "countPlural": "experiences",
+    "found": "found",
+    "noResults": "No experiences listed yet",
+    "noResultsSub": "Be the first local operator to list in this category.",
+    "listCta": "List Your Experience — Free",
+    "operatorCta": "Are you a local guide or instructor?",
+    "operatorCtaSub": "List your experiences on Atlas Experiences. We charge 10% commission — half what other platforms charge. Free to list, zero monthly fees.",
+    "listBtn": "List Your Experience →"
+  },
+  "operators": {
+    "registerTitle": "List Your Morocco Experience",
+    "registerBadge": "Free to join · Only 10% commission on bookings",
+    "registerSub": "Surf coaches, desert guides, cooking teachers, hammam operators — join Atlas Experiences and reach thousands of international travelers. We charge half what other platforms charge.",
+    "benefit1Title": "10% commission only",
+    "benefit1Desc": "Other platforms charge 20–30%. You keep 90% of every booking.",
+    "benefit2Title": "SEO-powered traffic",
+    "benefit2Desc": "We rank for Morocco travel keywords. You get the bookings.",
+    "benefit3Title": "Direct traveler contact",
+    "benefit3Desc": "You communicate with your guests directly via WhatsApp or phone.",
+    "benefit4Title": "Free to list",
+    "benefit4Desc": "No monthly fees, no subscription. Pay only when you earn.",
+    "joinBtn": "Join as a Local Operator →",
+    "joinNote": "Free to join · Verified within 48 hours · No payment until you earn"
+  },
+  "tips": {
+    "title": "Morocco Travel Safety Guide",
+    "subtitle": "Practical tips from locals and experienced travelers — how to enjoy Morocco without falling for scams, overpaying, or missing out on the real experience."
+  },
+  "map": {
+    "title": "Explore Morocco",
+    "subtitle": "Hover over any city to discover its vibe, best season, and what to do there. Click a city to lock the info panel.",
+    "hover": "Hover over a city",
+    "hoverSub": "Move your mouse over any dot on the map to see city details and local experiences.",
+    "allCities": "All cities",
+    "bestFor": "Best for",
+    "bestTime": "Best time to visit",
+    "mustSee": "Must see",
+    "climate": "Climate",
+    "browseBtn": "Browse Experiences",
+    "legend1": "Selected city",
+    "legend2": "Hover or click to explore"
+  },
+  "testimonials": {
+    "title": "Real travelers. Real experiences.",
+    "subtitle": "What our travelers say — in their own words.",
+    "featured": "Want to be featured?",
+    "featuredSub": "Loved your experience? Share a short video testimonial and we'll feature you here."
+  },
+  "newsletter": {
+    "title": "Get Insider Morocco Tips",
+    "subtitle": "Monthly guides, seasonal alerts, and exclusive deals — no spam, ever.",
+    "placeholder": "Your email address",
+    "subscribe": "Subscribe",
+    "success": "You're in! Check your inbox.",
+    "privacy": "We respect your privacy."
+  },
+  "footer": {
+    "tagline": "Morocco's local experience marketplace — verified operators, fair prices.",
+    "platform": "Platform",
+    "legal": "Legal",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "commission": "10% commission",
+    "freeListing": "Free to list",
+    "suggest": "Share a Suggestion",
+    "builtWith": "Built with honest traveler intent.",
+    "copyright": "Atlas Experiences. All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "notFound": "Page not found.",
+    "backHome": "Back to Home",
+    "learnMore": "Learn More",
+    "seeAll": "See All",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "book": "Book",
+    "perPerson": "/ person",
+    "verified": "Verified",
+    "featured": "Featured",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "What is the best time to visit Morocco?",
+        "a": "Spring (March–May) and Autumn (September–November) offer the most comfortable temperatures across all regions. Summer is ideal for the coast; winter for the Sahara and southern deserts."
+      },
+      {
+        "q": "Do I need a visa to visit Morocco?",
+        "a": "Most Western passport holders (USA, EU, UK, Canada, Australia) can enter Morocco visa-free for up to 90 days. Always verify with the Moroccan embassy in your country."
+      },
+      {
+        "q": "What currency does Morocco use?",
+        "a": "Morocco uses the Moroccan Dirham (MAD). It is not freely convertible outside Morocco, so exchange money after arrival. ATMs are widely available in cities."
+      },
+      {
+        "q": "Is Morocco safe for tourists?",
+        "a": "Morocco is generally safe for tourists. The main risks are petty theft in medinas and tourist scams. Stick to verified booking platforms and vetted tour operators."
+      },
+      {
+        "q": "How does the 10% commission work?",
+        "a": "Atlas Experiences charges operators 10% of the confirmed booking value, invoiced monthly. Travelers pay operators directly — Atlas Experiences does not handle payments."
+      }
+    ]
+  }
+}
