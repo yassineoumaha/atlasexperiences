@@ -29,27 +29,27 @@ export default function SignUpPage({ params }: { params: Promise<{ locale: strin
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center px-4 pt-16">
+    <div className="min-h-screen bg-muted/30 flex items-center justify-center px-4 pt-16">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href={`/${locale}`} className="inline-flex items-center mb-6">
             <img src="/logo.png" alt="Imourig" className="h-20 w-auto [mix-blend-mode:multiply]" />
           </Link>
-          <h1 className="text-2xl font-black text-stone-900">Create your account</h1>
-          <p className="text-stone-500 mt-1">Save trips, compare hotels, plan smarter</p>
+          <h1 className="text-2xl font-black text-foreground">Create your account</h1>
+          <p className="text-muted-foreground mt-1">Save trips, compare hotels, plan smarter</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-8">
+        <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
           {success ? (
             <div className="text-center py-6">
               <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
-              <h3 className="font-bold text-stone-900 text-lg mb-2">Check your inbox</h3>
-              <p className="text-stone-500 text-sm">
+              <h3 className="font-bold text-foreground text-lg mb-2">Check your inbox</h3>
+              <p className="text-muted-foreground text-sm">
                 We sent a confirmation link to your email. Click it to activate your account.
               </p>
               <Link
                 href={`/${locale}/auth/login`}
-                className="inline-block mt-6 text-amber-600 font-medium hover:text-amber-700"
+                className="inline-block mt-6 text-primary font-medium hover:underline"
               >
                 Back to sign in
               </Link>
@@ -57,35 +57,35 @@ export default function SignUpPage({ params }: { params: Promise<{ locale: strin
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-stone-700 text-sm font-medium mb-1.5">Email</label>
+                <label className="block text-foreground/80 text-sm font-medium mb-1.5">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     name="email"
                     type="email"
                     required
                     placeholder="you@example.com"
-                    className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl outline-none focus:border-amber-400 transition-colors text-stone-800"
+                    className="w-full pl-10 pr-4 min-h-[3rem] border border-input rounded-xl outline-none focus:border-primary transition-colors text-foreground"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-stone-700 text-sm font-medium mb-1.5">Password</label>
+                <label className="block text-foreground/80 text-sm font-medium mb-1.5">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
                     minLength={8}
                     placeholder="Min. 8 characters"
-                    className="w-full pl-10 pr-10 py-3 border border-stone-200 rounded-xl outline-none focus:border-amber-400 transition-colors text-stone-800"
+                    className="w-full pl-10 pr-10 min-h-[3rem] border border-input rounded-xl outline-none focus:border-primary transition-colors text-foreground"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground/80"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -93,7 +93,7 @@ export default function SignUpPage({ params }: { params: Promise<{ locale: strin
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
+                <div className="bg-destructive/10 border border-destructive/30 text-destructive text-sm px-4 py-3 rounded-xl">
                   {error}
                 </div>
               )}
@@ -101,22 +101,22 @@ export default function SignUpPage({ params }: { params: Promise<{ locale: strin
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-accent hover:brightness-105 disabled:opacity-60 text-accent-foreground min-h-[3rem] rounded-xl font-bold transition-colors flex items-center justify-center gap-2"
               >
                 {loading && <Loader2 className="w-4 h-4 animate-spin" />}
                 {loading ? "Creating account..." : "Create Account"}
               </button>
 
-              <p className="text-stone-400 text-xs text-center">
+              <p className="text-muted-foreground text-xs text-center">
                 By signing up you agree to our Terms of Service and Privacy Policy.
               </p>
             </form>
           )}
 
           {!success && (
-            <p className="text-center text-stone-500 text-sm mt-6">
+            <p className="text-center text-muted-foreground text-sm mt-6">
               Already have an account?{" "}
-              <Link href={`/${locale}/auth/login`} className="text-amber-600 font-medium hover:text-amber-700">
+              <Link href={`/${locale}/auth/login`} className="text-primary font-medium hover:underline">
                 Sign in
               </Link>
             </p>

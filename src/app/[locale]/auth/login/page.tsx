@@ -6,6 +6,7 @@ import Link from "next/link";
 import { signInAction } from "@/app/actions/auth";
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { use } from "react";
+import { ZellijStar } from "@/components/zellij/Zellij";
 
 export default function LoginPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
@@ -31,47 +32,62 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center px-4 pt-16">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href={`/${locale}`} className="inline-flex items-center mb-6">
-            <img src="/logo.png" alt="Imourig" className="h-20 w-auto [mix-blend-mode:multiply]" />
-          </Link>
-          <h1 className="text-2xl font-black text-stone-900">Welcome back</h1>
-          <p className="text-stone-500 mt-1">Sign in to access your saved trips</p>
+    <div className="min-h-screen grid lg:grid-cols-2 bg-background">
+      {/* Decorative zellij panel — desktop only */}
+      <div className="relative hidden lg:flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[oklch(0.34_0.14_264)] via-[oklch(0.38_0.12_290)] to-[oklch(0.46_0.13_40)] p-12 text-white">
+        <div className="zellij-bg absolute inset-0 opacity-[0.1] mix-blend-screen" aria-hidden="true" />
+        <Link href={`/${locale}`} className="relative flex items-center gap-2 font-heading font-black text-2xl">
+          <ZellijStar size={32} className="text-amber-300" /> Imourig
+        </Link>
+        <div className="relative">
+          <h2 className="font-heading font-black text-4xl leading-tight mb-3">Welcome back to authentic Morocco.</h2>
+          <p className="text-white/70 text-lg max-w-sm">Sign in to manage your bookings, saved trips and experiences — direct from local operators.</p>
         </div>
+        <p className="relative text-white/40 text-sm">🇲🇦 Made for Morocco</p>
+      </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-8">
+      {/* Form side */}
+      <div className="flex items-center justify-center px-4 py-20">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8 lg:hidden">
+            <Link href={`/${locale}`} className="inline-flex items-center gap-2 mb-6 font-heading font-black text-2xl text-foreground">
+              <ZellijStar size={28} className="text-primary" /> Imourig
+            </Link>
+          </div>
+          <h1 className="text-2xl font-black text-foreground text-center lg:text-left">Welcome back</h1>
+          <p className="text-muted-foreground mt-1 mb-8 text-center lg:text-left">Sign in to access your bookings and saved trips</p>
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-stone-700 text-sm font-medium mb-1.5">Email</label>
+              <label className="block text-foreground/80 text-sm font-medium mb-1.5">Email</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   name="email"
                   type="email"
                   required
                   placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl outline-none focus:border-amber-400 transition-colors text-stone-800"
+                  className="w-full pl-10 pr-4 min-h-[3rem] border border-input rounded-xl outline-none focus:border-primary transition-colors text-foreground bg-background"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-stone-700 text-sm font-medium mb-1.5">Password</label>
+              <label className="block text-foreground/80 text-sm font-medium mb-1.5">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-10 py-3 border border-stone-200 rounded-xl outline-none focus:border-amber-400 transition-colors text-stone-800"
+                  className="w-full pl-10 pr-10 min-h-[3rem] border border-input rounded-xl outline-none focus:border-primary transition-colors text-foreground bg-background"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center text-muted-foreground hover:text-foreground"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -79,7 +95,7 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
+              <div className="bg-destructive/10 border border-destructive/30 text-destructive text-sm px-4 py-3 rounded-xl">
                 {error}
               </div>
             )}
@@ -87,7 +103,7 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-accent hover:brightness-105 disabled:opacity-60 text-accent-foreground min-h-[3rem] rounded-xl font-bold transition-all flex items-center justify-center gap-2"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {loading ? "Signing in..." : "Sign In"}
@@ -95,14 +111,14 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
           </form>
 
           <div className="mt-6 space-y-2 text-center text-sm">
-            <p className="text-stone-500">
+            <p className="text-muted-foreground">
               No account?{" "}
-              <Link href={`/${locale}/auth/signup`} className="text-amber-600 font-medium hover:text-amber-700">
+              <Link href={`/${locale}/auth/signup`} className="text-primary font-medium hover:underline">
                 Create one free
               </Link>
             </p>
             <p>
-              <Link href={`/${locale}/auth/forgot-password`} className="text-stone-400 hover:text-stone-600 text-xs">
+              <Link href={`/${locale}/auth/forgot-password`} className="text-muted-foreground hover:text-foreground text-xs">
                 Forgot your password?
               </Link>
             </p>
