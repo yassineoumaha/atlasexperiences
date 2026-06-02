@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Menu, X, Globe, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Dictionary, Locale } from "@/lib/dictionaries";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { ZellijStar } from "@/components/zellij/Zellij";
 
 const LOCALES: Record<string, { label: string; flag: string }> = {
   en: { label: "English", flag: "🇬🇧" },
@@ -20,11 +22,17 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
+    handler();
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Close dropdowns on outside click
+  // Lock body scroll when the mobile drawer is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   useEffect(() => {
     const handler = () => setLangOpen(false);
     if (langOpen) document.addEventListener("click", handler);
@@ -33,66 +41,69 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
 
   const navLinks = [
     { href: `/${locale}/experiences`, label: dict.nav.browse },
+    { href: `/${locale}/destinations`, label: dict.nav.destinations },
     { href: `/${locale}/map`,         label: dict.nav.map },
     { href: `/${locale}/about`,       label: dict.nav.about },
   ];
 
-  const isDark = !scrolled && !mobileOpen;
-  const linkBase = "nav-link px-1 py-1 text-sm font-semibold transition-colors duration-200";
-  const linkColor = isDark
+  // Transparent over hero only at top of page; solid (themed) once scrolled.
+  const overHero = !scrolled && !mobileOpen;
+  const linkBase = "nav-link px-1 py-2 text-sm font-semibold transition-colors duration-200";
+  const linkColor = overHero
     ? "text-white/90 hover:text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]"
-    : "text-stone-600 hover:text-stone-900";
+    : "text-foreground/70 hover:text-foreground";
 
   return (
     <>
-      {/* ── Main bar ─────────────────────────────────────── */}
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-400",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-white/96 backdrop-blur-md shadow-sm border-b border-stone-100"
+            ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
             : "bg-transparent"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-18">
+          <div className="flex items-center justify-between h-16 lg:h-[4.5rem]">
 
-            {/* Logo */}
-            <Link href={`/${locale}`} className="flex items-center flex-shrink-0">
-              <img
-                src="/logo.png"
-                alt="Imourig"
-                className={cn(
-                  "h-11 w-auto transition-all duration-300",
-                  scrolled ? "[mix-blend-mode:multiply]" : "[mix-blend-mode:screen] brightness-110"
-                )}
+            {/* Logo / wordmark */}
+            <Link href={`/${locale}`} className="flex items-center gap-2 flex-shrink-0">
+              <ZellijStar
+                size={28}
+                className={overHero ? "text-amber-400" : "text-primary"}
               />
+              <span
+                className={cn(
+                  "font-heading font-black text-xl tracking-tight transition-colors",
+                  overHero ? "text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]" : "text-foreground"
+                )}
+              >
+                Imourig
+              </span>
             </Link>
 
             {/* Desktop nav links */}
             <div className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(linkBase, linkColor)}
-                >
+                <Link key={link.href} href={link.href} className={cn(linkBase, linkColor)}>
                   {link.label}
                 </Link>
               ))}
             </div>
 
             {/* Desktop right */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-2">
+              <ThemeToggle className={overHero ? "text-white/80 hover:text-white hover:bg-white/10" : ""} />
+
               {/* Language picker */}
               <div className="relative" onClick={(e) => e.stopPropagation()}>
                 <button
                   onClick={() => setLangOpen(!langOpen)}
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors",
-                    isDark
+                    "flex items-center gap-1.5 px-3 h-10 rounded-lg text-sm font-semibold transition-colors",
+                    overHero
                       ? "text-white/80 hover:text-white hover:bg-white/10"
-                      : "text-stone-500 hover:text-stone-800 hover:bg-stone-100"
+                      : "text-foreground/70 hover:text-foreground hover:bg-muted"
                   )}
                 >
                   <Globe className="w-4 h-4" />
@@ -102,7 +113,7 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
                 </button>
 
                 {langOpen && (
-                  <div className="absolute right-0 mt-2 w-44 bg-white rounded-2xl shadow-xl border border-stone-100 py-2 z-50 overflow-hidden">
+                  <div className="absolute right-0 mt-2 w-44 bg-popover text-popover-foreground rounded-2xl shadow-xl border border-border py-2 z-50 overflow-hidden">
                     {Object.entries(LOCALES).map(([code, { label, flag }]) => (
                       <Link
                         key={code}
@@ -111,8 +122,8 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
                         className={cn(
                           "flex items-center gap-3 px-4 py-2.5 text-sm transition-colors",
                           code === locale
-                            ? "bg-amber-50 text-amber-700 font-bold"
-                            : "text-stone-600 hover:bg-stone-50"
+                            ? "bg-accent/15 text-accent-foreground font-bold"
+                            : "hover:bg-muted"
                         )}
                       >
                         <span className="text-base">{flag}</span>
@@ -124,40 +135,43 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
                 )}
               </div>
 
-              {/* Portal */}
               <Link
                 href={`/${locale}/portal`}
                 className={cn(
-                  "px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors",
-                  isDark
+                  "px-3 h-10 inline-flex items-center rounded-lg text-sm font-semibold transition-colors",
+                  overHero
                     ? "text-white/80 hover:text-white hover:bg-white/10"
-                    : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
+                    : "text-foreground/70 hover:text-foreground hover:bg-muted"
                 )}
               >
                 {dict.nav.portal}
               </Link>
 
-              {/* CTA */}
+              {/* CTA — saffron accent */}
               <Link
                 href={`/${locale}/operators/register`}
-                className="group flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-amber-200 hover:shadow-md"
+                className="group inline-flex items-center gap-1.5 bg-accent hover:brightness-105 text-accent-foreground px-4 h-10 rounded-xl text-sm font-bold transition-all shadow-sm"
               >
                 {dict.nav.listFree}
                 <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </Link>
             </div>
 
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-              className={cn(
-                "md:hidden p-2 rounded-xl transition-colors",
-                scrolled ? "text-stone-700 hover:bg-stone-100" : "text-white hover:bg-white/10"
-              )}
-            >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            {/* Mobile controls */}
+            <div className="flex items-center gap-1 md:hidden">
+              <ThemeToggle className={overHero ? "text-white/90 hover:text-white hover:bg-white/10" : ""} />
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
+                className={cn(
+                  "inline-flex h-11 w-11 items-center justify-center rounded-xl transition-colors",
+                  overHero ? "text-white hover:bg-white/10" : "text-foreground hover:bg-muted"
+                )}
+              >
+                {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -169,7 +183,6 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
           mobileOpen ? "pointer-events-auto" : "pointer-events-none"
         )}
       >
-        {/* Backdrop */}
         <div
           className={cn(
             "absolute inset-0 bg-black/50 transition-opacity duration-300",
@@ -178,49 +191,48 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
           onClick={() => setMobileOpen(false)}
         />
 
-        {/* Panel */}
         <div
           className={cn(
-            "absolute top-0 right-0 h-full w-72 bg-white shadow-2xl transition-transform duration-300 flex flex-col",
+            "absolute top-0 right-0 h-full w-[80%] max-w-xs bg-background shadow-2xl transition-transform duration-300 flex flex-col",
             mobileOpen ? "translate-x-0" : "translate-x-full"
           )}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
-            <img src="/logo.png" alt="Imourig" className="h-10 w-auto [mix-blend-mode:multiply]" />
+          <div className="flex items-center justify-between px-5 h-16 border-b border-border">
+            <span className="flex items-center gap-2 font-heading font-black text-lg text-foreground">
+              <ZellijStar size={24} className="text-primary" /> Imourig
+            </span>
             <button
               onClick={() => setMobileOpen(false)}
-              className="p-2 rounded-xl text-stone-500 hover:bg-stone-100 transition-colors"
+              aria-label="Close menu"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-muted-foreground hover:bg-muted transition-colors"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
           </div>
 
-          {/* Nav links */}
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between px-4 py-3 rounded-xl text-stone-700 font-semibold hover:bg-amber-50 hover:text-amber-700 transition-colors group"
+                className="flex items-center justify-between px-4 min-h-[3rem] rounded-xl text-foreground font-semibold hover:bg-accent/10 hover:text-accent-foreground transition-colors group"
               >
                 {link.label}
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" />
               </Link>
             ))}
             <Link
               href={`/${locale}/portal`}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-xl text-stone-700 font-semibold hover:bg-amber-50 hover:text-amber-700 transition-colors group"
+              className="flex items-center justify-between px-4 min-h-[3rem] rounded-xl text-foreground font-semibold hover:bg-accent/10 transition-colors group"
             >
               {dict.nav.portal}
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowRight className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" />
             </Link>
 
-            {/* Language row */}
-            <div className="pt-3 border-t border-stone-100">
-              <p className="text-xs uppercase tracking-wider text-stone-400 font-semibold px-4 mb-2">Language</p>
+            <div className="pt-3 border-t border-border">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold px-4 mb-2">Language</p>
               <div className="grid grid-cols-2 gap-2 px-1">
                 {Object.entries(LOCALES).map(([code, { label, flag }]) => (
                   <Link
@@ -228,10 +240,10 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
                     href={`/${code}`}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "flex items-center gap-2 py-2.5 px-3 rounded-xl text-sm font-semibold transition-colors",
+                      "flex items-center gap-2 min-h-[2.75rem] px-3 rounded-xl text-sm font-semibold transition-colors",
                       code === locale
-                        ? "bg-amber-500 text-white"
-                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-foreground/70 hover:bg-muted/70"
                     )}
                   >
                     <span>{flag}</span>
@@ -242,12 +254,11 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="px-4 py-4 border-t border-stone-100">
+          <div className="px-4 py-4 border-t border-border pb-safe">
             <Link
               href={`/${locale}/operators/register`}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 rounded-xl transition-colors"
+              className="flex items-center justify-center gap-2 w-full bg-accent hover:brightness-105 text-accent-foreground font-bold min-h-[3rem] rounded-xl transition-all"
             >
               {dict.nav.listFree}
             </Link>

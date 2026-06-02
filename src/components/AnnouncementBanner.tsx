@@ -41,8 +41,8 @@ export default function AnnouncementBanner({ announcements }: { announcements: A
         </p>
         <button
           onClick={() => setDismissed(d => [...d, a.id])}
-          className="shrink-0 opacity-70 hover:opacity-100 transition-opacity"
-          aria-label="Dismiss"
+          className="shrink-0 -mr-2 inline-flex h-9 w-9 items-center justify-center rounded-lg opacity-70 hover:opacity-100 hover:bg-white/15 transition-all"
+          aria-label="Dismiss announcement"
         >
           <X className="w-4 h-4" />
         </button>
