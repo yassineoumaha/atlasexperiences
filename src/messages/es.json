@@ -10,10 +10,12 @@
     "language": "Idioma"
   },
   "hero": {
-    "badge": "El marketplace de experiencias locales de Marruecos",
-    "headline": "Reserva el Marruecos real.",
-    "highlight": "De expertos locales.",
-    "subheadline": "Clases de surf, tours por el Sahara, clases de cocina, paseos por la medina y más — directamente de operadores locales verificados.",
+    "badge": "El marketplace de confianza de operadores marroquíes verificados",
+    "headline": "Descubre Marruecos con",
+    "highlight": "operadores locales verificados",
+    "subheadline": "Reserva experiencias auténticas con empresas marroquíes de confianza, guías, escuelas de surf, campamentos del desierto, transportistas y operadores de aventura.",
+    "ctaExplore": "Explorar experiencias",
+    "ctaOperator": "Conviértete en operador",
     "searchCategory": "Todas las categorías",
     "searchCity": "Todas las ciudades",
     "searchBtn": "Buscar",
@@ -21,6 +23,24 @@
     "trustRated": "Valorado por viajeros reales",
     "trustCommission": "Solo 10% de comisión",
     "trustCities": "13 ciudades"
+  },
+  "trustSection": {
+    "eyebrow": "Por qué Imourig",
+    "heading": "Reservar en Marruecos no debería ser una apuesta",
+    "problem": "A los viajeros les cuesta saber en qué operadores marroquíes pueden confiar. Y a los buenos guías locales les cuesta llegar a viajeros internacionales.",
+    "solution": "Imourig verifica a los operadores y te ayuda a descubrir experiencias auténticas — para que reserves con confianza, directamente con quienes las organizan.",
+    "pillar1Title": "Operadores verificados",
+    "pillar1Desc": "Cada operador se revisa antes de poder publicar.",
+    "pillar2Title": "Empresas con licencia",
+    "pillar2Desc": "Empresas marroquíes reales y guías autorizados.",
+    "pillar3Title": "Precios transparentes",
+    "pillar3Desc": "Precios claros desde el principio, sin recargos ocultos.",
+    "pillar4Title": "Solicitudes seguras",
+    "pillar4Desc": "Envía una solicitud; no pagas nada hasta confirmarla.",
+    "pillar5Title": "Experiencia local",
+    "pillar5Desc": "Experiencias dirigidas por quienes viven allí.",
+    "pillar6Title": "Reseñas reales",
+    "pillar6Desc": "Valoraciones de viajeros que realmente fueron."
   },
   "experiences": {
     "title": "Reserva experiencias auténticas en Marruecos",

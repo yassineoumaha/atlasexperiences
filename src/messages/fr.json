@@ -10,10 +10,12 @@
     "language": "Langue"
   },
   "hero": {
-    "badge": "La marketplace d'expériences locales au Maroc",
-    "headline": "Découvrez le vrai Maroc.",
-    "highlight": "Avec des experts locaux.",
-    "subheadline": "Cours de surf, tours dans le Sahara, cours de cuisine, balades en médina et plus — directement auprès d'opérateurs locaux vérifiés.",
+    "badge": "La marketplace de confiance des opérateurs marocains vérifiés",
+    "headline": "Découvrez le Maroc avec",
+    "highlight": "des opérateurs locaux vérifiés",
+    "subheadline": "Réservez des expériences authentiques auprès d'entreprises marocaines de confiance, de guides, d'écoles de surf, de camps du désert, de transporteurs et d'opérateurs d'aventure.",
+    "ctaExplore": "Explorer les expériences",
+    "ctaOperator": "Devenir opérateur",
     "searchCategory": "Toutes les catégories",
     "searchCity": "Toutes les villes",
     "searchBtn": "Rechercher",
@@ -21,6 +23,24 @@
     "trustRated": "Évalué par de vrais voyageurs",
     "trustCommission": "Seulement 10% de commission",
     "trustCities": "13 villes"
+  },
+  "trustSection": {
+    "eyebrow": "Pourquoi Imourig",
+    "heading": "Réserver au Maroc ne devrait pas être un pari",
+    "problem": "Les voyageurs ont du mal à savoir quels opérateurs marocains sont fiables. Et les bons guides locaux peinent à atteindre les voyageurs internationaux.",
+    "solution": "Imourig vérifie les opérateurs et vous aide à découvrir des expériences authentiques — pour réserver en toute confiance, directement auprès de ceux qui les organisent.",
+    "pillar1Title": "Opérateurs vérifiés",
+    "pillar1Desc": "Chaque opérateur est contrôlé avant de pouvoir publier.",
+    "pillar2Title": "Entreprises licenciées",
+    "pillar2Desc": "De vraies entreprises marocaines et des guides agréés.",
+    "pillar3Title": "Prix transparents",
+    "pillar3Desc": "Des prix clairs dès le départ — sans frais cachés.",
+    "pillar4Title": "Demandes sécurisées",
+    "pillar4Desc": "Envoyez une demande ; ne payez rien avant confirmation.",
+    "pillar5Title": "Expertise locale",
+    "pillar5Desc": "Des expériences animées par ceux qui vivent sur place.",
+    "pillar6Title": "Vrais avis",
+    "pillar6Desc": "Des notes de voyageurs qui y sont vraiment allés."
   },
   "experiences": {
     "title": "Réservez des expériences authentiques au Maroc",

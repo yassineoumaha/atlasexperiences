@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, type Locale } from "@/lib/dictionaries";
 import ExperiencesSection from "@/components/sections/ExperiencesSection";
 import MarketplaceHero from "@/components/sections/MarketplaceHero";
+import TrustSection from "@/components/sections/TrustSection";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import TestimonialsStrip from "@/components/sections/TestimonialsStrip";
 import StatsSection from "@/components/sections/StatsSection";
@@ -17,6 +18,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <MarketplaceHero locale={locale as Locale} dict={dict} />
+
+      <TrustSection dict={dict} />
+
+      <ZellijDivider />
 
       {/* Stats — a wave swells and a surfer rides across */}
       <div className="relative overflow-hidden isolate bg-background">

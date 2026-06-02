@@ -3,10 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, MapPin, Star, Shield, ChevronDown, AtSign, Share2, Play } from "lucide-react";
+import { Search, MapPin, Star, Shield, ChevronDown, AtSign, Share2, Play, Compass, Store } from "lucide-react";
 import { CATEGORY_LIST, EXPERIENCE_CITIES } from "@/lib/experiences-data";
 import type { Locale, Dictionary } from "@/lib/dictionaries";
 import { ZellijStar } from "@/components/zellij/Zellij";
+import { track } from "@/lib/analytics";
 
 const CITY_COUNT = EXPERIENCE_CITIES.length;
 
@@ -90,9 +91,27 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
             <span className="text-amber-400">{dict.hero.highlight}</span>
           </h1>
 
-          <p className="text-white/75 text-lg sm:text-xl max-w-2xl mb-10 leading-relaxed fade-in-up fade-in-up-delay-2">
+          <p className="text-white/75 text-lg sm:text-xl max-w-2xl mb-8 leading-relaxed fade-in-up fade-in-up-delay-2">
             {dict.hero.subheadline}
           </p>
+
+          {/* Primary CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-10 fade-in-up fade-in-up-delay-2">
+            <Link
+              href={`/${locale}/experiences`}
+              onClick={() => track("hero_cta_explore")}
+              className="inline-flex items-center justify-center gap-2 bg-accent hover:brightness-105 text-accent-foreground font-bold px-6 py-3.5 rounded-xl shadow-md transition-all active:scale-95"
+            >
+              <Compass className="w-4 h-4" /> {dict.hero.ctaExplore}
+            </Link>
+            <Link
+              href={`/${locale}/operators/register`}
+              onClick={() => track("hero_cta_become_operator")}
+              className="inline-flex items-center justify-center gap-2 glass text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-white/20 transition-all active:scale-95"
+            >
+              <Store className="w-4 h-4" /> {dict.hero.ctaOperator}
+            </Link>
+          </div>
 
           {/* Search bar */}
           <form

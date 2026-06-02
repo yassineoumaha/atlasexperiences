@@ -10,10 +10,12 @@
     "language": "Language"
   },
   "hero": {
-    "badge": "Morocco's Local Experience Marketplace",
-    "headline": "Book Real Morocco.",
-    "highlight": "From Local Experts.",
-    "subheadline": "Surf lessons, Sahara tours, cooking classes, medina walks and more — directly from verified local operators.",
+    "badge": "The trusted marketplace for verified Moroccan operators",
+    "headline": "Discover Morocco Through",
+    "highlight": "Verified Local Operators",
+    "subheadline": "Book authentic experiences from trusted Moroccan companies, guides, surf schools, desert camps, transport providers and adventure operators.",
+    "ctaExplore": "Explore Experiences",
+    "ctaOperator": "Become an Operator",
     "searchCategory": "All categories",
     "searchCity": "All cities",
     "searchBtn": "Search",
@@ -21,6 +23,24 @@
     "trustRated": "Rated by real travelers",
     "trustCommission": "Only 10% commission",
     "trustCities": "13 cities"
+  },
+  "trustSection": {
+    "eyebrow": "Why Imourig",
+    "heading": "Booking in Morocco shouldn't be a gamble",
+    "problem": "Travelers struggle to know which Moroccan operators they can trust. Great local guides struggle to reach international travelers.",
+    "solution": "Imourig verifies operators and helps you discover authentic experiences — so you book with confidence, directly from the people who run them.",
+    "pillar1Title": "Verified Operators",
+    "pillar1Desc": "Every operator is checked before they can list.",
+    "pillar2Title": "Licensed Businesses",
+    "pillar2Desc": "Real Moroccan companies and licensed guides.",
+    "pillar3Title": "Transparent Pricing",
+    "pillar3Desc": "Clear prices up front — no hidden markups.",
+    "pillar4Title": "Secure Booking Requests",
+    "pillar4Desc": "Send a request; pay nothing until it's confirmed.",
+    "pillar5Title": "Local Expertise",
+    "pillar5Desc": "Experiences run by people who live there.",
+    "pillar6Title": "Real Reviews",
+    "pillar6Desc": "Ratings from travelers who actually went."
   },
   "experiences": {
     "title": "Book Authentic Morocco Experiences",
