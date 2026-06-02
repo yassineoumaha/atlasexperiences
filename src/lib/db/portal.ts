@@ -1,5 +1,5 @@
 import "server-only";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createAdminClient } from "@/lib/supabase/server";
 import type { OperatorRow, ExperienceRow, BookingRow } from "@/lib/supabase/types";
 
 /** An operator's own experience row (dashboard listing table). */
@@ -45,4 +45,21 @@ export async function getOperatorDashboard(operatorId: string): Promise<{
     // the hand-written schema, so assert the shape through `unknown`.
     bookings: (bookRes.data as unknown as OperatorBooking[] | null) ?? [],
   };
+}
+
+/** A booking as shown in the admin panel: full row + experience & operator names. */
+export type AdminBooking = BookingRow & {
+  experiences: Pick<ExperienceRow, "title"> | null;
+  operators: Pick<OperatorRow, "business_name"> | null;
+};
+
+/** Every booking, newest first — admin only (service-role client). */
+export async function listAllBookings(): Promise<AdminBooking[]> {
+  const db = await createAdminClient();
+  const { data } = await db
+    .from("bookings")
+    .select("*, experiences(title), operators(business_name)")
+    .order("created_at", { ascending: false });
+  // Embedded selects have no FK metadata in the hand-written schema.
+  return (data as unknown as AdminBooking[] | null) ?? [];
 }

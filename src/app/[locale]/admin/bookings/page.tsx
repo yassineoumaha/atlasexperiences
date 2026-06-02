@@ -1,4 +1,4 @@
-import { createAdminClient } from "@/lib/supabase/server";
+import { listAllBookings } from "@/lib/db";
 import { markBookingCompletedAction, markBookingCancelledAction, markBookingInvoicedAction, markBookingPaidAction } from "@/app/actions/admin";
 import { CheckCircle, XCircle, DollarSign, FileText } from "lucide-react";
 
@@ -10,16 +10,12 @@ const STATUS_STYLE: Record<string, string> = {
 };
 
 export default async function AdminBookingsPage() {
-  const db = await createAdminClient();
-  const { data: bookings } = await db
-    .from("bookings")
-    .select("*, experiences(title), operators(business_name)")
-    .order("created_at", { ascending: false });
+  const bookings = await listAllBookings();
 
-  const pending   = bookings?.filter((b: any) => b.status === "pending") ?? [];
-  const uninvoiced = bookings?.filter((b: any) => b.status === "completed" && !b.operator_invoiced) ?? [];
-  const totalFees = (bookings ?? []).filter((b: any) => b.status === "completed").reduce((s: number, b: any) => s + (b.platform_fee ?? 0), 0);
-  const unpaidFees = uninvoiced.reduce((s: number, b: any) => s + (b.platform_fee ?? 0), 0);
+  const pending    = bookings.filter((b) => b.status === "pending");
+  const uninvoiced = bookings.filter((b) => b.status === "completed" && !b.operator_invoiced);
+  const totalFees  = bookings.filter((b) => b.status === "completed").reduce((s, b) => s + (b.platform_fee ?? 0), 0);
+  const unpaidFees = uninvoiced.reduce((s, b) => s + (b.platform_fee ?? 0), 0);
 
   return (
     <div>
@@ -33,7 +29,7 @@ export default async function AdminBookingsPage() {
       </div>
 
       <div className="space-y-3">
-        {bookings?.map((b: any) => (
+        {bookings.map((b) => (
           <div key={b.id} className={`bg-card border rounded-2xl p-5 shadow-sm ${b.status === "pending" ? "border-orange-200" : "border-border"}`}>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
@@ -89,7 +85,7 @@ export default async function AdminBookingsPage() {
             </div>
           </div>
         ))}
-        {(!bookings || bookings.length === 0) && (
+        {bookings.length === 0 && (
           <div className="bg-card border border-border rounded-2xl p-12 text-center text-muted-foreground">No bookings yet.</div>
         )}
       </div>
