@@ -39,15 +39,18 @@ export function SceneSurf({ className }: Props) {
         {/* front water */}
         <path d="M-40 330 C 140 270, 240 272, 340 300 C 430 324, 500 322, 590 286 L 660 420 L -40 420 Z" fill="var(--zellij-1)" fillOpacity="0.45" />
       </g>
-      <g className="scene-rider">
+      {/* path the surfer rides along (the wave crest) — hidden, used by MotionPath */}
+      <path className="scene-path" d="M40 300 C 160 250, 250 250, 320 268 C 400 288, 470 292, 560 244" fill="none" stroke="none" />
+      {/* default transform positions the rider sensibly before/without JS (static fallback) */}
+      <g className="scene-rider" transform="translate(320 250)">
         {/* board */}
-        <path d="M250 256 C 295 244, 355 244, 405 262 C 358 272, 296 272, 250 256 Z" fill="var(--zellij-2)" />
+        <path d="M-55 0 C -10 -12, 50 -12, 100 6 C 53 16, -9 16, -55 0 Z" fill="var(--zellij-2)" />
         {/* surfer silhouette */}
-        <path d="M300 256 L 295 214 L 326 188 L 322 154" fill="none" stroke="currentColor" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M330 262 L 348 222" fill="none" stroke="currentColor" strokeWidth="11" strokeLinecap="round" />
-        <circle cx="320" cy="142" r="15" fill="currentColor" />
+        <path d="M-5 0 L -10 -42 L 21 -68 L 17 -102" fill="none" stroke="currentColor" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M25 6 L 43 -34" fill="none" stroke="currentColor" strokeWidth="11" strokeLinecap="round" />
+        <circle cx="15" cy="-114" r="15" fill="currentColor" />
         {/* arms */}
-        <path d="M306 200 L 274 186 M 306 200 L 350 196" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" />
+        <path d="M1 -56 L -31 -70 M 1 -56 L 45 -60" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" />
       </g>
     </svg>
   );

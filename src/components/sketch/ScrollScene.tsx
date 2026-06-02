@@ -42,19 +42,37 @@ export function ScrollScene({
 
     if (reduce || isMobile) return; // static, but visible
 
+    const path = host.querySelector<SVGPathElement>(".scene-path");
     let ctx: { revert: () => void } | null = null;
     let cancelled = false;
 
     (async () => {
       const gsapMod = await import("gsap");
       const gsap = gsapMod.default;
+      // MotionPathPlugin makes the rider travel ALONG the terrain curve (a real ride)
+      const mpMod = await import("gsap/MotionPathPlugin");
+      if (cancelled) return;
+      const MotionPathPlugin = mpMod.MotionPathPlugin ?? mpMod.default;
+      gsap.registerPlugin(MotionPathPlugin);
+
+      // forward/back start-end along the path depending on direction
+      const pathStart = dist === 1 ? 0 : 1;
+      const pathEnd = dist === 1 ? 1 : 0;
 
       if (mode === "intro") {
-        // Hero: gentle, continuous life — no scroll needed to see it.
         if (cancelled) return;
         ctx = gsap.context(() => {
           gsap.fromTo(host, { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" });
-          if (rider) {
+          if (rider && path) {
+            gsap.fromTo(
+              rider,
+              { motionPath: { path, align: path, alignOrigin: [0.5, 0.9], start: 0.25, end: 0.25 } },
+              {
+                motionPath: { path, align: path, alignOrigin: [0.5, 0.9], start: 0.18, end: 0.82, autoRotate: true },
+                duration: 8, ease: "sine.inOut", repeat: -1, yoyo: true,
+              },
+            );
+          } else if (rider) {
             gsap.fromTo(rider, { xPercent: -14 * dist }, { xPercent: 14 * dist, duration: 7, ease: "sine.inOut", repeat: -1, yoyo: true });
             gsap.to(rider, { yPercent: -3, duration: 3.2, ease: "sine.inOut", repeat: -1, yoyo: true });
           }
@@ -70,7 +88,6 @@ export function ScrollScene({
       gsap.registerPlugin(ScrollTrigger);
 
       ctx = gsap.context(() => {
-        // start visible at a base level, then choreograph with scroll
         gsap.set(host, { opacity: 1 });
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -82,7 +99,17 @@ export function ScrollScene({
         });
         tl.fromTo(host, { yPercent: 16, opacity: 0.4 }, { yPercent: 0, opacity: 1, ease: "power2.out", duration: 1.2 }, 0);
         if (wave) tl.fromTo(wave, { yPercent: 10 }, { yPercent: -6, ease: "none", duration: 4 }, 0);
-        if (rider) tl.fromTo(rider, { xPercent: -22 * dist, rotate: -2 * dist }, { xPercent: 24 * dist, rotate: 2 * dist, ease: "none", duration: 4 }, 0);
+        if (rider && path) {
+          // ride along the terrain across the whole scroll
+          tl.fromTo(
+            rider,
+            { motionPath: { path, align: path, alignOrigin: [0.5, 0.9], start: pathStart, end: pathStart, autoRotate: true } },
+            { motionPath: { path, align: path, alignOrigin: [0.5, 0.9], start: pathStart, end: pathEnd, autoRotate: true }, ease: "none", duration: 4 },
+            0,
+          );
+        } else if (rider) {
+          tl.fromTo(rider, { xPercent: -22 * dist, rotate: -2 * dist }, { xPercent: 24 * dist, rotate: 2 * dist, ease: "none", duration: 4 }, 0);
+        }
         tl.to(host, { opacity: 0.25, yPercent: -14, ease: "power2.in", duration: 1.1 }, 3.1);
       }, host);
     })();
