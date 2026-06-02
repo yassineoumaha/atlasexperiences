@@ -13,7 +13,7 @@ export default function LocaleError({
 }) {
   useEffect(() => {
     // Log to error tracking service when integrated
-    console.error("[Atlas Experiences error]", error);
+    console.error("[Imourig error]", error);
   }, [error]);
 
   return (

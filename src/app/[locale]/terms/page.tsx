@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions — Atlas Experiences",
-  description: "Terms and conditions for using Atlas Experiences — Morocco's local experience marketplace. Governs traveler bookings and operator listings.",
+  title: "Terms & Conditions — Imourig",
+  description: "Terms and conditions for using Imourig — Morocco's local experience marketplace. Governs traveler bookings and operator listings.",
 };
 
 const LAST_UPDATED = "31 May 2026";
@@ -27,23 +27,23 @@ export default function TermsPage() {
           </div>
 
           <section>
-            <h2 className="text-xl font-black text-stone-900 mb-3">1. What Atlas Experiences Is</h2>
-            <p>Atlas Experiences (&ldquo;the Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is an online marketplace connecting travelers with local experience operators in Morocco.
+            <h2 className="text-xl font-black text-stone-900 mb-3">1. What Imourig Is</h2>
+            <p>Imourig (&ldquo;the Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is an online marketplace connecting travelers with local experience operators in Morocco.
             We provide the technology that enables travelers to discover, inquire, and book activities such as surf lessons, desert tours, cooking classes, and other local experiences.</p>
             <p className="mt-2">We are <strong>not</strong> a tour operator, travel agency, or transport provider. We do not directly deliver any experience listed on this platform. Each operator is an independent third party.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">2. Acceptance of Terms</h2>
-            <p>By accessing or using Atlas Experiences — whether as a traveler or operator — you agree to these Terms. If you do not agree, stop using the platform immediately.</p>
+            <p>By accessing or using Imourig — whether as a traveler or operator — you agree to these Terms. If you do not agree, stop using the platform immediately.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">3. Booking Requests</h2>
-            <p>When you submit a booking request through Atlas Experiences:</p>
+            <p>When you submit a booking request through Imourig:</p>
             <ul className="list-disc list-inside space-y-1 text-stone-600 mt-2">
               <li>Your request is sent directly to the operator. It is <strong>not a confirmed booking</strong> until the operator explicitly confirms via email or message.</li>
-              <li>No payment is collected by Atlas Experiences at the time of the request. Payment is arranged directly between you and the operator unless otherwise stated.</li>
+              <li>No payment is collected by Imourig at the time of the request. Payment is arranged directly between you and the operator unless otherwise stated.</li>
               <li>You must provide accurate personal details (name, email, group size, date). Inaccurate information may result in the operator declining your request.</li>
               <li>A booking is confirmed only when the operator sends you a written confirmation.</li>
             </ul>
@@ -51,13 +51,13 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">4. Cancellations & Refunds</h2>
-            <p>Cancellation policies are set by each individual operator and displayed on the experience listing page. Atlas Experiences is not responsible for enforcing refunds between travelers and operators. If a dispute arises, contact the operator first, then contact us at <a href="mailto:support@atlasexperiences.world" className="text-amber-600 underline">support@atlasexperiences.world</a>.</p>
-            <p className="mt-2">Under Morocco Consumer Protection Law 31-08, if you purchased a digital service directly through Atlas Experiences, you have the right to withdraw within <strong>14 days</strong> provided the service has not yet been performed.</p>
+            <p>Cancellation policies are set by each individual operator and displayed on the experience listing page. Imourig is not responsible for enforcing refunds between travelers and operators. If a dispute arises, contact the operator first, then contact us at <a href="mailto:support@imourig.com" className="text-amber-600 underline">support@imourig.com</a>.</p>
+            <p className="mt-2">Under Morocco Consumer Protection Law 31-08, if you purchased a digital service directly through Imourig, you have the right to withdraw within <strong>14 days</strong> provided the service has not yet been performed.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">5. Operator Independence</h2>
-            <p>All experience operators are independent third parties, not employees or agents of Atlas Experiences. We do not control how they deliver their services. Atlas Experiences:</p>
+            <p>All experience operators are independent third parties, not employees or agents of Imourig. We do not control how they deliver their services. Imourig:</p>
             <ul className="list-disc list-inside space-y-1 text-stone-600 mt-2">
               <li>Does not guarantee the quality, safety, accuracy, or availability of any listed experience</li>
               <li>Is not responsible for any injury, loss, damage, or dispute arising from your interaction with an operator</li>
@@ -82,19 +82,19 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">7. Reviews</h2>
-            <p>Reviews submitted by travelers are moderated by Atlas Experiences before publication. By submitting a review, you confirm it reflects your genuine experience. We reserve the right to reject or remove reviews that are defamatory, fraudulent, or violate these terms. We do not edit the substance of reviews.</p>
+            <p>Reviews submitted by travelers are moderated by Imourig before publication. By submitting a review, you confirm it reflects your genuine experience. We reserve the right to reject or remove reviews that are defamatory, fraudulent, or violate these terms. We do not edit the substance of reviews.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">8. Limitation of Liability</h2>
-            <p>To the fullest extent permitted by Moroccan law, Atlas Experiences is not liable for:</p>
+            <p>To the fullest extent permitted by Moroccan law, Imourig is not liable for:</p>
             <ul className="list-disc list-inside space-y-1 text-stone-600 mt-2">
               <li>Any personal injury, death, illness, or property damage during an experience</li>
               <li>Any financial loss arising from a cancelled, modified, or unfulfilled booking</li>
               <li>Indirect, consequential, or special damages of any kind</li>
               <li>Any content or representations made by operators on their listings</li>
             </ul>
-            <p className="mt-2">Our maximum aggregate liability to you for any claim arising out of or related to these Terms is limited to <strong>MAD 500 (approximately USD 50)</strong>, or the amount you paid directly to Atlas Experiences, whichever is greater.</p>
+            <p className="mt-2">Our maximum aggregate liability to you for any claim arising out of or related to these Terms is limited to <strong>MAD 500 (approximately USD 50)</strong>, or the amount you paid directly to Imourig, whichever is greater.</p>
           </section>
 
           {/* ── PART B: OPERATORS ── */}
@@ -104,26 +104,26 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">9. Operator Eligibility</h2>
-            <p>To list on Atlas Experiences as an operator, you must:</p>
+            <p>To list on Imourig as an operator, you must:</p>
             <ul className="list-disc list-inside space-y-1 text-stone-600 mt-2">
               <li>Be a legal resident of Morocco or hold a valid Moroccan business registration</li>
               <li>Hold all required licences for the services you offer (e.g. surf instructor certification, official guide licence, transport permit)</li>
               <li>Be at least 18 years of age</li>
               <li>Provide accurate and truthful information during registration</li>
             </ul>
-            <p className="mt-2">Atlas Experiences reserves the right to verify your identity and licences, and to reject or remove any listing that does not meet these requirements.</p>
+            <p className="mt-2">Imourig reserves the right to verify your identity and licences, and to reject or remove any listing that does not meet these requirements.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">10. Platform Commission — {COMMISSION}</h2>
-            <p>Atlas Experiences charges a commission of <strong>{COMMISSION} of each confirmed booking value</strong> (the total amount paid by the traveler for the experience).</p>
+            <p>Imourig charges a commission of <strong>{COMMISSION} of each confirmed booking value</strong> (the total amount paid by the traveler for the experience).</p>
             <ul className="list-disc list-inside space-y-1 text-stone-600 mt-2">
               <li><strong>Listing is free.</strong> No monthly fees, no setup fees.</li>
               <li>Commission is calculated on the full booking price (price per person × group size).</li>
               <li>Invoices are issued <strong>monthly</strong> for all completed bookings in the prior calendar month.</li>
               <li>Payment is due within <strong>14 days</strong> of invoice date, by bank transfer or other agreed method.</li>
               <li>Operators who fail to pay within 30 days of invoice may have their listings suspended or removed.</li>
-              <li>Atlas Experiences may change the commission rate with <strong>30 days written notice</strong>. Continued use after notice constitutes acceptance.</li>
+              <li>Imourig may change the commission rate with <strong>30 days written notice</strong>. Continued use after notice constitutes acceptance.</li>
             </ul>
           </section>
 
@@ -136,7 +136,7 @@ export default function TermsPage() {
               <li>Maintaining appropriate insurance for your activities</li>
               <li>Complying with all applicable Moroccan laws (safety, licensing, tax)</li>
               <li>Declaring and paying any applicable Moroccan income tax on earnings</li>
-              <li>Accurately reporting all confirmed bookings to Atlas Experiences for invoicing</li>
+              <li>Accurately reporting all confirmed bookings to Imourig for invoicing</li>
               <li>Handling cancellations and refunds according to your stated cancellation policy</li>
             </ul>
           </section>
@@ -154,12 +154,12 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">13. Listing Approval & Removal</h2>
-            <p>All listings are subject to approval by Atlas Experiences before going live. We reserve the right to reject any listing without explanation, or to remove a live listing at any time if it violates these terms, contains inaccurate information, or receives sustained negative feedback. Operators will be notified of removal where possible.</p>
+            <p>All listings are subject to approval by Imourig before going live. We reserve the right to reject any listing without explanation, or to remove a live listing at any time if it violates these terms, contains inaccurate information, or receives sustained negative feedback. Operators will be notified of removal where possible.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">14. Operator Indemnity</h2>
-            <p>You agree to indemnify, defend, and hold Atlas Experiences harmless from any claim, liability, damage, or expense (including reasonable legal fees) arising out of your listings, your delivery of experiences, your conduct with travelers, or your breach of these Terms.</p>
+            <p>You agree to indemnify, defend, and hold Imourig harmless from any claim, liability, damage, or expense (including reasonable legal fees) arising out of your listings, your delivery of experiences, your conduct with travelers, or your breach of these Terms.</p>
           </section>
 
           {/* ── GENERAL ── */}
@@ -169,8 +169,8 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">15. Intellectual Property</h2>
-            <p>All original content on Atlas Experiences (text, design, code, branding) is our property or licensed to us.
-            Operators retain ownership of their listing content but grant Atlas Experiences a non-exclusive, royalty-free licence to display it on the platform and in marketing materials.
+            <p>All original content on Imourig (text, design, code, branding) is our property or licensed to us.
+            Operators retain ownership of their listing content but grant Imourig a non-exclusive, royalty-free licence to display it on the platform and in marketing materials.
             You may share links and brief excerpts with attribution. Scraping, copying, or reproducing substantial portions without written permission is prohibited.</p>
           </section>
 
@@ -187,9 +187,9 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">18. Contact</h2>
-            <p>Legal questions: <a href="mailto:legal@atlasexperiences.world" className="text-amber-600 underline">legal@atlasexperiences.world</a><br />
-            Operator support: <a href="mailto:operators@atlasexperiences.world" className="text-amber-600 underline">operators@atlasexperiences.world</a><br />
-            Traveler support: <a href="mailto:support@atlasexperiences.world" className="text-amber-600 underline">support@atlasexperiences.world</a></p>
+            <p>Legal questions: <a href="mailto:legal@imourig.com" className="text-amber-600 underline">legal@imourig.com</a><br />
+            Operator support: <a href="mailto:operators@imourig.com" className="text-amber-600 underline">operators@imourig.com</a><br />
+            Traveler support: <a href="mailto:support@imourig.com" className="text-amber-600 underline">support@imourig.com</a></p>
           </section>
 
         </div>

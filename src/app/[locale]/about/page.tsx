@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Shield, Heart, Users, Star, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Atlas Experiences — Our Story and Mission",
+  title: "About Imourig — Our Story and Mission",
   description:
-    "We built Atlas Experiences because travel platforms were failing Morocco visitors. Honest reviews, real cost breakdowns, and ScamGuard protection for every destination.",
+    "We built Imourig because travel platforms were failing Morocco visitors. Honest reviews, real cost breakdowns, and ScamGuard protection for every destination.",
 };
 
 const values = [
@@ -24,7 +24,7 @@ const values = [
   {
     icon: <Users className="w-6 h-6" />,
     title: "Community First",
-    desc: "Taxi drivers, riad owners, and surf instructors who list on Atlas Experiences don't pay commissions. We believe local operators deserve a fair platform.",
+    desc: "Taxi drivers, riad owners, and surf instructors who list on Imourig don't pay commissions. We believe local operators deserve a fair platform.",
     color: "bg-blue-50 text-blue-600",
   },
   {
@@ -58,7 +58,7 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
       <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center mb-6">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-20 w-auto [mix-blend-mode:screen]" />
+            <img src="/logo.png" alt="Imourig" className="h-20 w-auto [mix-blend-mode:screen]" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-black mb-5 leading-tight">
             We built the Morocco travel guide<br className="hidden sm:block" />
@@ -66,7 +66,7 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
           </h1>
           <p className="text-white/70 text-xl max-w-2xl leading-relaxed">
             Morocco is one of the world&apos;s most extraordinary travel destinations. It&apos;s also consistently let down by tourism platforms that hide fees, ignore scams, and treat the country as a generic backdrop.
-            Atlas Experiences exists to fix that.
+            Imourig exists to fix that.
           </p>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
 
         {/* Why we exist */}
         <div className="mb-16">
-          <h2 className="text-3xl font-black text-stone-900 mb-2">Why Atlas Experiences Exists</h2>
+          <h2 className="text-3xl font-black text-stone-900 mb-2">Why Imourig Exists</h2>
           <p className="text-stone-500 mb-6">Five problems we set out to solve:</p>
           <div className="space-y-3">
             {why.map((item) => (
@@ -118,13 +118,13 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
         <div className="bg-stone-50 rounded-2xl border border-stone-100 p-6 mb-16">
           <h2 className="text-2xl font-black text-stone-900 mb-3">How We Make Money (and Why It Matters)</h2>
           <p className="text-stone-600 mb-4 leading-relaxed">
-            Atlas Experiences earns affiliate commissions when you click our hotel or tour booking links (Booking.com, Agoda, Viator, GetYourGuide). This is standard practice for travel sites.
+            Imourig earns affiliate commissions when you click our hotel or tour booking links (Booking.com, Agoda, Viator, GetYourGuide). This is standard practice for travel sites.
           </p>
           <p className="text-stone-600 mb-4 leading-relaxed">
-            We do <strong>not</strong> accept payment for reviews or sponsored placement. A hotel paying to appear in our listings would undermine the honesty that makes Atlas Experiences useful.
+            We do <strong>not</strong> accept payment for reviews or sponsored placement. A hotel paying to appear in our listings would undermine the honesty that makes Imourig useful.
           </p>
           <p className="text-stone-600 leading-relaxed">
-            Taxi drivers and property owners can list on Atlas Experiences for free. We do not charge drivers or small operators commissions — that model kills the diversity that makes Morocco worth visiting.
+            Taxi drivers and property owners can list on Imourig for free. We do not charge drivers or small operators commissions — that model kills the diversity that makes Morocco worth visiting.
           </p>
           <p className="text-stone-500 text-sm mt-4">
             Full details in our <Link href="/en/affiliate-disclosure" className="text-amber-600 hover:underline">Affiliate Disclosure</Link>.

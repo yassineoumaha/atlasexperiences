@@ -1,5 +1,5 @@
 -- ============================================================
--- Atlas Experiences — Security Hardening
+-- Imourig — Security Hardening
 -- Run in: Supabase Dashboard → SQL Editor → New query
 -- Fixes common security advisor warnings
 -- ============================================================

@@ -127,7 +127,7 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
                   <tr>
                     <th className="text-left px-5 py-3 font-semibold text-stone-600">Feature</th>
                     <th className="text-center px-5 py-3 font-semibold text-stone-600">Other Platforms</th>
-                    <th className="text-center px-5 py-3 font-bold text-amber-600">Atlas Experiences</th>
+                    <th className="text-center px-5 py-3 font-bold text-amber-600">Imourig</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-50">
@@ -248,7 +248,7 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
             </div>
 
             <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 text-xs text-amber-700">
-              By registering, you agree to pay Atlas Experiences <strong>10% of each confirmed booking value</strong>, invoiced monthly.
+              By registering, you agree to pay Imourig <strong>10% of each confirmed booking value</strong>, invoiced monthly.
               Free to list. No payment until you earn. See our <Link href={`/${locale}/terms`} className="underline">Terms & Conditions</Link>.
             </div>
 

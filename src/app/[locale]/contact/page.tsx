@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Mail, MessageCircle, Clock, HelpCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Atlas Experiences",
-  description: "Contact the Atlas Experiences team. Report inaccuracies, partner with us, or ask for help planning your Morocco trip.",
+  title: "Contact Imourig",
+  description: "Contact the Imourig team. Report inaccuracies, partner with us, or ask for help planning your Morocco trip.",
 };
 
 const topics = [
@@ -30,7 +30,7 @@ export default function ContactPage() {
         {/* Contact options */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
           <a
-            href="mailto:hello@atlasexperiences.world"
+            href="mailto:hello@imourig.com"
             className="flex items-start gap-4 bg-white border border-stone-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-amber-200 transition-all group"
           >
             <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-amber-100 transition-colors">
@@ -38,7 +38,7 @@ export default function ContactPage() {
             </div>
             <div>
               <div className="font-bold text-stone-900 mb-0.5">Email</div>
-              <div className="text-amber-600 text-sm font-medium">hello@atlasexperiences.world</div>
+              <div className="text-amber-600 text-sm font-medium">hello@imourig.com</div>
               <div className="text-stone-400 text-xs mt-1 flex items-center gap-1">
                 <Clock className="w-3 h-3" /> Reply within 48 hours
               </div>
@@ -90,7 +90,7 @@ export default function ContactPage() {
             Send a Message
           </h2>
           <form
-            action="mailto:hello@atlasexperiences.world"
+            action="mailto:hello@imourig.com"
             method="POST"
             encType="text/plain"
             className="space-y-4"
@@ -151,7 +151,7 @@ export default function ContactPage() {
             </button>
           </form>
           <p className="text-stone-400 text-xs mt-4 text-center">
-            Alternatively, email us directly at hello@atlasexperiences.world
+            Alternatively, email us directly at hello@imourig.com
           </p>
         </div>
       </div>

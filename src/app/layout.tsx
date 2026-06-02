@@ -18,8 +18,8 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Atlas Experiences — Discover Morocco",
-    template: "%s | Atlas Experiences",
+    default: "Imourig — Discover Morocco",
+    template: "%s | Imourig",
   },
   description:
     "Authentic Morocco experiences booked directly with verified local operators — surf, cooking, desert and more across 39 destinations. No middleman markup.",

@@ -37,7 +37,7 @@ const px = (id, w = 1200, h = 800) =>
 // ── demo operators ───────────────────────────────────────────────
 const OPERATORS = [
   {
-    email: "demo.surf@atlasexperiences.world",
+    email: "demo.surf@imourig.com",
     business_name: "Taghazout Surf Collective",
     slug: "taghazout-surf-collective",
     city: "Taghazout",
@@ -49,7 +49,7 @@ const OPERATORS = [
     cover_url: px(390051, 1200, 400),
   },
   {
-    email: "demo.desert@atlasexperiences.world",
+    email: "demo.desert@imourig.com",
     business_name: "Sahara Nomad Tours",
     slug: "sahara-nomad-tours",
     city: "Merzouga",
@@ -61,7 +61,7 @@ const OPERATORS = [
     cover_url: px(1703314, 1200, 400),
   },
   {
-    email: "demo.food@atlasexperiences.world",
+    email: "demo.food@imourig.com",
     business_name: "Marrakech Medina Kitchen",
     slug: "marrakech-medina-kitchen",
     city: "Marrakech",
@@ -73,7 +73,7 @@ const OPERATORS = [
     cover_url: px(7438979, 1200, 400),
   },
   {
-    email: "demo.culture@atlasexperiences.world",
+    email: "demo.culture@imourig.com",
     business_name: "Fes Heritage Walks",
     slug: "fes-heritage-walks",
     city: "Fes",
@@ -88,7 +88,7 @@ const OPERATORS = [
 
 // experiences keyed by operator email
 const EXPERIENCES = {
-  "demo.surf@atlasexperiences.world": [
+  "demo.surf@imourig.com": [
     {
       title: "Beginner Surf Lesson in Taghazout (2 hours)", category: "surf", city: "Taghazout",
       description: "Catch your first wave with patient local instructors on Taghazout's gentle beach breaks. Soft-top boards and wetsuits included. Max 4 students per coach.",
@@ -108,7 +108,7 @@ const EXPERIENCES = {
       what_to_bring: ["Swimwear", "Towel"], images: [px(1430677), px(390051)],
     },
   ],
-  "demo.desert@atlasexperiences.world": [
+  "demo.desert@imourig.com": [
     {
       title: "Overnight Camel Trek & Desert Camp — Erg Chebbi", category: "desert", city: "Merzouga",
       description: "Ride camels into the dunes at golden hour, watch the sunset from the highest crest, then sleep under the stars in a Berber camp with dinner, music and breakfast.",
@@ -128,7 +128,7 @@ const EXPERIENCES = {
       what_to_bring: ["Sunglasses", "Scarf"], images: [px(2128249), px(1703314)],
     },
   ],
-  "demo.food@atlasexperiences.world": [
+  "demo.food@imourig.com": [
     {
       title: "Moroccan Cooking Class in a Marrakech Riad", category: "food", city: "Marrakech",
       description: "Shop for spices in the souk with your chef, then cook a full Moroccan meal — tagine, salads and mint tea — in a beautiful riad courtyard, and eat what you make.",
@@ -147,7 +147,7 @@ const EXPERIENCES = {
       what_to_bring: ["Comfortable shoes"], images: [px(4040692), px(7438979)],
     },
   ],
-  "demo.culture@atlasexperiences.world": [
+  "demo.culture@imourig.com": [
     {
       title: "Fes Medina Walking Tour — Tanneries & Madrasas", category: "culture", city: "Fes",
       description: "Get lost (with a guide) in the world's largest car-free medina. Visit the famous Chouara tanneries, the Bou Inania madrasa, and artisan workshops.",
@@ -190,7 +190,7 @@ async function findOrCreateUser(email) {
 async function clean() {
   console.log("Cleaning demo data…");
   const { data: list } = await admin.auth.admin.listUsers({ perPage: 200 });
-  const demo = (list?.users || []).filter((u) => u.email?.endsWith("@atlasexperiences.world") && u.email.startsWith("demo."));
+  const demo = (list?.users || []).filter((u) => u.email?.endsWith("@imourig.com") && u.email.startsWith("demo."));
   for (const u of demo) {
     await admin.from("experiences").delete().eq("operator_id", u.id);
     await admin.from("operators").delete().eq("id", u.id);

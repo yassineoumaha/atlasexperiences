@@ -6,7 +6,7 @@ export default function LocaleNotFound() {
     <div className="pt-16 min-h-screen flex items-center justify-center bg-stone-50">
       <div className="text-center px-4 max-w-lg">
         <div className="text-7xl font-black text-amber-500 mb-2">404</div>
-        <img src="/logo.png" alt="Atlas Experiences" className="h-16 w-auto mx-auto mb-6" />
+        <img src="/logo.png" alt="Imourig" className="h-16 w-auto mx-auto mb-6" />
         <h1 className="text-2xl font-black text-stone-900 mb-3">This page got lost in the Sahara</h1>
         <p className="text-stone-500 mb-8">
           The page you&apos;re looking for doesn&apos;t exist. Maybe it was a desert mirage.

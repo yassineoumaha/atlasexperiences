@@ -114,7 +114,7 @@ export default async function ExperiencesPage({
         {/* Results */}
         {experiences.length === 0 ? (
           <div className="text-center py-20">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-14 w-auto mx-auto mb-4 [mix-blend-mode:multiply]" />
+            <img src="/logo.png" alt="Imourig" className="h-14 w-auto mx-auto mb-4 [mix-blend-mode:multiply]" />
             <h2 className="text-xl font-black text-stone-900 mb-2">{d.noResults}</h2>
             <p className="text-stone-500 mb-6">{d.noResultsSub}</p>
             <Link href={`/${locale}/operators/register`}

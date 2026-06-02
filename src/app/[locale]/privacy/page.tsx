@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Atlas Experiences",
-  description: "How Atlas Experiences collects, uses, and protects your personal data. Compliant with Morocco Law 09-08, Law 07-26, and EU GDPR.",
+  title: "Privacy Policy — Imourig",
+  description: "How Imourig collects, uses, and protects your personal data. Compliant with Morocco Law 09-08, Law 07-26, and EU GDPR.",
 };
 
 const LAST_UPDATED = "31 May 2026";
@@ -24,8 +24,8 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">1. Data Controller</h2>
-            <p>Atlas Experiences (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is the data controller for personal data collected through this website (<strong>atlasexperiences.world</strong>). We operate a marketplace connecting travelers with local experience operators in Morocco.</p>
-            <p className="mt-2">Contact: <a href="mailto:privacy@atlasexperiences.world" className="text-amber-600 underline">privacy@atlasexperiences.world</a></p>
+            <p>Imourig (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is the data controller for personal data collected through this website (<strong>imourig.com</strong>). We operate a marketplace connecting travelers with local experience operators in Morocco.</p>
+            <p className="mt-2">Contact: <a href="mailto:privacy@imourig.com" className="text-amber-600 underline">privacy@imourig.com</a></p>
           </section>
 
           <section>
@@ -87,8 +87,8 @@ export default function PrivacyPage() {
               <li><strong>Account data:</strong> Duration of account + 2 years after deletion request (for dispute resolution)</li>
               <li><strong>Booking records:</strong> 5 years from booking date (financial and legal compliance)</li>
               <li><strong>Chat messages:</strong> 2 years from booking date, then permanently deleted</li>
-              <li><strong>Operator listings:</strong> Until removed by operator or Atlas Experiences + 1 year</li>
-              <li><strong>Reviews:</strong> Until removed by Atlas Experiences or reviewer + 1 year</li>
+              <li><strong>Operator listings:</strong> Until removed by operator or Imourig + 1 year</li>
+              <li><strong>Reviews:</strong> Until removed by Imourig or reviewer + 1 year</li>
               <li><strong>Analytics logs (IP):</strong> 12 months in aggregate form</li>
             </ul>
           </section>
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
               <li><strong>Portability</strong> (EU/GDPR) — receive your data in machine-readable format</li>
               <li><strong>Withdraw consent</strong> — at any time, without affecting lawfulness of prior processing</li>
             </ul>
-            <p className="mt-3">To exercise any right: <a href="mailto:privacy@atlasexperiences.world" className="text-amber-600 underline">privacy@atlasexperiences.world</a>. We respond within <strong>30 days</strong> (Law 09-08) / <strong>1 month</strong> (GDPR).</p>
+            <p className="mt-3">To exercise any right: <a href="mailto:privacy@imourig.com" className="text-amber-600 underline">privacy@imourig.com</a>. We respond within <strong>30 days</strong> (Law 09-08) / <strong>1 month</strong> (GDPR).</p>
             <p className="mt-2">Note: Deleting your account does not automatically delete reviews you have submitted publicly, as these form part of the platform&apos;s trust system. Request review removal separately if needed.</p>
           </section>
 

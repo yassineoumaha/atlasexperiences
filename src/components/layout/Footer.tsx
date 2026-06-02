@@ -20,7 +20,7 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
 
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-14 w-auto [mix-blend-mode:screen] mb-4" />
+            <img src="/logo.png" alt="Imourig" className="h-14 w-auto [mix-blend-mode:screen] mb-4" />
             <p className="text-stone-500 text-sm leading-relaxed mb-6">
               {dict.footer.tagline}
             </p>
@@ -109,7 +109,7 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
       <div className="border-t border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-stone-600 text-sm">
-            © {new Date().getFullYear()} Atlas Experiences. All rights reserved.
+            © {new Date().getFullYear()} Imourig. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <p className="text-stone-700 text-xs">

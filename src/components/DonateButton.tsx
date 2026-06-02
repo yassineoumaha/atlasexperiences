@@ -11,7 +11,7 @@ export default function DonateButton() {
       <button
         onClick={() => setOpen(true)}
         className="inline-flex items-center gap-1.5 text-stone-400 hover:text-rose-400 text-sm transition-colors"
-        aria-label="Support Atlas Experiences"
+        aria-label="Support Imourig"
       >
         <Heart className="w-4 h-4" /> Support Us
       </button>
@@ -27,10 +27,10 @@ export default function DonateButton() {
             </button>
 
             <div className="text-center mb-5">
-              <img src="/logo.png" alt="Atlas Experiences" className="h-14 w-auto mx-auto mb-1" />
-              <h2 className="text-xl font-black text-stone-900 mb-2">Support Atlas Experiences</h2>
+              <img src="/logo.png" alt="Imourig" className="h-14 w-auto mx-auto mb-1" />
+              <h2 className="text-xl font-black text-stone-900 mb-2">Support Imourig</h2>
               <p className="text-stone-500 text-sm leading-relaxed">
-                Atlas Experiences is free for travelers and local operators. If our guides have helped you,
+                Imourig is free for travelers and local operators. If our guides have helped you,
                 a small donation keeps the platform running and the content honest.
               </p>
             </div>
@@ -64,7 +64,7 @@ export default function DonateButton() {
             </div>
 
             <p className="text-stone-400 text-xs text-center mt-4">
-              Donations are voluntary. Atlas Experiences is not a registered charity.
+              Donations are voluntary. Imourig is not a registered charity.
               All donations go toward server costs and content creation.
             </p>
           </div>

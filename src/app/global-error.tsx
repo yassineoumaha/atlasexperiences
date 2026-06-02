@@ -10,7 +10,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("[Atlas Experiences global error]", error);
+    console.error("[Imourig global error]", error);
   }, [error]);
 
   return (
@@ -30,13 +30,13 @@ export default function GlobalError({
         >
           <div style={{ fontSize: "3rem" }}>🇲🇦</div>
           <h1 style={{ fontSize: "1.5rem", fontWeight: 900, color: "#1c1917" }}>
-            Atlas Experiences is temporarily unavailable
+            Imourig is temporarily unavailable
           </h1>
           <p style={{ color: "#78716c", maxWidth: "400px" }}>
             We encountered a critical error. Please try refreshing the page. If
             the problem persists, contact{" "}
-            <a href="mailto:hello@atlasexperiences.world" style={{ color: "#f59e0b" }}>
-              hello@atlasexperiences.world
+            <a href="mailto:hello@imourig.com" style={{ color: "#f59e0b" }}>
+              hello@imourig.com
             </a>
             .
           </p>

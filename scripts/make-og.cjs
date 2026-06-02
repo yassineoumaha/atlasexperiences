@@ -18,7 +18,7 @@ const svg = `
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect x="0" y="0" width="1200" height="12" fill="url(#amber)"/>
   <rect x="0" y="618" width="1200" height="12" fill="url(#amber)"/>
-  <text x="100" y="250" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="900" fill="#ffffff">Atlas <tspan fill="#f59e0b">Experiences</tspan></text>
+  <text x="100" y="250" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#ffffff">Imo<tspan fill="#f59e0b">urig</tspan></text>
   <text x="100" y="335" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="400" fill="#d6d3d1">Authentic Morocco, direct from locals.</text>
   <text x="100" y="430" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#fbbf24">39 destinations &#183; verified local operators &#183; no middleman</text>
 </svg>`;

@@ -1,5 +1,5 @@
 -- ============================================================
--- Atlas Experiences — Experiences Marketplace Schema
+-- Imourig — Experiences Marketplace Schema
 -- Run in: Supabase Dashboard → SQL Editor → New query
 -- ============================================================
 
@@ -22,7 +22,7 @@ create table if not exists operators (
   license_image_url text,
   verified          boolean not null default false,
   stripe_account_id text,                          -- for future Stripe Connect payouts
-  commission_rate   numeric(4,2) not null default 10.00, -- % Atlas Experiences takes
+  commission_rate   numeric(4,2) not null default 10.00, -- % Imourig takes
   created_at        timestamptz not null default now(),
   updated_at        timestamptz not null default now()
 );

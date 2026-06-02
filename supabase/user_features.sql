@@ -1,4 +1,4 @@
--- Atlas Experiences — User Features Schema
+-- Imourig — User Features Schema
 -- Run AFTER schema.sql and taxi_schema.sql
 -- Adds: destination photos, user profiles/roles, reviews
 

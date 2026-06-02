@@ -1,4 +1,4 @@
--- Atlas Experiences — Features 2: Announcements, Suggestions, Area Guides, Operator Rating
+-- Imourig — Features 2: Announcements, Suggestions, Area Guides, Operator Rating
 -- Run in Supabase SQL Editor
 
 -- 1. Announcements

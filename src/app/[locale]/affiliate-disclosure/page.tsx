@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Affiliate Disclosure — Atlas Experiences",
-  description: "Atlas Experiences affiliate disclosure — how we earn revenue and how it affects our recommendations.",
+  title: "Affiliate Disclosure — Imourig",
+  description: "Imourig affiliate disclosure — how we earn revenue and how it affects our recommendations.",
 };
 
 const LAST_UPDATED = "1 June 2026";
@@ -16,20 +16,20 @@ export default function AffiliateDisclosurePage() {
         <p className="text-stone-400 text-sm mb-8">Last updated: {LAST_UPDATED}</p>
 
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 text-sm text-amber-800">
-          <strong>Short version:</strong> Some links on Atlas Experiences are affiliate links. When you click them and book or buy something, we may earn a small commission — at no extra cost to you. This helps fund the platform. We always recommend based on quality, not commission rates.
+          <strong>Short version:</strong> Some links on Imourig are affiliate links. When you click them and book or buy something, we may earn a small commission — at no extra cost to you. This helps fund the platform. We always recommend based on quality, not commission rates.
         </div>
 
         <div className="prose prose-stone max-w-none space-y-8 text-sm leading-relaxed">
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">1. What Is an Affiliate Link?</h2>
-            <p>An affiliate link is a tracked URL that identifies Atlas Experiences as the source of a referral to a third-party website (such as a hotel booking platform, airline, or tour provider). When you click an affiliate link and complete a purchase or booking, the third party pays us a commission.</p>
+            <p>An affiliate link is a tracked URL that identifies Imourig as the source of a referral to a third-party website (such as a hotel booking platform, airline, or tour provider). When you click an affiliate link and complete a purchase or booking, the third party pays us a commission.</p>
             <p className="mt-2">This commission is paid by the business, not by you. You pay the same price whether you use our link or go directly to the website.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">2. What We Link To</h2>
-            <p>Atlas Experiences may contain affiliate links to the following types of services:</p>
+            <p>Imourig may contain affiliate links to the following types of services:</p>
             <ul className="list-disc list-inside space-y-1.5 text-stone-600 mt-2">
               <li><strong>Hotel and accommodation booking platforms</strong> (e.g. Booking.com, Agoda, Hostelworld) — where property listings include a &ldquo;Book&rdquo; link</li>
               <li><strong>Travel insurance providers</strong> — recommended in our safety and trip planning guides</li>
@@ -41,7 +41,7 @@ export default function AffiliateDisclosurePage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">3. Our Primary Revenue Model</h2>
-            <p>Atlas Experiences is primarily a marketplace. Our main source of revenue is a <strong>10% commission on confirmed bookings</strong> made through the platform, paid by operators — not by travelers. Affiliate revenue from external links is supplementary.</p>
+            <p>Imourig is primarily a marketplace. Our main source of revenue is a <strong>10% commission on confirmed bookings</strong> made through the platform, paid by operators — not by travelers. Affiliate revenue from external links is supplementary.</p>
             <p className="mt-2">This means our core interest is in the quality of the operators and experiences listed on the platform, not in pushing users to external affiliate links.</p>
           </section>
 
@@ -59,12 +59,12 @@ export default function AffiliateDisclosurePage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">5. FTC Compliance (US Readers)</h2>
-            <p>In accordance with the US Federal Trade Commission (FTC) guidelines (16 CFR Part 255), we disclose that some links on this website are affiliate links. This disclosure applies to all content on atlasexperiences.world where such links appear, including blog posts, destination guides, tips pages, and property listings.</p>
+            <p>In accordance with the US Federal Trade Commission (FTC) guidelines (16 CFR Part 255), we disclose that some links on this website are affiliate links. This disclosure applies to all content on imourig.com where such links appear, including blog posts, destination guides, tips pages, and property listings.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">6. How to Identify Affiliate Links</h2>
-            <p>Affiliate links on Atlas Experiences may appear as:</p>
+            <p>Affiliate links on Imourig may appear as:</p>
             <ul className="list-disc list-inside space-y-1 text-stone-600 mt-2">
               <li>&ldquo;Book on [Platform]&rdquo; buttons on property listing pages</li>
               <li>Links in blog posts and destination guides pointing to accommodation, insurance, or gear sites</li>
@@ -74,7 +74,7 @@ export default function AffiliateDisclosurePage() {
 
           <section>
             <h2 className="text-xl font-black text-stone-900 mb-3">7. Questions</h2>
-            <p>If you have any questions about our affiliate relationships or editorial policy, contact us at <a href="mailto:hello@atlasexperiences.world" className="text-amber-600 underline">hello@atlasexperiences.world</a>.</p>
+            <p>If you have any questions about our affiliate relationships or editorial policy, contact us at <a href="mailto:hello@imourig.com" className="text-amber-600 underline">hello@imourig.com</a>.</p>
           </section>
 
           <div className="pt-4 border-t border-stone-100 flex flex-wrap gap-4 text-sm">

@@ -123,7 +123,7 @@ const TIPS = [
     items: [
       {
         title: "Book tours through verified platforms",
-        desc: "Street tours sold by hustlers near monuments are often overpriced, uninsured, and the guide may abandon you mid-way. Booking through a verified platform (like Atlas Experiences) means the operator is vetted, insured, and accountable.",
+        desc: "Street tours sold by hustlers near monuments are often overpriced, uninsured, and the guide may abandon you mid-way. Booking through a verified platform (like Imourig) means the operator is vetted, insured, and accountable.",
         type: "tip",
       },
       {

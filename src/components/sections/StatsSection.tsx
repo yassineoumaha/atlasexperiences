@@ -59,7 +59,7 @@ export default async function StatsSection() {
           {/* Left: why us + stats */}
           <div>
             <span className="block text-amber-600 font-semibold text-sm mb-3 uppercase tracking-wider">
-              Why Atlas Experiences
+              Why Imourig
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-stone-900 section-title mb-4">
               Authentic Morocco,<br />

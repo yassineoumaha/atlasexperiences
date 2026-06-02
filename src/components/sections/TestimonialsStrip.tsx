@@ -21,7 +21,7 @@ const TESTIMONIALS: Testimonial[] = [
     country: "UK",
     flag: "🇬🇧",
     experience: "Sahara Camel Trek – Merzouga",
-    quote: "Three nights under the stars in the Sahara with a guide who felt like family. Nothing like anything I'd experienced before. Atlas Experiences made it effortless to book.",
+    quote: "Three nights under the stars in the Sahara with a guide who felt like family. Nothing like anything I'd experienced before. Imourig made it effortless to book.",
     poster: "https://images.pexels.com/photos/1009861/pexels-photo-1009861.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
   },
   {

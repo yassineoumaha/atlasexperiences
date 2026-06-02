@@ -61,7 +61,7 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
             <Link href={`/${locale}`} className="flex items-center flex-shrink-0">
               <img
                 src="/logo.png"
-                alt="Atlas Experiences"
+                alt="Imourig"
                 className={cn(
                   "h-11 w-auto transition-all duration-300",
                   scrolled ? "[mix-blend-mode:multiply]" : "[mix-blend-mode:screen] brightness-110"
@@ -187,7 +187,7 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-10 w-auto [mix-blend-mode:multiply]" />
+            <img src="/logo.png" alt="Imourig" className="h-10 w-auto [mix-blend-mode:multiply]" />
             <button
               onClick={() => setMobileOpen(false)}
               className="p-2 rounded-xl text-stone-500 hover:bg-stone-100 transition-colors"

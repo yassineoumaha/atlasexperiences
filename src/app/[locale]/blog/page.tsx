@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ArrowRight, BookOpen, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Morocco Travel Blog — Atlas Experiences",
+  title: "Morocco Travel Blog — Imourig",
   description: "Real guides, itineraries, safety tips and insider knowledge about travelling in Morocco.",
 };
 

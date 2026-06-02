@@ -1,5 +1,5 @@
 -- ============================================================
--- Atlas Experiences — Full Supabase Schema
+-- Imourig — Full Supabase Schema
 -- Run this entire file in: Supabase Dashboard → SQL Editor → New query
 -- ============================================================
 

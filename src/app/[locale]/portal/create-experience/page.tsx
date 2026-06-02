@@ -322,8 +322,8 @@ export default function CreateExperiencePage({ params }: { params: Promise<{ loc
           </div>
 
           <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 text-xs text-amber-700">
-            After approval, travelers can find and book your experience on Atlas Experiences.
-            You'll receive booking requests by email. Atlas Experiences invoices <strong>10% of confirmed bookings</strong> monthly.
+            After approval, travelers can find and book your experience on Imourig.
+            You'll receive booking requests by email. Imourig invoices <strong>10% of confirmed bookings</strong> monthly.
           </div>
 
           <button type="submit" disabled={saving}

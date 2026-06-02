@@ -28,7 +28,7 @@ export default function AdBanner({ slot, className = "" }: AdBannerProps) {
         <div className="w-full h-full bg-stone-50 border border-dashed border-stone-200 rounded-xl flex flex-col items-center justify-center gap-1 p-4 text-center">
           <span className="text-stone-300 text-xs font-medium uppercase tracking-wide">Advertisement</span>
           <span className="text-stone-400 text-xs">
-            Interested in advertising on Atlas Experiences?{" "}
+            Interested in advertising on Imourig?{" "}
             <a href="/en/contact" className="text-amber-500 hover:underline">Get in touch</a>
           </span>
         </div>

@@ -55,9 +55,9 @@ async function getDestinationExperiences(region: string) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const dest = await getDestination(slug);
-  if (!dest) return { title: "Destination not found — Atlas Experiences" };
+  if (!dest) return { title: "Destination not found — Imourig" };
   return {
-    title: `${dest.name}, Morocco — Atlas Experiences`,
+    title: `${dest.name}, Morocco — Imourig`,
     description: dest.description,
     openGraph: dest.hero_image ? { images: [dest.hero_image] } : undefined,
   };

@@ -1,4 +1,4 @@
--- Atlas Experiences — Chat / Messaging Schema
+-- Imourig — Chat / Messaging Schema
 -- Run in Supabase SQL Editor
 
 create table if not exists messages (

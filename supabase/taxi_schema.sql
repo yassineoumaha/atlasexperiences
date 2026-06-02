@@ -1,4 +1,4 @@
--- Atlas Experiences — Taxi Schema
+-- Imourig — Taxi Schema
 -- Safe to run on a fresh project OR on top of the old schema (idempotent)
 -- Run in: Supabase Dashboard → SQL Editor → New query
 

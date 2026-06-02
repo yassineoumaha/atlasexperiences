@@ -32,13 +32,13 @@
     "noResultsSub": "Be the first local operator to list in this category.",
     "listCta": "List Your Experience — Free",
     "operatorCta": "Are you a local guide or instructor?",
-    "operatorCtaSub": "List your experiences on Atlas Experiences. We charge 10% commission — half what other platforms charge. Free to list, zero monthly fees.",
+    "operatorCtaSub": "List your experiences on Imourig. We charge 10% commission — half what other platforms charge. Free to list, zero monthly fees.",
     "listBtn": "List Your Experience →"
   },
   "operators": {
     "registerTitle": "List Your Morocco Experience",
     "registerBadge": "Free to join · Only 10% commission on bookings",
-    "registerSub": "Surf coaches, desert guides, cooking teachers, hammam operators — join Atlas Experiences and reach thousands of international travelers. We charge half what other platforms charge.",
+    "registerSub": "Surf coaches, desert guides, cooking teachers, hammam operators — join Imourig and reach thousands of international travelers. We charge half what other platforms charge.",
     "benefit1Title": "10% commission only",
     "benefit1Desc": "Other platforms charge 20–30%. You keep 90% of every booking.",
     "benefit2Title": "SEO-powered traffic",
@@ -92,7 +92,7 @@
     "freeListing": "Free to list",
     "suggest": "Share a Suggestion",
     "builtWith": "Built with honest traveler intent.",
-    "copyright": "Atlas Experiences. All rights reserved."
+    "copyright": "Imourig. All rights reserved."
   },
   "common": {
     "loading": "Loading...",
@@ -134,7 +134,7 @@
       },
       {
         "q": "How does the 10% commission work?",
-        "a": "Atlas Experiences charges operators 10% of the confirmed booking value, invoiced monthly. Travelers pay operators directly — Atlas Experiences does not handle payments."
+        "a": "Imourig charges operators 10% of the confirmed booking value, invoiced monthly. Travelers pay operators directly — Imourig does not handle payments."
       }
     ]
   }

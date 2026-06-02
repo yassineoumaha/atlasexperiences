@@ -23,9 +23,9 @@ async function getPost(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return { title: "Article not found — Atlas Experiences" };
+  if (!post) return { title: "Article not found — Imourig" };
   return {
-    title: `${post.title} — Atlas Experiences Blog`,
+    title: `${post.title} — Imourig Blog`,
     description: post.excerpt ?? post.title,
     openGraph: post.image ? { images: [post.image] } : undefined,
   };

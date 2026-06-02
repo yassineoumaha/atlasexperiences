@@ -81,7 +81,7 @@ export default function BookingWidget({ experience, operator, locale }: BookingW
         </p>
         {operator?.whatsapp && (
           <a
-            href={`https://wa.me/${operator.whatsapp.replace(/\D/g, "")}?text=Hi! I just submitted a booking request for ${encodeURIComponent(experience.title)} on Atlas Experiences.`}
+            href={`https://wa.me/${operator.whatsapp.replace(/\D/g, "")}?text=Hi! I just submitted a booking request for ${encodeURIComponent(experience.title)} on Imourig.`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 rounded-xl transition-colors text-sm"

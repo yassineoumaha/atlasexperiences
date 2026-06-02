@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   ];
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://atlasexperiences.world";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://imourig.com";
 
 export async function generateMetadata({
   params,
@@ -29,18 +29,18 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: {
-      absolute: "Atlas Experiences — Book Local Morocco Experiences",
-      template: "%s | Atlas Experiences",
+      absolute: "Imourig — Book Local Morocco Experiences",
+      template: "%s | Imourig",
     },
     description:
       "Morocco's local experience marketplace. Book surf lessons, Sahara tours, cooking classes, hammams and more from verified local operators.",
-    keywords: ["Morocco experiences", "Morocco activities", "surf lessons Morocco", "Sahara tour", "Morocco cooking class", "Atlas Experiences"],
+    keywords: ["Morocco experiences", "Morocco activities", "surf lessons Morocco", "Sahara tour", "Morocco cooking class", "Imourig"],
     metadataBase: new URL(SITE_URL),
     openGraph: {
       type: "website",
       locale: locale,
-      siteName: "Atlas Experiences",
-      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Atlas Experiences" }],
+      siteName: "Imourig",
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Imourig" }],
     },
     twitter: { card: "summary_large_image" },
     alternates: {
@@ -82,7 +82,7 @@ export default async function LocaleLayout({
   return (
     <>
       <LocaleAttributes locale={locale} isRTL={isRTL} />
-      <SchemaScript schema={{ "@context": "https://schema.org", "@type": "WebSite", name: "Atlas Experiences", url: SITE_URL }} />
+      <SchemaScript schema={{ "@context": "https://schema.org", "@type": "WebSite", name: "Imourig", url: SITE_URL }} />
       <AnnouncementBanner announcements={announcements ?? []} />
       <Navbar dict={dict} locale={locale as Locale} />
       <main className="flex-1">{children}</main>

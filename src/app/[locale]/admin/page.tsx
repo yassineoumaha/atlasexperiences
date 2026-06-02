@@ -89,7 +89,7 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
             "Run chat_schema.sql in Supabase SQL Editor",
             "Set ADMIN_EMAILS in .env.local to your email",
             "Replace +212600000000 with your real WhatsApp number",
-            "Replace hello@atlasexperiences.world with your real email",
+            "Replace hello@imourig.com with your real email",
             "Set up Buy Me a Coffee and PayPal links in DonateButton.tsx",
             "Point your domain and update NEXT_PUBLIC_SITE_URL before going live",
           ].map((item, i) => (

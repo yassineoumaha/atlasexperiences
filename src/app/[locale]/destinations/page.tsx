@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { MapPin, ArrowRight, Compass } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Morocco Destinations — Atlas Experiences",
+  title: "Morocco Destinations — Imourig",
   description: "Explore all Morocco destinations — from Marrakech medinas to Sahara dunes, Atlantic surf towns, and mountain retreats.",
 };
 

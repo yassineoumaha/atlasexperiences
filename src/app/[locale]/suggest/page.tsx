@@ -40,7 +40,7 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
       <div className="text-center max-w-md">
         <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
         <h2 className="text-2xl font-black text-stone-900 mb-2">Thank you!</h2>
-        <p className="text-stone-500 mb-6">We read every suggestion and use them to improve Atlas Experiences. The best ideas get replied to directly.</p>
+        <p className="text-stone-500 mb-6">We read every suggestion and use them to improve Imourig. The best ideas get replied to directly.</p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link href={`/${locale}/experiences`}
             className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
@@ -64,7 +64,7 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
           </div>
           <h1 className="text-2xl font-black text-stone-900 mb-2">Share a Suggestion</h1>
           <p className="text-stone-500 text-sm max-w-sm mx-auto">
-            Traveler or operator — tell us what you&apos;d like to see on Atlas Experiences.
+            Traveler or operator — tell us what you&apos;d like to see on Imourig.
             We read everything.
           </p>
         </div>

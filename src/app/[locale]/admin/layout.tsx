@@ -34,7 +34,7 @@ export default async function AdminLayout({
       <aside className="w-52 bg-stone-900 text-white fixed inset-y-0 left-0 flex flex-col z-40">
         <div className="p-5 border-b border-stone-800">
           <Link href={`/${locale}`} className="flex items-center">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-8 w-auto" />
+            <img src="/logo.png" alt="Imourig" className="h-8 w-auto" />
           </Link>
           <div className="text-stone-500 text-xs mt-0.5">Admin</div>
         </div>

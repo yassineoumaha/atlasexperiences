@@ -68,7 +68,7 @@ export default function ResetPasswordPage({ params }: { params: Promise<{ locale
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href={`/${locale}`} className="inline-flex items-center mb-6">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-20 w-auto [mix-blend-mode:multiply]" />
+            <img src="/logo.png" alt="Imourig" className="h-20 w-auto [mix-blend-mode:multiply]" />
           </Link>
           <h1 className="text-2xl font-black text-stone-900">Set a new password</h1>
         </div>

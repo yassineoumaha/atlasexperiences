@@ -1,6 +1,6 @@
-# Atlas Experiences
+# Imourig
 
-A Morocco local-experiences marketplace (atlasexperiences.world). Travelers browse and request authentic
+A Morocco local-experiences marketplace (imourig.com). Travelers browse and request authentic
 experiences (surf, cooking, desert, trekking, tours…) directly from verified
 local operators — no middleman markup. Operators self-manage their listings;
 admins moderate. The platform also carries a travel guide layer: destinations,

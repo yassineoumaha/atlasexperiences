@@ -35,7 +35,7 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href={`/${locale}`} className="inline-flex items-center mb-6">
-            <img src="/logo.png" alt="Atlas Experiences" className="h-20 w-auto [mix-blend-mode:multiply]" />
+            <img src="/logo.png" alt="Imourig" className="h-20 w-auto [mix-blend-mode:multiply]" />
           </Link>
           <h1 className="text-2xl font-black text-stone-900">Welcome back</h1>
           <p className="text-stone-500 mt-1">Sign in to access your saved trips</p>

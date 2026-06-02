@@ -32,13 +32,13 @@
     "noResultsSub": "Soyez le premier opérateur local à lister dans cette catégorie.",
     "listCta": "Listez votre expérience — gratuitement",
     "operatorCta": "Êtes-vous un guide ou instructeur local ?",
-    "operatorCtaSub": "Listez vos expériences sur Atlas Experiences. Nous prélevons 10% de commission — moitié moins que les autres plateformes. Gratuit pour lister, zéro frais mensuel.",
+    "operatorCtaSub": "Listez vos expériences sur Imourig. Nous prélevons 10% de commission — moitié moins que les autres plateformes. Gratuit pour lister, zéro frais mensuel.",
     "listBtn": "Listez votre expérience →"
   },
   "operators": {
     "registerTitle": "Listez votre expérience au Maroc",
     "registerBadge": "Inscription gratuite · Seulement 10% de commission sur les réservations",
-    "registerSub": "Coachs de surf, guides du désert, professeurs de cuisine, opérateurs de hammam — rejoignez Atlas Experiences et atteignez des milliers de voyageurs internationaux.",
+    "registerSub": "Coachs de surf, guides du désert, professeurs de cuisine, opérateurs de hammam — rejoignez Imourig et atteignez des milliers de voyageurs internationaux.",
     "benefit1Title": "10% de commission seulement",
     "benefit1Desc": "Les autres plateformes prennent 20-30%. Vous gardez 90% de chaque réservation.",
     "benefit2Title": "Trafic SEO optimisé",
@@ -92,7 +92,7 @@
     "freeListing": "Gratuit pour lister",
     "suggest": "Partager une suggestion",
     "builtWith": "Construit avec honnêteté.",
-    "copyright": "Atlas Experiences. Tous droits réservés."
+    "copyright": "Imourig. Tous droits réservés."
   },
   "common": {
     "loading": "Chargement...",
@@ -134,7 +134,7 @@
       },
       {
         "q": "Comment fonctionne la commission de 10% ?",
-        "a": "Atlas Experiences prélève 10% de la valeur de la réservation confirmée, facturée mensuellement. Les voyageurs paient directement les opérateurs — Atlas Experiences ne gère pas les paiements."
+        "a": "Imourig prélève 10% de la valeur de la réservation confirmée, facturée mensuellement. Les voyageurs paient directement les opérateurs — Imourig ne gère pas les paiements."
       }
     ]
   }

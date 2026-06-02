@@ -32,13 +32,13 @@
     "noResultsSub": "Sé el primer operador local en listar en esta categoría.",
     "listCta": "Lista tu experiencia — gratis",
     "operatorCta": "¿Eres un guía o instructor local?",
-    "operatorCtaSub": "Lista tus experiencias en Atlas Experiences. Cobramos 10% de comisión — la mitad que otras plataformas. Gratis para listar, sin cuotas mensuales.",
+    "operatorCtaSub": "Lista tus experiencias en Imourig. Cobramos 10% de comisión — la mitad que otras plataformas. Gratis para listar, sin cuotas mensuales.",
     "listBtn": "Lista tu experiencia →"
   },
   "operators": {
     "registerTitle": "Lista tu experiencia en Marruecos",
     "registerBadge": "Registro gratuito · Solo 10% de comisión en reservas",
-    "registerSub": "Entrenadores de surf, guías del desierto, profesores de cocina, operadores de hammam — únete a Atlas Experiences y llega a miles de viajeros internacionales.",
+    "registerSub": "Entrenadores de surf, guías del desierto, profesores de cocina, operadores de hammam — únete a Imourig y llega a miles de viajeros internacionales.",
     "benefit1Title": "Solo 10% de comisión",
     "benefit1Desc": "Otras plataformas cobran 20-30%. Tú te quedas con el 90% de cada reserva.",
     "benefit2Title": "Tráfico SEO optimizado",
@@ -92,7 +92,7 @@
     "freeListing": "Gratis para listar",
     "suggest": "Compartir una sugerencia",
     "builtWith": "Construido con honestidad.",
-    "copyright": "Atlas Experiences. Todos los derechos reservados."
+    "copyright": "Imourig. Todos los derechos reservados."
   },
   "common": {
     "loading": "Cargando...",
@@ -134,7 +134,7 @@
       },
       {
         "q": "¿Cómo funciona la comisión del 10%?",
-        "a": "Atlas Experiences cobra el 10% del valor de la reserva confirmada, facturado mensualmente. Los viajeros pagan directamente a los operadores — Atlas Experiences no gestiona pagos."
+        "a": "Imourig cobra el 10% del valor de la reserva confirmada, facturado mensualmente. Los viajeros pagan directamente a los operadores — Imourig no gestiona pagos."
       }
     ]
   }
