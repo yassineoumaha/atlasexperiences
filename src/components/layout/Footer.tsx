@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Share2, AtSign, Play, Send } from "lucide-react";
 import type { Dictionary, Locale } from "@/lib/dictionaries";
 import DonateButton from "@/components/DonateButton";
-import { ZellijStar, ZellijDivider } from "@/components/zellij/Zellij";
+import { ZellijDivider } from "@/components/zellij/Zellij";
 
 const SOCIALS = [
   { href: "https://instagram.com", icon: AtSign,  label: "Instagram" },
@@ -22,10 +23,13 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
 
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <span className="flex items-center gap-2 mb-4">
-              <ZellijStar size={32} className="text-amber-400" />
-              <span className="font-heading font-black text-2xl text-white">Imourig</span>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Imourig"
+              width={1066}
+              height={320}
+              className="h-11 w-auto mb-4"
+            />
             <p className="text-stone-500 text-sm leading-relaxed mb-6 max-w-xs">
               {dict.footer.tagline}
             </p>

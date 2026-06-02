@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Globe, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Dictionary, Locale } from "@/lib/dictionaries";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { ZellijStar } from "@/components/zellij/Zellij";
 
 const LOCALES: Record<string, { label: string; flag: string }> = {
   en: { label: "English", flag: "🇬🇧" },
@@ -65,20 +65,19 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-[4.5rem]">
 
-            {/* Logo / wordmark */}
-            <Link href={`/${locale}`} className="flex items-center gap-2 flex-shrink-0">
-              <ZellijStar
-                size={28}
-                className={overHero ? "text-amber-400" : "text-primary"}
-              />
-              <span
+            {/* Logo */}
+            <Link href={`/${locale}`} className="flex items-center flex-shrink-0" aria-label="Imourig — home">
+              <Image
+                src="/logo.png"
+                alt="Imourig"
+                width={1066}
+                height={320}
+                priority
                 className={cn(
-                  "font-heading font-black text-xl tracking-tight transition-colors",
-                  overHero ? "text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]" : "text-foreground"
+                  "h-9 lg:h-10 w-auto transition-[filter]",
+                  overHero && "drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
                 )}
-              >
-                Imourig
-              </span>
+              />
             </Link>
 
             {/* Desktop nav links */}
@@ -197,9 +196,8 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
           )}
         >
           <div className="flex items-center justify-between px-5 h-16 border-b border-border">
-            <span className="flex items-center gap-2 font-heading font-black text-lg text-foreground">
-              <ZellijStar size={24} className="text-primary" /> Imourig
-            </span>
+            <Image src="/logo.png" alt="Imourig" width={1066} height={320} className="h-8 w-auto" />
+
             <button
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
