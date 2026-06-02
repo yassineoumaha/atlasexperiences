@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { CATEGORIES, CATEGORY_LIST } from "@/lib/experiences-data";
 import { Star, Clock, MapPin, ArrowRight } from "lucide-react";
 import type { Locale, Dictionary } from "@/lib/dictionaries";
+import { ZellijDivider } from "@/components/zellij/Zellij";
 
 interface Props { locale: Locale; dict: Dictionary; }
 
@@ -40,24 +41,24 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
   return (
     <>
       {/* ══ DISCOVER SECTION (bedimcode discover pattern) ══════════════════ */}
-      <section className="py-20 bg-stone-50 overflow-hidden">
+      <section className="py-16 sm:py-20 bg-muted/40 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
             <div>
-              <span className="block text-amber-600 font-semibold text-sm mb-2 uppercase tracking-wider">
+              <span className="block text-primary font-semibold text-sm mb-2 uppercase tracking-wider">
                 {d.badge}
               </span>
               <h2
-                className="text-3xl sm:text-4xl text-stone-900 section-title"
+                className="text-3xl sm:text-4xl text-foreground section-title"
               >
                 Discover the most<br />
-                <span className="text-amber-500">attractive places</span>
+                <span className="text-accent">attractive places</span>
               </h2>
             </div>
             <Link
               href={`/${locale}/map`}
-              className="hidden sm:flex items-center gap-1.5 text-stone-500 hover:text-amber-600 text-sm font-semibold transition-colors"
+              className="hidden sm:flex items-center gap-1.5 text-muted-foreground hover:text-primary text-sm font-semibold transition-colors"
             >
               Explore map <ArrowRight className="w-4 h-4" />
             </Link>
@@ -87,23 +88,23 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
       </section>
 
       {/* ══ EXPERIENCES SECTION (place-card + grid patterns) ══════════════ */}
-      <section className="py-20 bg-white">
+      <section className="py-16 sm:py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
             <div>
-              <span className="block text-amber-600 font-semibold text-sm mb-2 uppercase tracking-wider">
+              <span className="block text-primary font-semibold text-sm mb-2 uppercase tracking-wider">
                 ✅ {d.badge}
               </span>
-              <h2 className="text-3xl sm:text-4xl text-stone-900 section-title">
+              <h2 className="text-3xl sm:text-4xl text-foreground section-title">
                 {d.title}
               </h2>
-              <p className="text-stone-500 mt-2 max-w-xl">{d.noViator}</p>
+              <p className="text-muted-foreground mt-2 max-w-xl">{d.noViator}</p>
             </div>
             <Link
               href={`/${locale}/experiences`}
-              className="hidden sm:flex items-center gap-1.5 text-amber-600 font-semibold hover:text-amber-700 transition-colors text-sm"
+              className="hidden sm:flex items-center gap-1.5 text-primary font-semibold hover:brightness-110 transition-colors text-sm"
             >
               {c.seeAll} <ArrowRight className="w-4 h-4" />
             </Link>
@@ -115,7 +116,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
               <Link
                 key={cat.key}
                 href={`/${locale}/experiences?category=${cat.key}`}
-                className="flex items-center gap-1.5 px-4 py-2 bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-300 rounded-full text-sm font-medium text-stone-600 hover:text-amber-700 transition-all whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 bg-card hover:bg-accent/10 border border-border hover:border-accent rounded-full text-sm font-medium text-foreground/70 hover:text-accent-foreground min-h-[2.5rem] transition-all whitespace-nowrap"
               >
                 {cat.emoji} {cat.label}
               </Link>
@@ -130,7 +131,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                 <Link
                   key={card.key}
                   href={`/${locale}/experiences?category=${card.key}`}
-                  className="place-card h-56 sm:h-64 group"
+                  className="place-card tile-card h-56 sm:h-64 group"
                 >
                   <img src={card.img} alt={card.label} className="place-img w-full h-full object-cover" />
                   <div className="place-overlay" />
@@ -140,8 +141,8 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                       <span className="text-white/70 text-xs">Morocco</span>
                     </div>
                   </div>
-                  <div className="absolute bottom-0 right-0 w-10 h-10 bg-amber-500 group-hover:bg-amber-600 flex items-center justify-center transition-colors rounded-tl-xl">
-                    <ArrowRight className="w-4 h-4 text-white" />
+                  <div className="absolute bottom-0 right-0 w-10 h-10 bg-accent group-hover:brightness-105 flex items-center justify-center transition-colors rounded-tl-xl">
+                    <ArrowRight className="w-4 h-4 text-accent-foreground" />
                   </div>
                 </Link>
               ))}
@@ -155,7 +156,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                   <Link
                     key={exp.id}
                     href={`/${locale}/experiences/${exp.slug}`}
-                    className="place-card h-60 sm:h-72 group"
+                    className="place-card tile-card h-60 sm:h-72 group"
                   >
                     {exp.images?.[0] ? (
                       <Image
@@ -198,8 +199,8 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                     </div>
 
                     {/* Arrow button */}
-                    <div className="absolute bottom-0 right-0 w-10 h-10 bg-amber-500 group-hover:bg-amber-600 flex items-center justify-center transition-colors rounded-tl-xl">
-                      <ArrowRight className="w-4 h-4 text-white" />
+                    <div className="absolute bottom-0 right-0 w-10 h-10 bg-accent group-hover:brightness-105 flex items-center justify-center transition-colors rounded-tl-xl">
+                      <ArrowRight className="w-4 h-4 text-accent-foreground" />
                     </div>
                   </Link>
                 );
@@ -208,23 +209,23 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
           )}
 
           {/* CTA row */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 pt-8 border-t border-stone-100">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 pt-8 border-t border-border">
             <Link
               href={`/${locale}/experiences`}
-              className="flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white font-bold px-6 py-3.5 rounded-xl transition-colors"
+              className="flex items-center gap-2 bg-primary hover:brightness-110 text-primary-foreground font-bold px-6 min-h-[3rem] rounded-xl transition-colors"
             >
               Browse all experiences <ArrowRight className="w-4 h-4" />
             </Link>
 
             {/* Local operator CTA — no commission details shown here */}
-            <div className="flex items-center gap-4 bg-amber-50 border border-amber-200 rounded-2xl px-6 py-4">
+            <div className="flex items-center gap-4 bg-accent/10 border border-accent/30 rounded-2xl px-6 py-4">
               <div>
-                <p className="font-bold text-stone-900 text-sm">{d.operatorCta}</p>
-                <p className="text-stone-500 text-xs">List your experiences and reach international travelers.</p>
+                <p className="font-bold text-foreground text-sm">{d.operatorCta}</p>
+                <p className="text-muted-foreground text-xs">List your experiences and reach international travelers.</p>
               </div>
               <Link
                 href={`/${locale}/operators/register`}
-                className="shrink-0 bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors whitespace-nowrap"
+                className="shrink-0 bg-accent hover:brightness-105 text-accent-foreground font-bold px-4 py-2 rounded-xl text-sm transition-colors whitespace-nowrap min-h-[2.5rem] inline-flex items-center"
               >
                 List Free →
               </Link>

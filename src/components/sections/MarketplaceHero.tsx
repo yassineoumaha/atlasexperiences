@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Search, MapPin, Star, Shield, ChevronDown, AtSign, Share2, Play } from "lucide-react";
 import { CATEGORY_LIST, EXPERIENCE_CITIES } from "@/lib/experiences-data";
 import type { Locale, Dictionary } from "@/lib/dictionaries";
+import { ZellijStar } from "@/components/zellij/Zellij";
 
 const CITY_COUNT = EXPERIENCE_CITIES.length;
 
@@ -41,9 +42,11 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
           alt="Morocco"
           className="w-full h-full object-cover object-[83%_center]"
         />
-        {/* Multi-layer gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/70" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-amber-950/30 to-transparent" />
+        {/* Multi-layer gradient for depth, with a Majorelle tint */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.30_0.12_264)]/40 via-transparent to-[oklch(0.40_0.10_40)]/30" />
+        {/* Faint zellij texture overlay */}
+        <div className="zellij-bg absolute inset-0 opacity-[0.07] mix-blend-screen" aria-hidden="true" />
       </div>
 
       {/* ── Social sidebar (bedimcode pattern) ─────────── */}
@@ -74,7 +77,7 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 glass text-white/90 text-sm px-4 py-1.5 rounded-full mb-7 fade-in-up">
-            🇲🇦 {dict.hero.badge}
+            <ZellijStar size={16} className="text-amber-400" /> {dict.hero.badge}
           </div>
 
           {/* Headline */}
@@ -126,7 +129,7 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
 
             <button
               type="submit"
-              className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all whitespace-nowrap shadow-md hover:shadow-amber-300/40 hover:shadow-lg active:scale-95"
+              className="bg-accent hover:brightness-105 text-accent-foreground font-bold px-6 min-h-[3rem] rounded-xl flex items-center justify-center gap-2 transition-all whitespace-nowrap shadow-md active:scale-95"
             >
               <Search className="w-4 h-4" /> {dict.hero.searchBtn}
             </button>

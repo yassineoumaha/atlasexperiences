@@ -6,6 +6,7 @@ import NewsletterSection from "@/components/sections/NewsletterSection";
 import TestimonialsStrip from "@/components/sections/TestimonialsStrip";
 import StatsSection from "@/components/sections/StatsSection";
 import { getDictionary } from "@/lib/dictionaries";
+import { ZellijDivider } from "@/components/zellij/Zellij";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -16,7 +17,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <MarketplaceHero locale={locale as Locale} dict={dict} />
       <StatsSection />
+      <ZellijDivider />
       <ExperiencesSection locale={locale as Locale} dict={dict} />
+      <ZellijDivider />
       <TestimonialsStrip
         title={dict.testimonials.title}
         subtitle={dict.testimonials.subtitle}

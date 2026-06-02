@@ -52,20 +52,20 @@ export default async function StatsSection() {
   const hasData = true;
 
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-16 sm:py-20 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* Left: why us + stats */}
           <div>
-            <span className="block text-amber-600 font-semibold text-sm mb-3 uppercase tracking-wider">
+            <span className="block text-primary font-semibold text-sm mb-3 uppercase tracking-wider">
               Why Imourig
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-stone-900 section-title mb-4">
+            <h2 className="text-3xl sm:text-4xl font-black text-foreground section-title mb-4">
               Authentic Morocco,<br />
-              <span className="text-amber-500">direct from locals.</span>
+              <span className="text-accent">direct from locals.</span>
             </h2>
-            <p className="text-stone-500 leading-relaxed mb-10 max-w-md">
+            <p className="text-muted-foreground leading-relaxed mb-10 max-w-md">
               We connect travelers directly with vetted local operators — no inflated prices,
               no middlemen. Just genuine Morocco experiences at honest rates.
             </p>
@@ -75,9 +75,9 @@ export default async function StatsSection() {
               <div className="grid grid-cols-3 gap-6 mb-10">
                 {STATS.map(({ value, label, desc }) => (
                   <div key={label} className="text-center sm:text-left">
-                    <div className="stat-number text-stone-900 mb-1">{value}</div>
-                    <span className="block text-stone-500 text-sm leading-snug whitespace-pre-line">{label}</span>
-                    <span className="block text-stone-400 text-xs mt-0.5">{desc}</span>
+                    <div className="stat-number text-foreground mb-1">{value}</div>
+                    <span className="block text-muted-foreground text-sm leading-snug whitespace-pre-line">{label}</span>
+                    <span className="block text-muted-foreground/70 text-xs mt-0.5">{desc}</span>
                   </div>
                 ))}
               </div>
@@ -88,7 +88,7 @@ export default async function StatsSection() {
               {ADVANTAGES.map(({ icon, text }) => (
                 <div key={text} className="flex items-start gap-3">
                   <span className="text-xl shrink-0 mt-0.5">{icon}</span>
-                  <p className="text-stone-600 text-sm">{text}</p>
+                  <p className="text-foreground/80 text-sm">{text}</p>
                 </div>
               ))}
             </div>

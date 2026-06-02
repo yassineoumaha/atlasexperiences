@@ -35,22 +35,16 @@ export default function NewsletterSection({ dict }: Props) {
   };
 
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* Background — warm Sahara gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-700" />
+    <section className="relative py-20 sm:py-24 overflow-hidden">
+      {/* Background — Majorelle blue → terracotta, zellij-textured */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.42_0.18_264)] via-[oklch(0.46_0.16_300)] to-[oklch(0.54_0.15_38)]" />
 
       {/* Decorative circles */}
       <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full bg-black/10 blur-3xl pointer-events-none" />
 
-      {/* Subtle pattern */}
-      <div
-        className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
-          backgroundSize: "30px 30px",
-        }}
-      />
+      {/* Zellij texture */}
+      <div className="zellij-bg absolute inset-0 opacity-[0.08] mix-blend-screen pointer-events-none" aria-hidden="true" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -105,7 +99,7 @@ export default function NewsletterSection({ dict }: Props) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-stone-900 hover:bg-stone-800 text-white px-6 py-4 rounded-xl font-bold transition-all disabled:opacity-60 shadow-sm hover:shadow-lg active:scale-[0.98]"
+                    className="w-full bg-accent hover:brightness-105 text-accent-foreground px-6 min-h-[3.25rem] rounded-xl font-bold transition-all disabled:opacity-60 shadow-sm active:scale-[0.98]"
                   >
                     {loading ? "Subscribing…" : dict.newsletter.subscribe}
                   </button>
