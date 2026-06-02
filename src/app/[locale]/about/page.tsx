@@ -31,7 +31,7 @@ const values = [
     icon: <Star className="w-6 h-6" />,
     title: "Transparent Affiliates",
     desc: "We earn commissions when you book through our hotel links (Booking.com, Agoda). We tell you this upfront. It's how we keep this platform free.",
-    color: "bg-amber-50 text-amber-600",
+    color: "bg-accent/10 text-primary",
   },
 ];
 
@@ -52,7 +52,7 @@ const why = [
 
 export default function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   return (
-    <div className="pt-16 min-h-screen bg-white">
+    <div className="pt-16 min-h-screen bg-card">
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-20 px-4">
@@ -76,22 +76,22 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
           {stats.map((s) => (
-            <div key={s.label} className="text-center bg-stone-50 rounded-2xl p-5 border border-stone-100">
+            <div key={s.label} className="text-center bg-muted/40 rounded-2xl p-5 border border-border">
               <div className="text-3xl font-black text-amber-500 mb-1">{s.value}</div>
-              <div className="text-stone-500 text-sm">{s.label}</div>
+              <div className="text-muted-foreground text-sm">{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* Why we exist */}
         <div className="mb-16">
-          <h2 className="text-3xl font-black text-stone-900 mb-2">Why Imourig Exists</h2>
-          <p className="text-stone-500 mb-6">Five problems we set out to solve:</p>
+          <h2 className="text-3xl font-black text-foreground mb-2">Why Imourig Exists</h2>
+          <p className="text-muted-foreground mb-6">Five problems we set out to solve:</p>
           <div className="space-y-3">
             {why.map((item) => (
-              <div key={item} className="flex items-start gap-3 bg-stone-50 rounded-xl p-4 border border-stone-100">
+              <div key={item} className="flex items-start gap-3 bg-muted/40 rounded-xl p-4 border border-border">
                 <CheckCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                <p className="text-stone-700">{item}</p>
+                <p className="text-foreground/80">{item}</p>
               </div>
             ))}
           </div>
@@ -99,35 +99,35 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
 
         {/* Values */}
         <div className="mb-16">
-          <h2 className="text-3xl font-black text-stone-900 mb-2">Our Values</h2>
-          <p className="text-stone-500 mb-8">What we commit to every time we publish content</p>
+          <h2 className="text-3xl font-black text-foreground mb-2">Our Values</h2>
+          <p className="text-muted-foreground mb-8">What we commit to every time we publish content</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {values.map((v) => (
-              <div key={v.title} className="bg-white rounded-2xl border border-stone-100 shadow-sm p-6">
+              <div key={v.title} className="bg-card rounded-2xl border border-border shadow-sm p-6">
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${v.color}`}>
                   {v.icon}
                 </div>
-                <h3 className="font-black text-stone-900 text-lg mb-2">{v.title}</h3>
-                <p className="text-stone-600 text-sm leading-relaxed">{v.desc}</p>
+                <h3 className="font-black text-foreground text-lg mb-2">{v.title}</h3>
+                <p className="text-foreground/80 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* How we make money */}
-        <div className="bg-stone-50 rounded-2xl border border-stone-100 p-6 mb-16">
-          <h2 className="text-2xl font-black text-stone-900 mb-3">How We Make Money (and Why It Matters)</h2>
-          <p className="text-stone-600 mb-4 leading-relaxed">
+        <div className="bg-muted/40 rounded-2xl border border-border p-6 mb-16">
+          <h2 className="text-2xl font-black text-foreground mb-3">How We Make Money (and Why It Matters)</h2>
+          <p className="text-foreground/80 mb-4 leading-relaxed">
             Imourig earns affiliate commissions when you click our hotel or tour booking links (Booking.com, Agoda, Viator, GetYourGuide). This is standard practice for travel sites.
           </p>
-          <p className="text-stone-600 mb-4 leading-relaxed">
+          <p className="text-foreground/80 mb-4 leading-relaxed">
             We do <strong>not</strong> accept payment for reviews or sponsored placement. A hotel paying to appear in our listings would undermine the honesty that makes Imourig useful.
           </p>
-          <p className="text-stone-600 leading-relaxed">
+          <p className="text-foreground/80 leading-relaxed">
             Taxi drivers and property owners can list on Imourig for free. We do not charge drivers or small operators commissions — that model kills the diversity that makes Morocco worth visiting.
           </p>
-          <p className="text-stone-500 text-sm mt-4">
-            Full details in our <Link href="/en/affiliate-disclosure" className="text-amber-600 hover:underline">Affiliate Disclosure</Link>.
+          <p className="text-muted-foreground text-sm mt-4">
+            Full details in our <Link href="/en/affiliate-disclosure" className="text-primary hover:underline">Affiliate Disclosure</Link>.
           </p>
         </div>
 
@@ -139,11 +139,11 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
           >
             <div className="text-2xl mb-2">✉️</div>
             <div className="font-black text-lg mb-1">Get in Touch</div>
-            <div className="text-stone-400 text-sm">Partner inquiries, corrections, feedback</div>
+            <div className="text-muted-foreground text-sm">Partner inquiries, corrections, feedback</div>
           </Link>
           <Link
             href="/en/list-your-property"
-            className="bg-amber-500 hover:bg-amber-600 text-white rounded-2xl p-6 text-center transition-colors"
+            className="bg-accent hover:brightness-105 text-white rounded-2xl p-6 text-center transition-colors"
           >
             <div className="text-2xl mb-2">🏡</div>
             <div className="font-black text-lg mb-1">List Your Property or Service</div>

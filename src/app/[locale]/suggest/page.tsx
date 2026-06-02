@@ -36,18 +36,18 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
   }
 
   if (done) return (
-    <div className="pt-20 min-h-screen bg-stone-50 flex items-center justify-center px-4">
+    <div className="pt-20 min-h-screen bg-muted/40 flex items-center justify-center px-4">
       <div className="text-center max-w-md">
         <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-black text-stone-900 mb-2">Thank you!</h2>
-        <p className="text-stone-500 mb-6">We read every suggestion and use them to improve Imourig. The best ideas get replied to directly.</p>
+        <h2 className="text-2xl font-black text-foreground mb-2">Thank you!</h2>
+        <p className="text-muted-foreground mb-6">We read every suggestion and use them to improve Imourig. The best ideas get replied to directly.</p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link href={`/${locale}/experiences`}
-            className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
+            className="bg-accent hover:brightness-105 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
             Browse Experiences
           </Link>
           <button onClick={() => { setDone(false); setForm({ name: "", email: "", type: "feature", message: "" }); }}
-            className="border border-stone-200 text-stone-600 font-medium px-5 py-2.5 rounded-xl hover:bg-stone-50 transition-colors">
+            className="border border-border text-foreground/80 font-medium px-5 py-2.5 rounded-xl hover:bg-muted/40 transition-colors">
             Submit Another
           </button>
         </div>
@@ -56,34 +56,34 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
   );
 
   return (
-    <div className="pt-20 min-h-screen bg-stone-50">
+    <div className="pt-20 min-h-screen bg-muted/40">
       <div className="max-w-xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
           <div className="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Lightbulb className="w-7 h-7 text-amber-500" />
           </div>
-          <h1 className="text-2xl font-black text-stone-900 mb-2">Share a Suggestion</h1>
-          <p className="text-stone-500 text-sm max-w-sm mx-auto">
+          <h1 className="text-2xl font-black text-foreground mb-2">Share a Suggestion</h1>
+          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
             Traveler or operator — tell us what you&apos;d like to see on Imourig.
             We read everything.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white border border-stone-100 rounded-2xl p-6 shadow-sm space-y-5">
+        <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-5">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wide text-stone-500 mb-2">Type of suggestion</label>
+            <label className="block text-xs font-bold uppercase tracking-wide text-muted-foreground mb-2">Type of suggestion</label>
             <div className="space-y-2">
               {TYPES.map(t => (
                 <label key={t.value}
                   className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                    form.type === t.value ? "border-amber-400 bg-amber-50" : "border-stone-100 hover:border-stone-200"
+                    form.type === t.value ? "border-amber-400 bg-accent/10" : "border-border hover:border-border"
                   }`}>
                   <input type="radio" name="type" value={t.value} checked={form.type === t.value}
                     onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
                     className="mt-0.5 accent-amber-500" />
                   <div>
-                    <div className="font-bold text-stone-800 text-sm">{t.label}</div>
-                    <div className="text-stone-400 text-xs">{t.desc}</div>
+                    <div className="font-bold text-foreground text-sm">{t.label}</div>
+                    <div className="text-muted-foreground text-xs">{t.desc}</div>
                   </div>
                 </label>
               ))}
@@ -91,35 +91,35 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wide text-stone-500 mb-1">
+            <label className="block text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
               Your message <span className="text-red-400">*</span>
             </label>
             <textarea
               required value={form.message} minLength={15}
               onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
               rows={4} placeholder="Describe your idea in as much detail as you like..."
-              className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 resize-none"
+              className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 resize-none"
             />
             <p className="text-right text-xs text-stone-300 mt-0.5">{form.message.length} / 15 min</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1">Your name</label>
+              <label className="block text-xs font-medium text-muted-foreground mb-1">Your name</label>
               <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                 placeholder="Optional"
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400" />
+                className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1">Email for reply</label>
+              <label className="block text-xs font-medium text-muted-foreground mb-1">Email for reply</label>
               <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                 placeholder="Optional"
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400" />
+                className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400" />
             </div>
           </div>
 
           <button type="submit" disabled={loading || form.message.length < 15}
-            className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-40 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+            className="w-full bg-accent hover:brightness-105 disabled:opacity-40 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
             {loading ? "Sending..." : "Send Suggestion"}
           </button>

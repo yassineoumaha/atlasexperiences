@@ -43,7 +43,7 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
   const rest = destinations.filter((d: any) => !d.featured);
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
+    <div className="pt-20 min-h-screen bg-card">
       {/* Header */}
       <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-16 px-4 text-center">
         <span className="inline-flex items-center gap-2 text-amber-400 text-sm font-semibold uppercase tracking-wider mb-4">
@@ -61,11 +61,11 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
         {destinations.length === 0 ? (
           <div className="text-center py-20">
             <MapPin className="w-12 h-12 text-stone-200 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-stone-400 mb-2">Destinations coming soon</h2>
-            <p className="text-stone-400 text-sm mb-6">We&apos;re building our destination guides. Check back soon.</p>
+            <h2 className="text-xl font-bold text-muted-foreground mb-2">Destinations coming soon</h2>
+            <p className="text-muted-foreground text-sm mb-6">We&apos;re building our destination guides. Check back soon.</p>
             <Link
               href={`/${locale}/map`}
-              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+              className="inline-flex items-center gap-2 bg-accent hover:brightness-105 text-white font-bold px-6 py-3 rounded-xl transition-colors"
             >
               Explore the Map <ArrowRight className="w-4 h-4" />
             </Link>
@@ -75,8 +75,8 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
             {/* Featured */}
             {featured.length > 0 && (
               <div className="mb-12">
-                <h2 className="text-xl font-black text-stone-900 mb-6 flex items-center gap-2">
-                  <span className="w-2 h-6 bg-amber-500 rounded-full inline-block" />
+                <h2 className="text-xl font-black text-foreground mb-6 flex items-center gap-2">
+                  <span className="w-2 h-6 bg-accent rounded-full inline-block" />
                   Featured Destinations
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -90,7 +90,7 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
             {/* All destinations */}
             {rest.length > 0 && (
               <div>
-                <h2 className="text-xl font-black text-stone-900 mb-6 flex items-center gap-2">
+                <h2 className="text-xl font-black text-foreground mb-6 flex items-center gap-2">
                   <span className="w-2 h-6 bg-stone-300 rounded-full inline-block" />
                   All Destinations
                 </h2>
@@ -110,7 +110,7 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
               </div>
               <Link
                 href={`/${locale}/map`}
-                className="shrink-0 inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+                className="shrink-0 inline-flex items-center gap-2 bg-accent hover:brightness-105 text-white font-bold px-6 py-3 rounded-xl transition-colors"
               >
                 Open Map <ArrowRight className="w-4 h-4" />
               </Link>
@@ -128,7 +128,7 @@ function DestCard({ dest, locale, small = false }: { dest: any; locale: string; 
   return (
     <Link
       href={`/${locale}/destinations/${dest.slug}`}
-      className="group rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
+      className="group rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
     >
       {dest.hero_image ? (
         <div className={`overflow-hidden ${small ? "h-40" : "h-52"}`}>
@@ -145,21 +145,21 @@ function DestCard({ dest, locale, small = false }: { dest: any; locale: string; 
       )}
       <div className="p-5">
         <div className="flex items-center justify-between mb-2">
-          <h3 className={`font-black text-stone-900 group-hover:text-amber-600 transition-colors ${small ? "text-base" : "text-lg"}`}>
+          <h3 className={`font-black text-foreground group-hover:text-primary transition-colors ${small ? "text-base" : "text-lg"}`}>
             {dest.name}
           </h3>
           <span className="text-lg">{weather.emoji}</span>
         </div>
-        <p className="text-stone-400 text-xs leading-relaxed line-clamp-2 mb-3">{dest.description}</p>
+        <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">{dest.description}</p>
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-1">
             {(dest.filters ?? []).slice(0, 2).map((f: string) => (
-              <span key={f} className="text-[10px] bg-stone-50 border border-stone-200 text-stone-500 px-2 py-0.5 rounded-full">
+              <span key={f} className="text-[10px] bg-muted/40 border border-border text-muted-foreground px-2 py-0.5 rounded-full">
                 {f}
               </span>
             ))}
           </div>
-          <span className="text-xs text-stone-400 flex items-center gap-1">
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
             {dest.avg_stay}d avg <ArrowRight className="w-3 h-3 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </div>

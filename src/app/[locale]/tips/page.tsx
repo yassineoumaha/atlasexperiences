@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 const TIPS = [
   {
     icon: <MapPin className="w-6 h-6" />,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-primary",
+    bg: "bg-accent/10",
     border: "border-amber-100",
     category: "Medinas & Souks",
     items: [
@@ -163,11 +163,11 @@ export default async function TipsPage({ params }: { params: Promise<{ locale: s
   const dict = await getDictionary(locale as Locale);
 
   return (
-    <div className="pt-16 min-h-screen bg-white">
+    <div className="pt-16 min-h-screen bg-card">
       {/* Hero */}
       <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/90 text-sm px-4 py-1.5 rounded-full mb-5">
+          <div className="inline-flex items-center gap-2 bg-card/10 border border-white/20 text-white/90 text-sm px-4 py-1.5 rounded-full mb-5">
             <Shield className="w-4 h-4 text-emerald-400" /> Updated for 2026
           </div>
           <h1 className="text-4xl sm:text-5xl font-black mb-4">
@@ -181,8 +181,8 @@ export default async function TipsPage({ params }: { params: Promise<{ locale: s
 
       {/* Intro */}
       <div className="max-w-4xl mx-auto px-4 py-10">
-        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-6 mb-10 flex gap-4">
-          <Info className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
+        <div className="bg-accent/10 border border-amber-100 rounded-2xl p-6 mb-10 flex gap-4">
+          <Info className="w-6 h-6 text-primary shrink-0 mt-0.5" />
           <div>
             <p className="font-bold text-amber-900 mb-1">Morocco is safe — and amazing</p>
             <p className="text-amber-800 text-sm leading-relaxed">
@@ -202,21 +202,21 @@ export default async function TipsPage({ params }: { params: Promise<{ locale: s
                 <div className={`w-10 h-10 rounded-xl ${section.bg} ${section.color} flex items-center justify-center`}>
                   {section.icon}
                 </div>
-                <h2 className="text-2xl font-black text-stone-900">{section.category}</h2>
+                <h2 className="text-2xl font-black text-foreground">{section.category}</h2>
               </div>
               <div className="space-y-4">
                 {section.items.map((item) => {
                   const badge = TYPE_BADGE[item.type] ?? TYPE_BADGE.info;
                   return (
                     <div key={item.title}
-                      className={`bg-white border ${section.border} rounded-2xl p-5 shadow-sm`}>
+                      className={`bg-card border ${section.border} rounded-2xl p-5 shadow-sm`}>
                       <div className="flex items-start justify-between gap-3 flex-wrap mb-2">
-                        <h3 className="font-black text-stone-900 text-base">{item.title}</h3>
+                        <h3 className="font-black text-foreground text-base">{item.title}</h3>
                         <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold whitespace-nowrap ${badge.style}`}>
                           {badge.label}
                         </span>
                       </div>
-                      <p className="text-stone-600 text-sm leading-relaxed">{item.desc}</p>
+                      <p className="text-foreground/80 text-sm leading-relaxed">{item.desc}</p>
                     </div>
                   );
                 })}
@@ -255,9 +255,9 @@ export default async function TipsPage({ params }: { params: Promise<{ locale: s
 
         {/* CTA */}
         <div className="mt-10 text-center">
-          <p className="text-stone-500 mb-4">Ready to book a trusted local experience?</p>
+          <p className="text-muted-foreground mb-4">Ready to book a trusted local experience?</p>
           <Link href={`/${locale}/experiences`}
-            className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3 rounded-xl transition-colors">
+            className="inline-flex items-center gap-2 bg-accent hover:brightness-105 text-white font-bold px-8 py-3 rounded-xl transition-colors">
             <Star className="w-4 h-4" /> Browse Verified Experiences
           </Link>
         </div>

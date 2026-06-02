@@ -43,12 +43,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     : null;
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
+    <div className="pt-20 min-h-screen bg-card">
       {/* Back nav */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-2">
         <Link
           href={`/${locale}/blog`}
-          className="inline-flex items-center gap-1.5 text-stone-400 hover:text-amber-600 text-sm font-medium transition-colors"
+          className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary text-sm font-medium transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
@@ -66,17 +66,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
         {/* Category */}
         {post.category && (
-          <span className="inline-flex text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full mb-4">
+          <span className="inline-flex text-xs font-semibold text-amber-700 bg-accent/10 border border-accent/30 px-2.5 py-0.5 rounded-full mb-4">
             {post.category}
           </span>
         )}
 
-        <h1 className="text-3xl sm:text-4xl font-black text-stone-900 leading-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl font-black text-foreground leading-tight mb-4">
           {post.title}
         </h1>
 
         {/* Meta */}
-        <div className="flex flex-wrap items-center gap-4 text-stone-400 text-sm mb-8 pb-8 border-b border-stone-100">
+        <div className="flex flex-wrap items-center gap-4 text-muted-foreground text-sm mb-8 pb-8 border-b border-border">
           {post.author && (
             <span className="flex items-center gap-1.5">
               <User className="w-4 h-4" /> {post.author}
@@ -101,14 +101,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         ) : (
-          <p className="text-stone-500 italic">Full article coming soon.</p>
+          <p className="text-muted-foreground italic">Full article coming soon.</p>
         )}
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-stone-100">
+        <div className="mt-12 pt-8 border-t border-border">
           <Link
             href={`/${locale}/blog`}
-            className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold transition-colors"
+            className="inline-flex items-center gap-2 text-primary hover:text-amber-700 font-semibold transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> More articles
           </Link>

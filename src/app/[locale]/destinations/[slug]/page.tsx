@@ -92,7 +92,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
   const weather = WEATHER_LABELS[dest.weather] ?? { label: dest.weather, emoji: "🌍" };
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
+    <div className="pt-20 min-h-screen bg-card">
       {/* Hero */}
       <div className="relative h-72 sm:h-96 overflow-hidden">
         {dest.hero_image ? (
@@ -124,12 +124,12 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
           <div className="lg:col-span-2 space-y-10">
             {/* About */}
             <section>
-              <h2 className="text-2xl font-black text-stone-900 mb-3">About {dest.name}</h2>
-              <p className="text-stone-600 leading-relaxed">{dest.description}</p>
+              <h2 className="text-2xl font-black text-foreground mb-3">About {dest.name}</h2>
+              <p className="text-foreground/80 leading-relaxed">{dest.description}</p>
               {(dest.filters ?? []).length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-4">
                   {dest.filters.map((f: string) => (
-                    <span key={f} className="bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium px-3 py-1 rounded-full">
+                    <span key={f} className="bg-accent/10 border border-accent/30 text-amber-700 text-xs font-medium px-3 py-1 rounded-full">
                       {f}
                     </span>
                   ))}
@@ -141,10 +141,10 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
             {experiences.length > 0 && (
               <section>
                 <div className="flex items-center justify-between mb-5">
-                  <h2 className="text-2xl font-black text-stone-900">Experiences in {dest.name}</h2>
+                  <h2 className="text-2xl font-black text-foreground">Experiences in {dest.name}</h2>
                   <Link
                     href={`/${locale}/experiences?city=${encodeURIComponent(dest.name)}`}
-                    className="text-amber-600 hover:text-amber-700 text-sm font-semibold flex items-center gap-1 transition-colors"
+                    className="text-primary hover:text-amber-700 text-sm font-semibold flex items-center gap-1 transition-colors"
                   >
                     See all <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -154,27 +154,27 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
                     <Link
                       key={exp.id}
                       href={`/${locale}/experiences/${exp.slug}`}
-                      className="group flex gap-4 p-4 rounded-xl border border-stone-100 hover:border-amber-200 hover:bg-amber-50/30 transition-all"
+                      className="group flex gap-4 p-4 rounded-xl border border-border hover:border-accent/30 hover:bg-accent/10/30 transition-all"
                     >
                       {exp.images?.[0] ? (
                         <div className="w-20 h-16 rounded-lg overflow-hidden shrink-0">
                           <img src={exp.images[0]} alt={exp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                         </div>
                       ) : (
-                        <div className="w-20 h-16 rounded-lg bg-stone-100 flex items-center justify-center shrink-0 text-2xl">🗺️</div>
+                        <div className="w-20 h-16 rounded-lg bg-muted flex items-center justify-center shrink-0 text-2xl">🗺️</div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-stone-900 text-sm group-hover:text-amber-700 transition-colors leading-snug line-clamp-2 mb-1">
+                        <h3 className="font-bold text-foreground text-sm group-hover:text-amber-700 transition-colors leading-snug line-clamp-2 mb-1">
                           {exp.title}
                         </h3>
-                        <div className="flex items-center gap-3 text-stone-400 text-xs">
+                        <div className="flex items-center gap-3 text-muted-foreground text-xs">
                           {exp.avg_rating && (
                             <span className="flex items-center gap-0.5">
                               <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> {exp.avg_rating}
                             </span>
                           )}
                           <span>{exp.duration_hours}h</span>
-                          <span className="font-semibold text-stone-700">${exp.price_per_person}</span>
+                          <span className="font-semibold text-foreground/80">${exp.price_per_person}</span>
                         </div>
                       </div>
                     </Link>
@@ -186,38 +186,38 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
             {/* Properties */}
             {properties.length > 0 && (
               <section>
-                <h2 className="text-2xl font-black text-stone-900 mb-5">Where to Stay</h2>
+                <h2 className="text-2xl font-black text-foreground mb-5">Where to Stay</h2>
                 <div className="space-y-4">
                   {properties.map((prop: any) => (
-                    <div key={prop.id} className="flex gap-4 p-4 rounded-xl border border-stone-100">
+                    <div key={prop.id} className="flex gap-4 p-4 rounded-xl border border-border">
                       {prop.image ? (
                         <div className="w-24 h-20 rounded-lg overflow-hidden shrink-0">
                           <img src={prop.image} alt={prop.name} className="w-full h-full object-cover" />
                         </div>
                       ) : (
-                        <div className="w-24 h-20 rounded-lg bg-stone-100 flex items-center justify-center shrink-0 text-2xl">🏨</div>
+                        <div className="w-24 h-20 rounded-lg bg-muted flex items-center justify-center shrink-0 text-2xl">🏨</div>
                       )}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <h3 className="font-bold text-stone-900 text-sm leading-snug">{prop.name}</h3>
-                            <span className="text-xs text-stone-400">{PROPERTY_TYPE_LABELS[prop.type] ?? prop.type}</span>
+                            <h3 className="font-bold text-foreground text-sm leading-snug">{prop.name}</h3>
+                            <span className="text-xs text-muted-foreground">{PROPERTY_TYPE_LABELS[prop.type] ?? prop.type}</span>
                           </div>
                           <div className="text-right shrink-0">
-                            <div className="text-amber-600 font-black text-sm">{prop.price_from} {prop.currency}</div>
-                            <div className="text-stone-400 text-xs">/ night</div>
+                            <div className="text-primary font-black text-sm">{prop.price_from} {prop.currency}</div>
+                            <div className="text-muted-foreground text-xs">/ night</div>
                           </div>
                         </div>
                         <div className="flex items-center gap-1 mt-1">
                           <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                          <span className="text-xs font-bold text-stone-700">{prop.rating}</span>
-                          {prop.review_count > 0 && <span className="text-xs text-stone-400">({prop.review_count} reviews)</span>}
+                          <span className="text-xs font-bold text-foreground/80">{prop.rating}</span>
+                          {prop.review_count > 0 && <span className="text-xs text-muted-foreground">({prop.review_count} reviews)</span>}
                         </div>
                         <a
                           href={prop.booking_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 mt-2 text-xs text-amber-600 hover:text-amber-700 font-semibold transition-colors"
+                          className="inline-flex items-center gap-1 mt-2 text-xs text-primary hover:text-amber-700 font-semibold transition-colors"
                         >
                           View on booking site <ArrowRight className="w-3 h-3" />
                         </a>
@@ -232,25 +232,25 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
           {/* Sidebar */}
           <div className="space-y-5">
             {/* Quick facts */}
-            <div className="bg-stone-50 rounded-2xl p-6">
-              <h3 className="font-black text-stone-900 text-sm uppercase tracking-wider mb-4">Quick Facts</h3>
+            <div className="bg-muted/40 rounded-2xl p-6">
+              <h3 className="font-black text-foreground text-sm uppercase tracking-wider mb-4">Quick Facts</h3>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-stone-500">Region</span>
-                  <span className="font-medium text-stone-800">{dest.region}</span>
+                  <span className="text-muted-foreground">Region</span>
+                  <span className="font-medium text-foreground">{dest.region}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-500">Climate</span>
-                  <span className="font-medium text-stone-800">{weather.emoji} {weather.label}</span>
+                  <span className="text-muted-foreground">Climate</span>
+                  <span className="font-medium text-foreground">{weather.emoji} {weather.label}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-500">Avg stay</span>
-                  <span className="font-medium text-stone-800">{dest.avg_stay} days</span>
+                  <span className="text-muted-foreground">Avg stay</span>
+                  <span className="font-medium text-foreground">{dest.avg_stay} days</span>
                 </div>
                 {experiences.length > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-stone-500">Experiences</span>
-                    <span className="font-medium text-stone-800">{experiences.length} listed</span>
+                    <span className="text-muted-foreground">Experiences</span>
+                    <span className="font-medium text-foreground">{experiences.length} listed</span>
                   </div>
                 )}
               </div>
@@ -259,7 +259,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ lo
             {/* Explore CTA */}
             <Link
               href={`/${locale}/experiences?city=${encodeURIComponent(dest.name)}`}
-              className="flex items-center justify-between gap-3 bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-4 rounded-2xl transition-colors group"
+              className="flex items-center justify-between gap-3 bg-accent hover:brightness-105 text-white font-bold px-5 py-4 rounded-2xl transition-colors group"
             >
               <span>Find experiences here</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

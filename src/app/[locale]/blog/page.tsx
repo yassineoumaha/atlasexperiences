@@ -27,7 +27,7 @@ async function getBlogPosts() {
 
 const CATEGORY_COLORS: Record<string, string> = {
   itinerary: "bg-blue-50 text-blue-700 border-blue-200",
-  safety: "bg-amber-50 text-amber-700 border-amber-200",
+  safety: "bg-accent/10 text-amber-700 border-accent/30",
   food: "bg-orange-50 text-orange-700 border-orange-200",
   culture: "bg-purple-50 text-purple-700 border-purple-200",
   budget: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -41,7 +41,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const posts = await getBlogPosts();
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
+    <div className="pt-20 min-h-screen bg-card">
       {/* Header */}
       <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-16 px-4 text-center">
         <span className="inline-flex items-center gap-2 text-amber-400 text-sm font-semibold uppercase tracking-wider mb-4">
@@ -57,11 +57,11 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
         {posts.length === 0 ? (
           <div className="text-center py-20">
             <BookOpen className="w-12 h-12 text-stone-200 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-stone-400 mb-2">No articles yet</h2>
-            <p className="text-stone-400 text-sm mb-6">Be the first to contribute — share your Morocco travel knowledge.</p>
+            <h2 className="text-xl font-bold text-muted-foreground mb-2">No articles yet</h2>
+            <p className="text-muted-foreground text-sm mb-6">Be the first to contribute — share your Morocco travel knowledge.</p>
             <Link
               href={`/${locale}/portal/submit-blog`}
-              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+              className="inline-flex items-center gap-2 bg-accent hover:brightness-105 text-white font-bold px-6 py-3 rounded-xl transition-colors"
             >
               Write an Article <ArrowRight className="w-4 h-4" />
             </Link>
@@ -72,7 +72,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             {posts[0] && (
               <Link
                 href={`/${locale}/blog/${posts[0].slug}`}
-                className="group block mb-12 rounded-3xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-md transition-shadow"
+                className="group block mb-12 rounded-3xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex flex-col md:flex-row">
                   {posts[0].image ? (
@@ -89,16 +89,16 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                     </div>
                   )}
                   <div className="flex-1 p-8 flex flex-col justify-center">
-                    <span className="inline-flex items-center gap-1 text-amber-600 font-semibold text-xs uppercase tracking-wider mb-3">
+                    <span className="inline-flex items-center gap-1 text-primary font-semibold text-xs uppercase tracking-wider mb-3">
                       Featured
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-black text-stone-900 group-hover:text-amber-600 transition-colors mb-3 leading-tight">
+                    <h2 className="text-2xl sm:text-3xl font-black text-foreground group-hover:text-primary transition-colors mb-3 leading-tight">
                       {posts[0].title}
                     </h2>
                     {posts[0].excerpt && (
-                      <p className="text-stone-500 text-sm leading-relaxed mb-4 line-clamp-3">{posts[0].excerpt}</p>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">{posts[0].excerpt}</p>
                     )}
-                    <div className="flex items-center gap-4 text-stone-400 text-xs">
+                    <div className="flex items-center gap-4 text-muted-foreground text-xs">
                       {posts[0].author && <span>{posts[0].author}</span>}
                       {posts[0].read_time && (
                         <span className="flex items-center gap-1">
@@ -117,7 +117,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                 <Link
                   key={post.id}
                   href={`/${locale}/blog/${post.slug}`}
-                  className="group rounded-2xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
+                  className="group rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
                 >
                   {post.image ? (
                     <div className="h-44 overflow-hidden">
@@ -134,17 +134,17 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                   )}
                   <div className="p-5">
                     {post.category && (
-                      <span className={`inline-flex text-xs font-semibold px-2.5 py-0.5 rounded-full border mb-3 ${CATEGORY_COLORS[post.category] ?? "bg-stone-50 text-stone-600 border-stone-200"}`}>
+                      <span className={`inline-flex text-xs font-semibold px-2.5 py-0.5 rounded-full border mb-3 ${CATEGORY_COLORS[post.category] ?? "bg-muted/40 text-foreground/80 border-border"}`}>
                         {post.category}
                       </span>
                     )}
-                    <h3 className="font-bold text-stone-900 text-sm group-hover:text-amber-600 transition-colors leading-snug mb-2 line-clamp-2">
+                    <h3 className="font-bold text-foreground text-sm group-hover:text-primary transition-colors leading-snug mb-2 line-clamp-2">
                       {post.title}
                     </h3>
                     {post.excerpt && (
-                      <p className="text-stone-400 text-xs leading-relaxed line-clamp-2 mb-3">{post.excerpt}</p>
+                      <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 mb-3">{post.excerpt}</p>
                     )}
-                    <div className="flex items-center gap-3 text-stone-400 text-xs">
+                    <div className="flex items-center gap-3 text-muted-foreground text-xs">
                       {post.author && <span>{post.author}</span>}
                       {post.read_time && (
                         <span className="flex items-center gap-1">
@@ -158,14 +158,14 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             </div>
 
             {/* Write CTA */}
-            <div className="mt-12 bg-amber-50 border border-amber-200 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="mt-12 bg-accent/10 border border-accent/30 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <h3 className="font-black text-stone-900 text-lg mb-1">Know Morocco well?</h3>
-                <p className="text-stone-500 text-sm">Share your experience — write a guide or trip report.</p>
+                <h3 className="font-black text-foreground text-lg mb-1">Know Morocco well?</h3>
+                <p className="text-muted-foreground text-sm">Share your experience — write a guide or trip report.</p>
               </div>
               <Link
                 href={`/${locale}/portal/submit-blog`}
-                className="shrink-0 inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+                className="shrink-0 inline-flex items-center gap-2 bg-accent hover:brightness-105 text-white font-bold px-6 py-3 rounded-xl transition-colors"
               >
                 Write an Article <ArrowRight className="w-4 h-4" />
               </Link>
