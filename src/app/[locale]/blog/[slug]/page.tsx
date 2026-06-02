@@ -1,28 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { hasLocale, type Locale } from "@/lib/dictionaries";
-import { createClient } from "@/lib/supabase/server";
+import { hasLocale } from "@/lib/dictionaries";
+import { getBlogPost } from "@/lib/db";
 import { ArrowLeft, Clock, Calendar, User } from "lucide-react";
-
-async function getPost(slug: string) {
-  try {
-    const supabase = await createClient();
-    const { data } = await (supabase as unknown as any)
-      .from("blog_posts")
-      .select("id, title, slug, excerpt, content, image, category, read_time, published_at, author")
-      .eq("slug", slug)
-      .eq("published", true)
-      .single();
-    return data as any ?? null;
-  } catch {
-    return null;
-  }
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getBlogPost(slug);
   if (!post) return { title: "Article not found — Imourig" };
   return {
     title: `${post.title} — Imourig Blog`,
@@ -35,7 +20,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const { locale, slug } = await params;
   if (!hasLocale(locale)) notFound();
 
-  const post = await getPost(slug);
+  const post = await getBlogPost(slug);
   if (!post) notFound();
 
   const publishedDate = post.published_at

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { getOperatorDashboard } from "@/lib/db";
 import { signOutAction } from "@/app/actions/auth";
 import { unpublishExperienceAction, publishExperienceAction, deleteOwnExperienceAction } from "@/app/actions/portal";
 import { Plus, Calendar, Star, TrendingUp, Eye, Clock, CheckCircle, Pencil, Trash2, EyeOff } from "lucide-react";
@@ -17,20 +18,14 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   // Auth guard is handled by portal/layout.tsx — user is guaranteed here
-  const db = supabase as unknown as any;
-  const [opRes, expRes, bookRes] = await Promise.all([
-    db.from("operators").select("*").eq("id", user!.id).single(),
-    db.from("experiences").select("id, title, category, city, price_per_person, approved, published, avg_rating, review_count, total_bookings").eq("operator_id", user!.id).order("created_at", { ascending: false }),
-    db.from("bookings").select("id, traveler_name, traveler_email, traveler_phone, requested_date, group_size, operator_payout, status, created_at, experiences(title)").eq("operator_id", user!.id).order("created_at", { ascending: false }).limit(20),
-  ]);
+  const { operator, experiences, bookings } = await getOperatorDashboard(user!.id);
 
-  const operator = opRes.data;
+  const totalEarnings = bookings.filter((b) => b.status === "completed").reduce((sum, b) => sum + (b.operator_payout ?? 0), 0);
+  const pendingBookings = bookings.filter((b) => b.status === "pending").length;
+  const liveExperiences = experiences.filter((e) => e.approved && e.published).length;
 
-  const experiences = expRes.data ?? [];
-  const bookings = bookRes.data ?? [];
-  const totalEarnings = bookings.filter((b: any) => b.status === "completed").reduce((sum: number, b: any) => sum + (b.operator_payout ?? 0), 0);
-  const pendingBookings = bookings.filter((b: any) => b.status === "pending").length;
-  const liveExperiences = experiences.filter((e: any) => e.approved && e.published).length;
+  // Operator profile is created at registration; if missing, send them to set it up.
+  if (!operator) redirect(`/${locale}/operators/register`);
 
   return (
     <div className="pt-20 min-h-screen bg-muted/40">
@@ -107,7 +102,7 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-50">
-                  {experiences.map((exp: any) => (
+                  {experiences.map((exp) => (
                     <tr key={exp.id} className="hover:bg-muted/40">
                       <td className="px-4 py-3 font-medium text-foreground max-w-[180px] truncate">{exp.title}</td>
                       <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{exp.city}</td>
@@ -179,7 +174,7 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
             </div>
           ) : (
             <div className="space-y-3">
-              {bookings.map((b: any) => (
+              {bookings.map((b) => (
                 <div key={b.id} className={`bg-card border rounded-2xl p-5 shadow-sm ${b.status === "pending" ? "border-orange-200" : "border-border"}`}>
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>

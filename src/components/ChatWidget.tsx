@@ -91,7 +91,7 @@ export default function ChatWidget({
   // Mark messages as read when opening
   useEffect(() => {
     if (open && unread > 0) {
-      (supabase as unknown as any)
+      supabase
         .from("messages")
         .update({ read: true })
         .eq("booking_id", bookingId)
@@ -105,7 +105,7 @@ export default function ChatWidget({
     e.preventDefault();
     if (!input.trim() || sending) return;
     setSending(true);
-    await (supabase as unknown as any).from("messages").insert({
+    await supabase.from("messages").insert({
       booking_id:  bookingId,
       sender_id:   currentUserId,
       sender_name: currentUserName,

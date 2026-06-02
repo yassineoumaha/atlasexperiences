@@ -48,14 +48,14 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
         .replace(/\s+/g, "-")
         .slice(0, 50) + "-" + Date.now().toString(36);
 
-      await (supabase as unknown as any).from("operators").insert({
+      await supabase.from("operators").insert({
         id: userId, business_name: form.business_name, slug,
         city: form.city, bio: form.bio, phone: form.phone, whatsapp: form.whatsapp || form.phone,
         languages: form.languages, years_experience: form.years_experience,
         verified: false, commission_rate: 10,
       });
 
-      await (supabase as unknown as any).from("user_profiles").upsert({
+      await supabase.from("user_profiles").upsert({
         id: userId, display_name: form.business_name, role: "lister",
       });
 

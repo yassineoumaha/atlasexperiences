@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { use } from "react";
 import { createClient } from "@/lib/supabase/client";
+import type { SuggestionRow } from "@/lib/supabase/types";
 import { CheckCircle, Loader2, Lightbulb } from "lucide-react";
 import Link from "next/link";
 
-const TYPES = [
+type SuggestionType = SuggestionRow["type"];
+
+const TYPES: { value: SuggestionType; label: string; desc: string }[] = [
   { value: "feature",  label: "💡 New Feature Idea",      desc: "Something you'd like added to the platform" },
   { value: "content",  label: "📍 Area / Place to Cover",  desc: "A spot, beach, or neighborhood we should feature" },
   { value: "operator", label: "🏄 Operator to Invite",     desc: "A local guide or instructor we should reach out to" },
@@ -18,14 +21,14 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
   const { locale } = use(params);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", type: "feature", message: "" });
+  const [form, setForm] = useState<{ name: string; email: string; type: SuggestionType; message: string }>({ name: "", email: "", type: "feature", message: "" });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (form.message.length < 15) return;
     setLoading(true);
     const supabase = createClient();
-    await (supabase as unknown as any).from("suggestions").insert({
+    await supabase.from("suggestions").insert({
       sender_name: form.name || null,
       sender_email: form.email || null,
       type: form.type,
@@ -79,7 +82,7 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
                     form.type === t.value ? "border-amber-400 bg-accent/10" : "border-border hover:border-border"
                   }`}>
                   <input type="radio" name="type" value={t.value} checked={form.type === t.value}
-                    onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
+                    onChange={e => setForm(f => ({ ...f, type: e.target.value as SuggestionType }))}
                     className="mt-0.5 accent-amber-500" />
                   <div>
                     <div className="font-bold text-foreground text-sm">{t.label}</div>

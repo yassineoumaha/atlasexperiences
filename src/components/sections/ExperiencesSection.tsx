@@ -1,27 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { listFeaturedExperiences } from "@/lib/db";
 import { CATEGORIES, CATEGORY_LIST } from "@/lib/experiences-data";
 import { Star, Clock, MapPin, ArrowRight } from "lucide-react";
 import type { Locale, Dictionary } from "@/lib/dictionaries";
 import { ZellijDivider } from "@/components/zellij/Zellij";
 
 interface Props { locale: Locale; dict: Dictionary; }
-
-async function getFeaturedExperiences() {
-  try {
-    const supabase = await createClient();
-    const { data } = await (supabase as unknown as any)
-      .from("experiences")
-      .select("id, title, slug, category, city, price_per_person, images, avg_rating, review_count, duration_hours, operators(business_name, verified)")
-      .eq("published", true)
-      .eq("approved", true)
-      .eq("featured", true)
-      .order("total_bookings", { ascending: false })
-      .limit(8);
-    return (data as any[]) ?? [];
-  } catch { return []; }
-}
 
 // Category cards with Morocco-specific destination images
 const DISCOVER_CARDS = [
@@ -34,7 +19,7 @@ const DISCOVER_CARDS = [
 ];
 
 export default async function ExperiencesSection({ locale, dict }: Props) {
-  const experiences = await getFeaturedExperiences();
+  const experiences = await listFeaturedExperiences();
   const d = dict.experiences;
   const c = dict.common;
 
@@ -150,7 +135,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
           ) : (
             /* Real place cards from database */
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {experiences.map((exp: any) => {
+              {experiences.map((exp) => {
                 const cat = CATEGORIES[exp.category as keyof typeof CATEGORIES];
                 return (
                   <Link

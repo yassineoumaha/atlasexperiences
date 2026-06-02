@@ -17,7 +17,7 @@ export default async function PortalLayout({
   }
 
   // Verify operator record exists; if not, send to registration
-  const { data: operator } = await (supabase as unknown as any)
+  const { data: operator } = await supabase
     .from("operators")
     .select("id")
     .eq("id", user.id)

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import type { ExperienceRow } from "@/lib/supabase/types";
 import { ArrowLeft, Upload, Plus, X, Loader2, CheckCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
@@ -78,7 +79,7 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.push(`/${locale}/auth/login?next=/${locale}/portal/edit-experience/${id}`); return; }
 
-      const { data, error: err } = await (supabase as unknown as any)
+      const { data, error: err } = await supabase
         .from("experiences")
         .select("*")
         .eq("id", id)
@@ -177,11 +178,11 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.push(`/${locale}/auth/login`); return; }
 
-    const { error: err } = await (supabase as unknown as any)
+    const { error: err } = await supabase
       .from("experiences")
       .update({
         title: form.title,
-        category: form.category,
+        category: form.category as ExperienceRow["category"],
         city: form.city,
         description: form.description,
         price_per_person: form.price_per_person,
@@ -221,7 +222,7 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.push(`/${locale}/auth/login`); return; }
 
-    const { error: err } = await (supabase as unknown as any)
+    const { error: err } = await supabase
       .from("experiences")
       .delete()
       .eq("id", id)

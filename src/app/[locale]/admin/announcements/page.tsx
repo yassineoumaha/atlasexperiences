@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import type { AnnouncementRow } from "@/lib/supabase/types";
 import { Plus, Trash2, Megaphone, ToggleLeft, ToggleRight, Loader2 } from "lucide-react";
 
-const TYPES = [
+type AnnouncementType = AnnouncementRow["type"];
+
+const TYPES: { value: AnnouncementType; label: string; color: string }[] = [
   { value: "info",    label: "Info",    color: "bg-blue-100 text-blue-700" },
   { value: "promo",   label: "Promo",   color: "bg-amber-100 text-accent-foreground" },
   { value: "success", label: "Success", color: "bg-emerald-100 text-emerald-700" },
@@ -12,9 +15,9 @@ const TYPES = [
 ];
 
 export default function AnnouncementsAdminPage() {
-  const [announcements, setAnnouncements] = useState<any[]>([]);
+  const [announcements, setAnnouncements] = useState<AnnouncementRow[]>([]);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ message: "", type: "promo", link_url: "", link_label: "", expires_at: "" });
+  const [form, setForm] = useState<{ message: string; type: AnnouncementType; link_url: string; link_label: string; expires_at: string }>({ message: "", type: "promo", link_url: "", link_label: "", expires_at: "" });
   const supabase = createClient();
 
   async function load() {
@@ -27,7 +30,7 @@ export default function AnnouncementsAdminPage() {
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    await (supabase as unknown as any).from("announcements").insert({
+    await supabase.from("announcements").insert({
       message: form.message,
       type: form.type,
       link_url: form.link_url || null,
@@ -41,12 +44,12 @@ export default function AnnouncementsAdminPage() {
   }
 
   async function toggle(id: string, current: boolean) {
-    await (supabase as unknown as any).from("announcements").update({ active: !current }).eq("id", id);
+    await supabase.from("announcements").update({ active: !current }).eq("id", id);
     await load();
   }
 
   async function remove(id: string) {
-    await (supabase as unknown as any).from("announcements").delete().eq("id", id);
+    await supabase.from("announcements").delete().eq("id", id);
     await load();
   }
 
@@ -65,7 +68,7 @@ export default function AnnouncementsAdminPage() {
             <input required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
               placeholder="Announcement text shown to all visitors..."
               className="flex-1 border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary" />
-            <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
+            <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value as AnnouncementType }))}
               className="border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card">
               {TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
             </select>

@@ -41,7 +41,7 @@ export default function AddAreaPage({ params }: { params: Promise<{ locale: stri
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.push(`/${locale}/auth/login`); return; }
-    const { error } = await (supabase as unknown as any).from("operator_areas").insert({
+    const { error } = await supabase.from("operator_areas").insert({
       operator_id:  user.id,
       city:         form.city,
       area_name:    form.area_name,

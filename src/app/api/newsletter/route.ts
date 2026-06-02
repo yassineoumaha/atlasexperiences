@@ -28,10 +28,9 @@ export async function POST(request: NextRequest) {
   const { email, locale } = parsed.data;
 
   const admin = await createAdminClient();
-  const { error } = await (admin as unknown as any)
+  const { error } = await admin
     .from("newsletter_subscribers")
-    .insert({ email, locale })
-    .single();
+    .insert({ email, locale });
 
   if (error) {
     // 23505 = unique_violation — already subscribed
