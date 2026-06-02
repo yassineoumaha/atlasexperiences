@@ -198,19 +198,134 @@ export function SceneWellness({ className }: Props) {
   );
 }
 
+/* ---- Culture: medina skyline with keyhole arches + minaret ---- */
+export function SceneCulture({ className }: Props) {
+  return (
+    <svg viewBox="0 0 600 400" className={className} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <g className="scene-wave">
+        <circle cx="120" cy="120" r="40" fill="var(--zellij-2)" fillOpacity="0.5" />
+        {/* skyline of arches */}
+        <path d="M0 360 L0 300 C0 280 36 280 36 300 L36 360 Z" fill="var(--zellij-1)" fillOpacity="0.5" />
+        <path d="M60 360 L60 280 C60 256 104 256 104 280 L104 360 Z" fill="var(--zellij-1)" fillOpacity="0.6" />
+        <path d="M520 360 L520 290 C520 268 560 268 560 290 L560 360 Z" fill="var(--zellij-1)" fillOpacity="0.55" />
+      </g>
+      <g className="scene-rider">
+        {/* minaret */}
+        <path d="M260 360 L260 150 L340 150 L340 360 Z" fill="var(--zellij-4)" fillOpacity="0.9" />
+        <path d="M260 150 L300 96 L340 150 Z" fill="var(--zellij-2)" />
+        <path d="M300 96 L300 64" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+        <circle cx="300" cy="56" r="10" fill="var(--zellij-2)" />
+        {/* keyhole door */}
+        <path d="M282 360 L282 240 C282 214 318 214 318 240 L318 360 Z" fill="#fff" fillOpacity="0.18" />
+        <rect x="276" y="186" width="48" height="14" rx="4" fill="#fff" fillOpacity="0.25" />
+      </g>
+    </svg>
+  );
+}
+
+/* ---- Water sports: kitesurfer (kite + rider on board) ---- */
+export function SceneKite({ className }: Props) {
+  return (
+    <svg viewBox="0 0 600 400" className={className} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <g className="scene-wave">
+        <rect x="0" y="280" width="600" height="140" fill="var(--zellij-1)" fillOpacity="0.45" />
+        <path d="M0 290 C 120 280, 220 300, 320 290 C 440 278, 520 300, 600 290 L600 320 L0 320 Z" fill="var(--zellij-1)" fillOpacity="0.4" />
+      </g>
+      <g className="scene-rider">
+        {/* kite */}
+        <path d="M120 90 C 180 70, 260 70, 320 100 C 260 120, 180 120, 120 90 Z" fill="var(--zellij-2)" fillOpacity="0.9" />
+        {/* lines */}
+        <path d="M150 108 L 318 268 M 300 108 L 330 268" stroke="currentColor" strokeWidth="3" strokeOpacity="0.7" />
+        {/* rider + board */}
+        <path d="M324 268 L 318 230 L 340 210" fill="none" stroke="currentColor" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="346" cy="198" r="13" fill="currentColor" />
+        <path d="M300 280 C 330 268, 370 268, 396 282 C 366 292, 326 292, 300 280 Z" fill="var(--zellij-4)" />
+      </g>
+    </svg>
+  );
+}
+
+/* ---- Photography: camera + framing reticle ---- */
+export function ScenePhoto({ className }: Props) {
+  return (
+    <svg viewBox="0 0 600 400" className={className} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <g className="scene-wave">
+        {/* distant ridge being photographed */}
+        <path d="M-40 360 L 160 240 L 300 320 L 460 200 L 660 360 L660 420 L-40 420 Z" fill="var(--zellij-4)" fillOpacity="0.4" />
+        <circle cx="470" cy="120" r="38" fill="var(--zellij-2)" fillOpacity="0.45" />
+      </g>
+      <g className="scene-rider">
+        {/* camera body */}
+        <rect x="232" y="200" width="136" height="92" rx="14" fill="var(--zellij-1)" fillOpacity="0.92" />
+        <path d="M262 200 L 276 182 L 324 182 L 338 200 Z" fill="var(--zellij-1)" fillOpacity="0.92" />
+        <circle cx="300" cy="246" r="30" fill="none" stroke="#fff" strokeOpacity="0.55" strokeWidth="7" />
+        <circle cx="300" cy="246" r="14" fill="#fff" fillOpacity="0.5" />
+        <circle cx="346" cy="216" r="5" fill="var(--zellij-2)" />
+      </g>
+    </svg>
+  );
+}
+
+/* ---- Transport: classic Moroccan taxi ---- */
+export function SceneTaxi({ className }: Props) {
+  return (
+    <svg viewBox="0 0 600 400" className={className} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <g className="scene-wave">
+        <rect x="0" y="320" width="600" height="100" fill="var(--zellij-4)" fillOpacity="0.3" />
+        <path d="M0 322 L600 322" stroke="#fff" strokeOpacity="0.3" strokeWidth="3" strokeDasharray="20 18" />
+      </g>
+      {/* hidden drive path */}
+      <path className="scene-path" d="M40 300 C 200 300, 400 300, 560 300" fill="none" stroke="none" />
+      <g className="scene-rider" transform="translate(300 300)">
+        {/* taxi body (Moroccan ochre/petit taxi) */}
+        <path d="M-90 0 L -70 -34 C -60 -50 60 -50 70 -34 L 90 0 Z" fill="var(--zellij-2)" />
+        <rect x="-92" y="-2" width="184" height="30" rx="10" fill="var(--zellij-2)" />
+        <path d="M-50 -34 L -40 -50 L 30 -50 L 46 -34 Z" fill="#fff" fillOpacity="0.4" />
+        <rect x="-12" y="-64" width="24" height="14" rx="3" fill="var(--zellij-4)" />
+        <circle cx="-52" cy="30" r="20" fill="currentColor" />
+        <circle cx="52" cy="30" r="20" fill="currentColor" />
+        <circle cx="-52" cy="30" r="8" fill="#fff" fillOpacity="0.5" />
+        <circle cx="52" cy="30" r="8" fill="#fff" fillOpacity="0.5" />
+      </g>
+    </svg>
+  );
+}
+
+/* ---- Day trip: winding road through hills + signpost ---- */
+export function SceneDayTrip({ className }: Props) {
+  return (
+    <svg viewBox="0 0 600 400" className={className} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <g className="scene-wave">
+        <path d="M-40 360 L 140 230 L 280 320 L 440 210 L 660 360 L660 420 L-40 420 Z" fill="var(--zellij-3)" fillOpacity="0.45" />
+        {/* winding road */}
+        <path d="M280 400 C 300 320, 260 280, 300 220 C 330 176, 300 150, 320 110" fill="none" stroke="var(--zellij-4)" strokeWidth="26" strokeOpacity="0.55" strokeLinecap="round" />
+        <path d="M280 400 C 300 320, 260 280, 300 220 C 330 176, 300 150, 320 110" fill="none" stroke="#fff" strokeOpacity="0.4" strokeWidth="3" strokeDasharray="14 16" />
+      </g>
+      <g className="scene-rider">
+        {/* signpost */}
+        <path d="M430 320 L430 180" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
+        <path d="M430 196 L500 196 L512 210 L500 224 L430 224 Z" fill="var(--zellij-2)" />
+        <path d="M430 236 L372 236 L360 250 L372 264 L430 264 Z" fill="var(--zellij-1)" fillOpacity="0.85" />
+      </g>
+    </svg>
+  );
+}
+
 export const SCENES = {
   surf: SceneSurf,
-  water: SceneSwim,
-  adventure: SceneBike,
-  hiking: SceneHike,
   desert: SceneCamel,
+  culture: SceneCulture,
   food: SceneFood,
   wellness: SceneWellness,
-  culture: SceneCamel,
-  "day-trip": SceneHike,
-  photography: SceneHike,
-  transport: SceneCamel,
-  other: SceneCamel,
+  adventure: SceneBike,
+  water: SceneKite,
+  photography: ScenePhoto,
+  transport: SceneTaxi,
+  "day-trip": SceneDayTrip,
+  other: SceneCulture,
+  // extra aliases used elsewhere
+  hiking: SceneHike,
+  swim: SceneSwim,
 } as const;
 
 export type SceneKey = keyof typeof SCENES;
