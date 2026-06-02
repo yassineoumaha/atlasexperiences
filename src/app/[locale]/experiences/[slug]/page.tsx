@@ -60,9 +60,9 @@ export default async function ExperienceDetailPage({
   const cat = CATEGORIES[experience.category as keyof typeof CATEGORIES];
 
   return (
-    <div className="pt-16 min-h-screen bg-white">
+    <div className="pt-16 min-h-screen bg-background pb-24 lg:pb-0">
       {/* Image gallery */}
-      <div className="relative h-[50vh] min-h-[360px] bg-stone-100 overflow-hidden">
+      <div className="relative h-[50vh] min-h-[360px] bg-muted overflow-hidden">
         {experience.images?.[0] ? (
           <Image src={experience.images[0]} alt={experience.title} fill className="object-cover" priority sizes="100vw" />
         ) : (
@@ -110,18 +110,18 @@ export default async function ExperienceDetailPage({
           <div className="lg:col-span-2 space-y-8">
             {/* Description */}
             <div>
-              <h2 className="text-2xl font-black text-stone-900 mb-3">About This Experience</h2>
-              <p className="text-stone-600 leading-relaxed text-lg">{experience.description}</p>
+              <h2 className="text-2xl font-black text-foreground mb-3">About This Experience</h2>
+              <p className="text-foreground/80 leading-relaxed text-lg">{experience.description}</p>
             </div>
 
             {/* Highlights */}
             {experience.highlights?.length > 0 && (
               <div>
-                <h2 className="text-xl font-black text-stone-900 mb-3">Highlights</h2>
+                <h2 className="text-xl font-black text-foreground mb-3">Highlights</h2>
                 <ul className="space-y-2">
                   {experience.highlights.map((h: string, i: number) => (
-                    <li key={i} className="flex items-start gap-2.5 text-stone-700">
-                      <CheckCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-2.5 text-foreground/80">
+                      <CheckCircle className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       {h}
                     </li>
                   ))}
@@ -160,10 +160,10 @@ export default async function ExperienceDetailPage({
             {/* What to bring */}
             {experience.what_to_bring?.length > 0 && (
               <div>
-                <h2 className="text-xl font-black text-stone-900 mb-3">What to Bring</h2>
+                <h2 className="text-xl font-black text-foreground mb-3">What to Bring</h2>
                 <div className="flex flex-wrap gap-2">
                   {experience.what_to_bring.map((item: string, i: number) => (
-                    <span key={i} className="bg-stone-100 text-stone-700 text-sm px-3 py-1.5 rounded-full">{item}</span>
+                    <span key={i} className="bg-muted text-foreground/80 text-sm px-3 py-1.5 rounded-full">{item}</span>
                   ))}
                 </div>
               </div>
@@ -171,11 +171,11 @@ export default async function ExperienceDetailPage({
 
             {/* Meeting point */}
             {experience.meeting_point && (
-              <div className="flex items-start gap-3 bg-stone-50 border border-stone-100 rounded-2xl p-4">
-                <MapPin className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3 bg-muted border border-border rounded-2xl p-4">
+                <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-stone-900 mb-0.5">Meeting Point</h3>
-                  <p className="text-stone-600 text-sm">{experience.meeting_point}</p>
+                  <h3 className="font-bold text-foreground mb-0.5">Meeting Point</h3>
+                  <p className="text-foreground/70 text-sm">{experience.meeting_point}</p>
                 </div>
               </div>
             )}
@@ -188,10 +188,10 @@ export default async function ExperienceDetailPage({
 
             {/* Operator profile */}
             {operator && (
-              <div className="border border-stone-100 rounded-2xl p-5 shadow-sm">
-                <h2 className="text-xl font-black text-stone-900 mb-4">Your Guide / Operator</h2>
+              <div className="border border-border rounded-2xl p-5 shadow-sm bg-card">
+                <h2 className="text-xl font-black text-foreground mb-4">Your Guide / Operator</h2>
                 <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl font-black shrink-0 overflow-hidden">
+                  <div className="w-16 h-16 bg-accent/15 rounded-2xl flex items-center justify-center text-accent-foreground text-2xl font-black shrink-0 overflow-hidden">
                     {operator.avatar_url
                       ? <Image src={operator.avatar_url} alt={operator.business_name} width={64} height={64} className="object-cover w-full h-full" />
                       : operator.business_name?.[0]
@@ -199,15 +199,15 @@ export default async function ExperienceDetailPage({
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-black text-stone-900 text-lg">{operator.business_name}</h3>
+                      <h3 className="font-black text-foreground text-lg">{operator.business_name}</h3>
                       {operator.verified && (
                         <span className="flex items-center gap-1 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
                           <CheckCircle className="w-3 h-3" /> Verified
                         </span>
                       )}
                     </div>
-                    {operator.city && <p className="text-stone-400 text-sm mb-2 flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{operator.city}</p>}
-                    {operator.bio && <p className="text-stone-600 text-sm mb-3">{operator.bio}</p>}
+                    {operator.city && <p className="text-muted-foreground text-sm mb-2 flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{operator.city}</p>}
+                    {operator.bio && <p className="text-foreground/70 text-sm mb-3">{operator.bio}</p>}
                     <div className="flex flex-wrap gap-2">
                       {operator.languages?.map((l: string) => (
                         <span key={l} className="flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
@@ -217,7 +217,7 @@ export default async function ExperienceDetailPage({
                     </div>
                     {operator.slug && (
                       <Link href={`/${locale}/operators/${operator.slug}`}
-                        className="inline-block mt-3 text-amber-600 text-sm font-semibold hover:underline">
+                        className="inline-block mt-3 text-primary text-sm font-semibold hover:underline">
                         View all experiences by {operator.business_name} →
                       </Link>
                     )}
@@ -230,53 +230,53 @@ export default async function ExperienceDetailPage({
             <div>
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-xl font-black text-stone-900">
-                  Reviews {reviews.length > 0 && <span className="text-stone-400 font-normal">({reviews.length})</span>}
+                  Reviews {reviews.length > 0 && <span className="text-muted-foreground font-normal">({reviews.length})</span>}
                 </h2>
                 {experience.avg_rating && (
                   <div className="flex items-center gap-1.5">
                     <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
-                    <span className="text-2xl font-black text-stone-900">{experience.avg_rating}</span>
-                    <span className="text-stone-400 text-sm">/ 5</span>
+                    <span className="text-2xl font-black text-foreground">{experience.avg_rating}</span>
+                    <span className="text-muted-foreground text-sm">/ 5</span>
                   </div>
                 )}
               </div>
               {reviews.length > 0 ? (
                 <div className="space-y-4">
                   {reviews.map((r: any) => (
-                    <div key={r.id} className="bg-stone-50 border border-stone-100 rounded-2xl p-4">
+                    <div key={r.id} className="bg-muted border border-border rounded-2xl p-4">
                       <div className="flex items-center gap-1 mb-1">
                         {[1,2,3,4,5].map((s) => (
-                          <Star key={s} className={`w-4 h-4 ${s <= r.rating ? "text-amber-400 fill-amber-400" : "text-stone-200"}`} />
+                          <Star key={s} className={`w-4 h-4 ${s <= r.rating ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}`} />
                         ))}
                       </div>
-                      {r.title && <h4 className="font-bold text-stone-900 mb-1">{r.title}</h4>}
-                      <p className="text-stone-600 text-sm">{r.body}</p>
-                      <p className="text-stone-400 text-xs mt-2">— {r.display_name} · {new Date(r.created_at).toLocaleDateString()}</p>
+                      {r.title && <h4 className="font-bold text-foreground mb-1">{r.title}</h4>}
+                      <p className="text-foreground/80 text-sm">{r.body}</p>
+                      <p className="text-muted-foreground text-xs mt-2">— {r.display_name} · {new Date(r.created_at).toLocaleDateString()}</p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-stone-400 text-sm bg-stone-50 rounded-xl p-4 text-center">No reviews yet — be the first to book!</p>
+                <p className="text-muted-foreground text-sm bg-muted rounded-xl p-4 text-center">No reviews yet — be the first to book!</p>
               )}
             </div>
 
             {/* Related experiences */}
             {related.length > 0 && (
               <div>
-                <h2 className="text-xl font-black text-stone-900 mb-4">Similar Experiences</h2>
+                <h2 className="text-xl font-black text-foreground mb-4">Similar Experiences</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {related.map((exp: any) => (
                     <Link key={exp.id} href={`/${locale}/experiences/${exp.slug}`}
-                      className="flex gap-3 bg-stone-50 border border-stone-100 rounded-xl p-3 hover:border-amber-200 transition-colors group">
-                      <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-stone-200 shrink-0">
+                      className="flex gap-3 bg-muted border border-border rounded-xl p-3 hover:border-accent transition-colors group">
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">
                         {exp.images?.[0]
                           ? <Image src={exp.images[0]} alt={exp.title} fill className="object-cover" sizes="80px" />
                           : <div className="w-full h-full flex items-center justify-center text-2xl">{CATEGORIES[exp.category as keyof typeof CATEGORIES]?.emoji}</div>}
                       </div>
                       <div>
-                        <h4 className="font-bold text-stone-800 text-sm line-clamp-2 group-hover:text-amber-600 transition-colors">{exp.title}</h4>
-                        <p className="text-stone-400 text-xs mt-0.5">{exp.city} · {exp.duration_hours}h</p>
-                        <p className="text-amber-600 font-black text-sm mt-1">${exp.price_per_person}<span className="text-stone-400 font-normal">/person</span></p>
+                        <h4 className="font-bold text-foreground text-sm line-clamp-2 group-hover:text-primary transition-colors">{exp.title}</h4>
+                        <p className="text-muted-foreground text-xs mt-0.5">{exp.city} · {exp.duration_hours}h</p>
+                        <p className="text-primary font-black text-sm mt-1">${exp.price_per_person}<span className="text-muted-foreground font-normal">/person</span></p>
                       </div>
                     </Link>
                   ))}
@@ -286,10 +286,24 @@ export default async function ExperienceDetailPage({
           </div>
 
           {/* Booking widget sidebar */}
-          <div>
+          <div id="book">
             <BookingWidget experience={experience} operator={operator} locale={locale} />
           </div>
         </div>
+      </div>
+
+      {/* Sticky mobile booking bar */}
+      <div className="sticky-mobile-bar lg:hidden fixed bottom-0 inset-x-0 z-40 px-4 py-3 pb-safe flex items-center justify-between gap-4">
+        <div>
+          <span className="text-xl font-black text-foreground">${experience.price_per_person}</span>
+          <span className="text-muted-foreground text-xs"> / person</span>
+        </div>
+        <a
+          href="#book"
+          className="flex-1 max-w-[14rem] text-center bg-accent hover:brightness-105 text-accent-foreground font-bold min-h-[3rem] inline-flex items-center justify-center rounded-xl transition-all"
+        >
+          Request to Book
+        </a>
       </div>
     </div>
   );

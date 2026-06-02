@@ -55,13 +55,13 @@ export default async function ExperiencesPage({
   const common = dict.common;
 
   return (
-    <div className="pt-16 min-h-screen bg-white">
+    <div className="pt-16 min-h-screen bg-background">
       <SchemaScript schema={schema} />
 
       {/* Hero */}
-      <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-16 px-4">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[oklch(0.30_0.10_264)] via-[oklch(0.34_0.10_280)] to-[oklch(0.40_0.12_40)] text-white py-16 px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-sm px-4 py-1.5 rounded-full mb-5">
+          <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 text-amber-200 text-sm px-4 py-1.5 rounded-full mb-5">
             ✅ {d.badge}
           </div>
           <h1 className="text-4xl sm:text-5xl font-black mb-4">{d.title}</h1>
@@ -77,7 +77,7 @@ export default async function ExperiencesPage({
             <Link
               href={`/${locale}/experiences`}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border ${
-                !category ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200 hover:border-stone-400"
+                !category ? "bg-primary text-primary-foreground border-primary" : "bg-card text-foreground/70 border-border hover:border-primary"
               }`}
             >
               🌍 {dict.hero.searchCategory}
@@ -87,7 +87,7 @@ export default async function ExperiencesPage({
                 key={cat.key}
                 href={`/${locale}/experiences?category=${cat.key}`}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border ${
-                  category === cat.key ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200 hover:border-stone-400"
+                  category === cat.key ? "bg-primary text-primary-foreground border-primary" : "bg-card text-foreground/70 border-border hover:border-primary"
                 }`}
               >
                 {cat.emoji} {cat.label}
@@ -96,16 +96,16 @@ export default async function ExperiencesPage({
           </div>
         </div>
 
-        {/* City filter */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        {/* City filter — horizontal scroll on mobile, wrap on desktop */}
+        <div className="flex md:flex-wrap gap-2 mb-8 overflow-x-auto md:overflow-visible no-scrollbar pb-1">
           <Link href={`/${locale}/experiences${category ? `?category=${category}` : ""}`}
-            className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${!city ? "bg-amber-500 text-white border-amber-500" : "text-stone-500 border-stone-200 hover:border-amber-300"}`}>
+            className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${!city ? "bg-accent text-accent-foreground border-accent" : "text-muted-foreground border-border hover:border-accent"}`}>
             {dict.hero.searchCity}
           </Link>
           {EXPERIENCE_CITIES.map((c) => (
             <Link key={c}
               href={`/${locale}/experiences?${category ? `category=${category}&` : ""}city=${c}`}
-              className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${city === c ? "bg-amber-500 text-white border-amber-500" : "text-stone-500 border-stone-200 hover:border-amber-300"}`}>
+              className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium border transition-all whitespace-nowrap ${city === c ? "bg-accent text-accent-foreground border-accent" : "text-muted-foreground border-border hover:border-accent"}`}>
               {c}
             </Link>
           ))}
@@ -115,8 +115,8 @@ export default async function ExperiencesPage({
         {experiences.length === 0 ? (
           <div className="text-center py-20">
             <img src="/logo.png" alt="Imourig" className="h-14 w-auto mx-auto mb-4 [mix-blend-mode:multiply]" />
-            <h2 className="text-xl font-black text-stone-900 mb-2">{d.noResults}</h2>
-            <p className="text-stone-500 mb-6">{d.noResultsSub}</p>
+            <h2 className="text-xl font-black text-foreground mb-2">{d.noResults}</h2>
+            <p className="text-muted-foreground mb-6">{d.noResultsSub}</p>
             <Link href={`/${locale}/operators/register`}
               className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition-colors">
               {d.listCta}
@@ -124,15 +124,15 @@ export default async function ExperiencesPage({
           </div>
         ) : (
           <>
-            <p className="text-stone-500 text-sm mb-5">
+            <p className="text-muted-foreground text-sm mb-5">
               {experiences.length} {experiences.length !== 1 ? d.countPlural : d.count} {d.found}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {experiences.map((exp: any) => (
                 <Link key={exp.id} href={`/${locale}/experiences/${exp.slug}`}
-                  className="group bg-white border border-stone-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all hover:-translate-y-0.5">
+                  className="group tile-card bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden bg-stone-100">
+                  <div className="relative h-48 overflow-hidden bg-muted">
                     {exp.images?.[0] ? (
                       <Image src={exp.images[0]} alt={exp.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 100vw, 25vw" />
                     ) : (
@@ -144,7 +144,7 @@ export default async function ExperiencesPage({
                       {CATEGORIES[exp.category as keyof typeof CATEGORIES]?.emoji} {CATEGORIES[exp.category as keyof typeof CATEGORIES]?.label}
                     </div>
                     {exp.featured && (
-                      <div className="absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      <div className="absolute top-3 right-3 bg-accent text-accent-foreground text-xs font-bold px-2 py-0.5 rounded-full">
                         {common.featured}
                       </div>
                     )}
@@ -152,10 +152,10 @@ export default async function ExperiencesPage({
 
                   {/* Content */}
                   <div className="p-4">
-                    <h3 className="font-black text-stone-900 mb-1 line-clamp-2 group-hover:text-amber-600 transition-colors">
+                    <h3 className="font-black text-foreground mb-1 line-clamp-2 group-hover:text-primary transition-colors">
                       {exp.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-xs text-stone-400 mb-2">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                       <MapPin className="w-3 h-3" /> {exp.city}
                       <span>·</span>
                       <Clock className="w-3 h-3" /> {exp.duration_hours}h
@@ -163,15 +163,15 @@ export default async function ExperiencesPage({
                       <Users className="w-3 h-3" /> max {exp.max_group_size}
                     </div>
                     {exp.avg_rating && exp.review_count > 0 && (
-                      <div className="flex items-center gap-1 text-xs text-stone-500 mb-2">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                        <span className="font-bold text-stone-700">{exp.avg_rating}</span>
+                        <span className="font-bold text-foreground">{exp.avg_rating}</span>
                         <span>({exp.review_count})</span>
                       </div>
                     )}
                     {exp.operators && (
-                      <div className="flex items-center gap-1.5 text-xs text-stone-400 mb-3">
-                        <div className="w-5 h-5 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-bold text-xs">
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
+                        <div className="w-5 h-5 bg-accent/15 rounded-full flex items-center justify-center text-accent-foreground font-bold text-xs">
                           {exp.operators.business_name?.[0]}
                         </div>
                         {exp.operators.business_name}
@@ -180,10 +180,10 @@ export default async function ExperiencesPage({
                     )}
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-xl font-black text-stone-900">${exp.price_per_person}</span>
-                        <span className="text-stone-400 text-xs">{common.perPerson}</span>
+                        <span className="text-xl font-black text-foreground">${exp.price_per_person}</span>
+                        <span className="text-muted-foreground text-xs">{common.perPerson}</span>
                       </div>
-                      <span className="bg-amber-500 group-hover:bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">
+                      <span className="bg-accent group-hover:brightness-105 text-accent-foreground text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">
                         {common.book}
                       </span>
                     </div>
@@ -195,13 +195,13 @@ export default async function ExperiencesPage({
         )}
 
         {/* Operator CTA banner */}
-        <div className="mt-16 bg-gradient-to-r from-stone-900 to-amber-900 rounded-3xl p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-16 bg-gradient-to-r from-[oklch(0.30_0.10_264)] to-[oklch(0.40_0.12_40)] rounded-3xl p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl font-black mb-1">{d.operatorCta}</h3>
             <p className="text-white/70">{d.operatorCtaSub}</p>
           </div>
           <Link href={`/${locale}/operators/register`}
-            className="shrink-0 bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition-colors whitespace-nowrap">
+            className="shrink-0 bg-accent hover:brightness-105 text-accent-foreground font-bold px-6 min-h-[3rem] inline-flex items-center rounded-xl transition-colors whitespace-nowrap">
             {d.listBtn}
           </Link>
         </div>
