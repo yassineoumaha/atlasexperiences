@@ -48,7 +48,7 @@ export default async function BookingPage({
   const otherPartyName  = isTraveler ? booking.operators?.business_name : booking.traveler_name;
 
   return (
-    <div className="pt-20 min-h-screen bg-stone-50">
+    <div className="pt-20 min-h-screen bg-muted/40">
       <div className="max-w-2xl mx-auto px-4 py-10">
 
         {/* Status banner */}
@@ -67,7 +67,7 @@ export default async function BookingPage({
         </div>
 
         {/* Booking details */}
-        <div className="bg-white border border-stone-100 rounded-2xl shadow-sm overflow-hidden mb-6">
+        <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden mb-6">
           <div className="bg-stone-900 text-white px-5 py-4">
             <h1 className="font-black text-lg">{booking.experiences?.title}</h1>
             <p className="text-white/60 text-sm">{booking.experiences?.city} · Booking #{id.slice(0, 8).toUpperCase()}</p>
@@ -79,14 +79,14 @@ export default async function BookingPage({
               { icon: DollarSign, label: "Total", value: `$${booking.total_price} USD` },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-3 text-sm">
-                <Icon className="w-4 h-4 text-stone-400 shrink-0" />
-                <span className="text-stone-500 w-24">{label}</span>
-                <span className="font-medium text-stone-800">{value}</span>
+                <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
+                <span className="text-muted-foreground w-24">{label}</span>
+                <span className="font-medium text-foreground">{value}</span>
               </div>
             ))}
             {booking.special_requests && (
-              <div className="mt-2 bg-stone-50 rounded-xl p-3 text-sm text-stone-600">
-                <span className="font-medium text-stone-700">Special requests: </span>
+              <div className="mt-2 bg-muted/40 rounded-xl p-3 text-sm text-foreground/80">
+                <span className="font-medium text-foreground/80">Special requests: </span>
                 {booking.special_requests}
               </div>
             )}
@@ -95,9 +95,9 @@ export default async function BookingPage({
 
         {/* Operator contact card (for traveler) */}
         {isTraveler && booking.operators && (
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm mb-6">
-            <h2 className="font-bold text-stone-900 mb-3">Your Operator</h2>
-            <p className="font-black text-stone-900 text-lg mb-2">{booking.operators.business_name}</p>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm mb-6">
+            <h2 className="font-bold text-foreground mb-3">Your Operator</h2>
+            <p className="font-black text-foreground text-lg mb-2">{booking.operators.business_name}</p>
             <div className="flex gap-2">
               {booking.operators.whatsapp && (
                 <a href={`https://wa.me/${booking.operators.whatsapp.replace(/\D/g, "")}?text=Hi! Booking reference: ${id.slice(0, 8).toUpperCase()}`}
@@ -108,7 +108,7 @@ export default async function BookingPage({
               )}
               {booking.operators.phone && (
                 <a href={`tel:${booking.operators.phone}`}
-                  className="flex items-center gap-1.5 border border-stone-200 text-stone-700 text-sm font-bold px-4 py-2 rounded-xl hover:bg-stone-50 transition-colors">
+                  className="flex items-center gap-1.5 border border-input text-foreground/80 text-sm font-bold px-4 py-2 rounded-xl hover:bg-muted/40 transition-colors">
                   Call
                 </a>
               )}
@@ -118,9 +118,9 @@ export default async function BookingPage({
 
         {/* Traveler contact (for operator) */}
         {isOperator && (
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm mb-6">
-            <h2 className="font-bold text-stone-900 mb-3">Traveler</h2>
-            <p className="font-black text-stone-900 text-lg">{booking.traveler_name}</p>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm mb-6">
+            <h2 className="font-bold text-foreground mb-3">Traveler</h2>
+            <p className="font-black text-foreground text-lg">{booking.traveler_name}</p>
             <div className="flex flex-wrap gap-2 mt-2">
               <a href={`mailto:${booking.traveler_email}?subject=Your booking — ${booking.experiences?.title}`}
                 className="flex items-center gap-1.5 bg-stone-900 hover:bg-stone-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition-colors">
@@ -128,19 +128,19 @@ export default async function BookingPage({
               </a>
               {booking.traveler_phone && (
                 <a href={`tel:${booking.traveler_phone}`}
-                  className="flex items-center gap-1.5 border border-stone-200 text-stone-700 text-sm font-bold px-4 py-2 rounded-xl hover:bg-stone-50 transition-colors">
+                  className="flex items-center gap-1.5 border border-input text-foreground/80 text-sm font-bold px-4 py-2 rounded-xl hover:bg-muted/40 transition-colors">
                   Call
                 </a>
               )}
             </div>
-            <div className="mt-3 bg-amber-50 border border-amber-100 rounded-xl p-3 text-xs text-amber-700">
+            <div className="mt-3 bg-accent/10 border border-amber-100 rounded-xl p-3 text-xs text-amber-700">
               Platform fee: <strong>${booking.platform_fee}</strong> · Your payout: <strong>${booking.operator_payout}</strong> — invoiced monthly
             </div>
           </div>
         )}
 
         <Link href={isTraveler ? `/${locale}/experiences` : `/${locale}/portal`}
-          className="text-amber-600 text-sm font-medium hover:underline">
+          className="text-primary text-sm font-medium hover:underline">
           ← {isTraveler ? "Browse more experiences" : "Back to dashboard"}
         </Link>
       </div>

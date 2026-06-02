@@ -21,13 +21,13 @@ export default function AdBanner({ slot, className = "" }: AdBannerProps) {
       {isConfigured ? (
         // Replace this div with your AdSense ins tag:
         // <ins className="adsbygoogle" data-ad-client="..." data-ad-slot="..." />
-        <div className="w-full h-full bg-stone-100 rounded-xl flex items-center justify-center text-stone-400 text-xs">
+        <div className="w-full h-full bg-muted rounded-xl flex items-center justify-center text-muted-foreground text-xs">
           Ad
         </div>
       ) : (
-        <div className="w-full h-full bg-stone-50 border border-dashed border-stone-200 rounded-xl flex flex-col items-center justify-center gap-1 p-4 text-center">
-          <span className="text-stone-300 text-xs font-medium uppercase tracking-wide">Advertisement</span>
-          <span className="text-stone-400 text-xs">
+        <div className="w-full h-full bg-muted/40 border border-dashed border-input rounded-xl flex flex-col items-center justify-center gap-1 p-4 text-center">
+          <span className="text-muted-foreground/60 text-xs font-medium uppercase tracking-wide">Advertisement</span>
+          <span className="text-muted-foreground text-xs">
             Interested in advertising on Imourig?{" "}
             <a href="/en/contact" className="text-amber-500 hover:underline">Get in touch</a>
           </span>
