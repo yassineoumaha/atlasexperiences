@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, X, Coffee, CreditCard } from "lucide-react";
+import { Heart, X, Coffee } from "lucide-react";
 
 export default function DonateButton() {
   const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ export default function DonateButton() {
 
             <div className="space-y-3">
               <a
-                href="https://buymeacoffee.com/atlasmaroc"
+                href="https://buymeacoffee.com/imourig"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-3 px-4 rounded-xl transition-colors"
@@ -46,19 +46,6 @@ export default function DonateButton() {
                 <div className="text-left">
                   <div className="text-sm font-black">Buy Me a Coffee</div>
                   <div className="text-xs font-normal opacity-75">One-time, any amount</div>
-                </div>
-              </a>
-
-              <a
-                href="https://www.paypal.com/donate?hosted_button_id=ATLASMAROC"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-colors"
-              >
-                <CreditCard className="w-5 h-5 shrink-0" />
-                <div className="text-left">
-                  <div className="text-sm font-black">Donate via PayPal</div>
-                  <div className="text-xs font-normal opacity-75">Card, PayPal balance, or bank</div>
                 </div>
               </a>
             </div>
