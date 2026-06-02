@@ -65,7 +65,7 @@ export default async function ExperienceDetailPage({
   return (
     <div className="relative pt-16 min-h-screen bg-background pb-24 lg:pb-0 overflow-hidden isolate">
       {/* Context-aware living scene for this experience's activity */}
-      <ScrollScene scene={scene} direction="ltr" colorClass="text-foreground" />
+      <ScrollScene scene={scene} direction="ltr" colorClass="text-foreground" mode="intro" />
       {/* Image gallery */}
       <div className="relative z-10 h-[50vh] min-h-[360px] bg-muted overflow-hidden">
         {experience.images?.[0] ? (

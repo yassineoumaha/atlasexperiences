@@ -9,22 +9,20 @@ interface ScrollSceneProps {
   direction?: "ltr" | "rtl";
   colorClass?: string;
   className?: string;
+  /**
+   * "scroll"  — mid-page: scene swells in, rider crosses, fades out as you scroll past (scrubbed).
+   * "intro"   — hero / above-the-fold: scene is visible immediately and gently animates
+   *             on a loop + light parallax. Use this at the TOP of a page.
+   */
+  mode?: "scroll" | "intro";
 }
 
-/**
- * A living activity scene that animates with scroll position (GSAP scrub):
- *   - the wave/landscape swells UP from behind the content
- *   - the rider (surfer/biker/…) travels ACROSS
- *   - then the whole scene drifts past and fades out
- *
- * GSAP is dynamically imported (client-only). On mobile or reduced-motion we
- * render a calm static scene (no scroll work) for performance.
- */
 export function ScrollScene({
   scene,
   direction = "ltr",
   colorClass = "text-primary",
   className = "",
+  mode = "scroll",
 }: ScrollSceneProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const Scene = SCENES[scene];
@@ -35,46 +33,57 @@ export function ScrollScene({
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const wave = host.querySelector<SVGGElement>(".scene-wave");
+    const rider = host.querySelector<SVGGElement>(".scene-rider");
+    const dist = direction === "ltr" ? 1 : -1;
 
-    // Static, gently-visible fallback — no scroll animation.
-    if (reduce || isMobile) {
-      host.style.opacity = "1";
-      return;
-    }
+    // Always make it visible (so it never "disappears"); motion is the enhancement.
+    host.style.opacity = "1";
+
+    if (reduce || isMobile) return; // static, but visible
 
     let ctx: { revert: () => void } | null = null;
     let cancelled = false;
 
     (async () => {
       const gsapMod = await import("gsap");
+      const gsap = gsapMod.default;
+
+      if (mode === "intro") {
+        // Hero: gentle, continuous life — no scroll needed to see it.
+        if (cancelled) return;
+        ctx = gsap.context(() => {
+          gsap.fromTo(host, { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" });
+          if (rider) {
+            gsap.fromTo(rider, { xPercent: -14 * dist }, { xPercent: 14 * dist, duration: 7, ease: "sine.inOut", repeat: -1, yoyo: true });
+            gsap.to(rider, { yPercent: -3, duration: 3.2, ease: "sine.inOut", repeat: -1, yoyo: true });
+          }
+          if (wave) gsap.to(wave, { yPercent: -4, duration: 4.5, ease: "sine.inOut", repeat: -1, yoyo: true });
+        }, host);
+        return;
+      }
+
+      // mode === "scroll": tie to scroll position with scrub.
       const stMod = await import("gsap/ScrollTrigger");
       if (cancelled) return;
-      const gsap = gsapMod.default;
       const ScrollTrigger = stMod.ScrollTrigger ?? stMod.default;
       gsap.registerPlugin(ScrollTrigger);
 
-      const wave = host.querySelector<SVGGElement>(".scene-wave");
-      const rider = host.querySelector<SVGGElement>(".scene-rider");
-      const dist = direction === "ltr" ? 1 : -1;
-
       ctx = gsap.context(() => {
+        // start visible at a base level, then choreograph with scroll
+        gsap.set(host, { opacity: 1 });
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: host.parentElement ?? host,
-            start: "top bottom",   // section top reaches viewport bottom
-            end: "bottom top",     // section bottom reaches viewport top
-            scrub: 1.4,            // tie to scroll w/ smooth trailing
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.4,
           },
         });
-
-        // 1) swell up + fade in
-        tl.fromTo(host, { opacity: 0, yPercent: 18 }, { opacity: 1, yPercent: 0, ease: "power2.out", duration: 1.2 }, 0);
-        // 2) wave breathes upward a touch
+        tl.fromTo(host, { yPercent: 16, opacity: 0.4 }, { yPercent: 0, opacity: 1, ease: "power2.out", duration: 1.2 }, 0);
         if (wave) tl.fromTo(wave, { yPercent: 10 }, { yPercent: -6, ease: "none", duration: 4 }, 0);
-        // 3) rider travels across the scene
         if (rider) tl.fromTo(rider, { xPercent: -22 * dist, rotate: -2 * dist }, { xPercent: 24 * dist, rotate: 2 * dist, ease: "none", duration: 4 }, 0);
-        // 4) flow past and dissipate near the end
-        tl.to(host, { opacity: 0, yPercent: -14, ease: "power2.in", duration: 1.1 }, 3.1);
+        tl.to(host, { opacity: 0.25, yPercent: -14, ease: "power2.in", duration: 1.1 }, 3.1);
       }, host);
     })();
 
@@ -82,16 +91,16 @@ export function ScrollScene({
       cancelled = true;
       ctx?.revert();
     };
-  }, [direction]);
+  }, [direction, mode]);
 
   return (
     <div
       ref={hostRef}
       aria-hidden="true"
-      style={{ opacity: 0 }}
+      style={{ opacity: mode === "intro" ? 1 : 0 }}
       className={`pointer-events-none absolute inset-0 -z-0 overflow-hidden ${colorClass} ${className}`}
     >
-      <Scene className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150%] sm:w-full h-full opacity-[0.38] dark:opacity-[0.45]" />
+      <Scene className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150%] sm:w-full h-full opacity-[0.42] dark:opacity-[0.5]" />
     </div>
   );
 }

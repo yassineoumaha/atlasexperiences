@@ -68,7 +68,7 @@ export default async function ExperiencesPage({
       {/* Hero — context-aware living scene for the chosen category */}
       <div className="relative overflow-hidden isolate bg-gradient-to-br from-[oklch(0.30_0.10_264)] via-[oklch(0.34_0.10_280)] to-[oklch(0.40_0.12_40)] text-white py-20 px-4">
         <div className="zellij-bg absolute inset-0 opacity-[0.08] mix-blend-screen" aria-hidden="true" />
-        <ScrollScene scene={sceneFor(category)} direction="ltr" colorClass="text-white" />
+        <ScrollScene scene={sceneFor(category)} direction="ltr" colorClass="text-white" mode="intro" />
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 text-amber-200 text-sm px-4 py-1.5 rounded-full mb-5">
             ✅ {d.badge}
