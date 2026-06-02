@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 };
 
 const topics = [
-  { icon: "🏠", title: "List your property or service", desc: "Hotels, riads, taxi drivers, tour guides — list for free", href: "/en/list-your-property" },
-  { icon: "✏️", title: "Report inaccurate information", desc: "Help us keep our guides honest and up-to-date" },
+  { icon: "🧭", title: "List your experience", desc: "Local operators & guides — list your experiences for free", href: "/en/operators/register" },
+  { icon: "✏️", title: "Report inaccurate information", desc: "Help us keep listings honest and up-to-date" },
   { icon: "🤝", title: "Partnership or press enquiry", desc: "Media, affiliate programs, B2B partnerships" },
-  { icon: "❓", title: "Trip planning question", desc: "Use WhatsApp for fastest response" },
+  { icon: "❓", title: "Booking question", desc: "Use WhatsApp for fastest response" },
 ];
 
 export default function ContactPage() {

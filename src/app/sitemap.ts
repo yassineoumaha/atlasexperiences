@@ -7,7 +7,6 @@ const LOCALES = ["en", "fr", "es", "ar"];
 const STATIC_PATHS = [
   "",
   "/experiences",
-  "/destinations",
   "/map",
   "/blog",
   "/about",
@@ -15,7 +14,6 @@ const STATIC_PATHS = [
   "/tips",
   "/plan",
   "/world-cup-2030",
-  "/taxis",
   "/affiliate-disclosure",
   "/privacy",
   "/terms",
@@ -52,27 +50,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: `${SITE_URL}/${locale}/experiences/${exp.slug}`,
             lastModified: exp.updated_at ? new Date(exp.updated_at) : new Date(),
             changeFrequency: "weekly",
-            priority: 0.7,
-          });
-        }
-      }
-    }
-  } catch {}
-
-  // Dynamic: destinations
-  try {
-    const supabase = await createClient();
-    const { data: destinations } = await (supabase as unknown as any)
-      .from("destinations")
-      .select("slug, updated_at");
-
-    if (destinations) {
-      for (const dest of destinations) {
-        for (const locale of LOCALES) {
-          entries.push({
-            url: `${SITE_URL}/${locale}/destinations/${dest.slug}`,
-            lastModified: dest.updated_at ? new Date(dest.updated_at) : new Date(),
-            changeFrequency: "monthly",
             priority: 0.7,
           });
         }

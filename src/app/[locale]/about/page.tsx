@@ -142,12 +142,12 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
             <div className="text-muted-foreground text-sm">Partner inquiries, corrections, feedback</div>
           </Link>
           <Link
-            href="/en/list-your-property"
+            href="/en/operators/register"
             className="bg-accent hover:brightness-105 text-white rounded-2xl p-6 text-center transition-colors"
           >
-            <div className="text-2xl mb-2">🏡</div>
-            <div className="font-black text-lg mb-1">List Your Property or Service</div>
-            <div className="text-amber-100 text-sm">Riad, taxi, tour guide — free listing</div>
+            <div className="text-2xl mb-2">🧭</div>
+            <div className="font-black text-lg mb-1">List Your Experience</div>
+            <div className="text-amber-100 text-sm">Local operators & guides — free listing</div>
           </Link>
         </div>
       </div>

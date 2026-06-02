@@ -41,7 +41,6 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
 
   const navLinks = [
     { href: `/${locale}/experiences`, label: dict.nav.browse },
-    { href: `/${locale}/destinations`, label: dict.nav.destinations },
     { href: `/${locale}/map`,         label: dict.nav.map },
     { href: `/${locale}/about`,       label: dict.nav.about },
   ];

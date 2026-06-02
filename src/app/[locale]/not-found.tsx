@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { Compass } from "lucide-react";
 
 export default function LocaleNotFound() {
   return (
@@ -19,10 +19,10 @@ export default function LocaleNotFound() {
             Back to Home
           </Link>
           <Link
-            href="/en/destinations"
+            href="/en/experiences"
             className="flex items-center justify-center gap-2 border border-input text-foreground/80 hover:border-amber-400 hover:text-primary font-semibold px-6 py-3 rounded-xl transition-colors"
           >
-            <MapPin className="w-4 h-4" /> Browse Destinations
+            <Compass className="w-4 h-4" /> Browse Experiences
           </Link>
         </div>
       </div>

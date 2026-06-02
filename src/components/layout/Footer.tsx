@@ -74,7 +74,6 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
                 { href: `/${locale}/tips`,    label: dict.tips.title },
                 { href: `/${locale}/suggest`, label: dict.footer.suggest },
                 { href: `/${locale}/blog`,    label: "Blog" },
-                { href: `/${locale}/destinations`, label: dict.nav.destinations },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-stone-400 hover:text-amber-400 text-sm transition-colors flex items-center gap-2 group min-h-[2.5rem]">
