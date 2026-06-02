@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, type Locale } from "@/lib/dictionaries";
 import { createClient } from "@/lib/supabase/server";
 import { MapPin, ArrowRight, Compass } from "lucide-react";
-import { ScrollSketch } from "@/components/sketch/ScrollSketch";
+import { ScrollScene } from "@/components/sketch/ScrollScene";
 
 export const metadata: Metadata = {
   title: "Morocco Destinations — Imourig",
@@ -61,8 +61,9 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
         </div>
       </div>
 
-      <div className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <ScrollSketch sketch="landmark" side="right" colorClass="text-primary" className="opacity-[0.06] dark:opacity-[0.11]" />
+      <div className="relative overflow-hidden isolate max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <ScrollScene scene="desert" direction="rtl" colorClass="text-foreground" />
+        <div className="relative z-10">
         {destinations.length === 0 ? (
           <div className="text-center py-20">
             <MapPin className="w-12 h-12 text-stone-200 mx-auto mb-4" />
@@ -122,6 +123,7 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
             </div>
           </>
         )}
+        </div>
       </div>
     </div>
   );

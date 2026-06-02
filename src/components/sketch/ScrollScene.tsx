@@ -91,7 +91,7 @@ export function ScrollScene({
       style={{ opacity: 0 }}
       className={`pointer-events-none absolute inset-0 -z-0 overflow-hidden ${colorClass} ${className}`}
     >
-      <Scene className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] sm:w-full h-full opacity-[0.16] dark:opacity-[0.22]" />
+      <Scene className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150%] sm:w-full h-full opacity-[0.38] dark:opacity-[0.45]" />
     </div>
   );
 }

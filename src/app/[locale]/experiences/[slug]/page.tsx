@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { CATEGORIES, CANCELLATION_LABELS } from "@/lib/experiences-data";
 import { Star, Clock, Users, MapPin, CheckCircle, X, ArrowLeft, Globe, Phone, MessageCircle } from "lucide-react";
 import BookingWidget from "@/components/BookingWidget";
+import { ScrollScene } from "@/components/sketch/ScrollScene";
+import { SCENES, type SceneKey } from "@/components/sketch/scenes";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -58,11 +60,14 @@ export default async function ExperienceDetailPage({
   }
 
   const cat = CATEGORIES[experience.category as keyof typeof CATEGORIES];
+  const scene: SceneKey = (experience.category in SCENES ? experience.category : "desert") as SceneKey;
 
   return (
-    <div className="pt-16 min-h-screen bg-background pb-24 lg:pb-0">
+    <div className="relative pt-16 min-h-screen bg-background pb-24 lg:pb-0 overflow-hidden isolate">
+      {/* Context-aware living scene for this experience's activity */}
+      <ScrollScene scene={scene} direction="ltr" colorClass="text-foreground" />
       {/* Image gallery */}
-      <div className="relative h-[50vh] min-h-[360px] bg-muted overflow-hidden">
+      <div className="relative z-10 h-[50vh] min-h-[360px] bg-muted overflow-hidden">
         {experience.images?.[0] ? (
           <Image src={experience.images[0]} alt={experience.title} fill className="object-cover" priority sizes="100vw" />
         ) : (
@@ -103,7 +108,7 @@ export default async function ExperienceDetailPage({
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
           {/* Main content */}
