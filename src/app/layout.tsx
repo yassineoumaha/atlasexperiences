@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Raleway, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import Analytics from "@/components/analytics/Analytics";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
         className="min-h-full flex flex-col antialiased bg-background text-foreground"
       >
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

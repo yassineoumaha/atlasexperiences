@@ -44,6 +44,9 @@ export interface Database {
           languages: string[]; avatar_url: string | null; cover_url: string | null;
           years_experience: number | null; license_number: string | null;
           license_image_url: string | null; verified: boolean;
+          verification_status: "pending" | "verified" | "rejected";
+          founded_year: number | null; service_regions: string[];
+          response_time: string | null; booking_success_rate: number | null;
           stripe_account_id: string | null; commission_rate: number;
           avg_rating: number | null; review_count: number; ranking_score: number;
           created_at: string; updated_at: string;
@@ -163,6 +166,27 @@ export interface Database {
           & Partial<Omit<UserProfileRow, "id" | "created_at" | "updated_at">>;
         Update: Partial<Database["public"]["Tables"]["user_profiles"]["Insert"]>;
       };
+      // ── Marketplace commission tracking (architecture only — no payments) ────
+      commissions: {
+        Row: {
+          id: string; booking_id: string; operator_id: string;
+          booking_value: number; commission_amount: number; rate: number;
+          status: "pending" | "invoiced" | "paid" | "waived"; created_at: string;
+        };
+        Insert: Pick<CommissionRow, "booking_id" | "operator_id" | "booking_value" | "commission_amount" | "rate">
+          & Partial<Omit<CommissionRow, "booking_id" | "operator_id" | "booking_value" | "commission_amount" | "rate" | "created_at">>;
+        Update: Partial<Database["public"]["Tables"]["commissions"]["Insert"]>;
+      };
+      operator_payouts: {
+        Row: {
+          id: string; operator_id: string; period: string;
+          total_earnings: number; total_commission: number;
+          status: "pending" | "invoiced" | "paid"; created_at: string;
+        };
+        Insert: Pick<OperatorPayoutRow, "operator_id" | "period">
+          & Partial<Omit<OperatorPayoutRow, "operator_id" | "period" | "created_at">>;
+        Update: Partial<Database["public"]["Tables"]["operator_payouts"]["Insert"]>;
+      };
     }>;
     Views: { [_ in never]: never };
     Functions: { [_ in never]: never };
@@ -175,6 +199,8 @@ export interface Database {
 export type BlogPostRow           = Database["public"]["Tables"]["blog_posts"]["Row"];
 export type SavedTripRow          = Database["public"]["Tables"]["saved_trips"]["Row"];
 export type OperatorRow           = Database["public"]["Tables"]["operators"]["Row"];
+export type CommissionRow         = Database["public"]["Tables"]["commissions"]["Row"];
+export type OperatorPayoutRow     = Database["public"]["Tables"]["operator_payouts"]["Row"];
 export type ExperienceRow         = Database["public"]["Tables"]["experiences"]["Row"];
 export type BookingRow            = Database["public"]["Tables"]["bookings"]["Row"];
 export type ExperienceReviewRow   = Database["public"]["Tables"]["experience_reviews"]["Row"];

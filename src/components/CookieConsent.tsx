@@ -29,9 +29,10 @@ export default function CookieConsent() {
   function saveConsent(state: ConsentState) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, timestamp: new Date().toISOString() }));
     setVisible(false);
-    // Fire analytics only if consented
-    if (state.analytics && typeof window !== "undefined") {
-      // Analytics initialization would go here
+    // Notify the Analytics component so GA4 loads (or stays off) immediately,
+    // without waiting for a page reload. Gated on analytics consent there.
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("imourig-consent-changed"));
     }
   }
 
