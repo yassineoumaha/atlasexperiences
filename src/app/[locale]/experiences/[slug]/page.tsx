@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { getExperienceBySlug, getExperienceMeta } from "@/lib/db";
 import { CATEGORIES, CANCELLATION_LABELS } from "@/lib/experiences-data";
-import { Star, Clock, Users, MapPin, CheckCircle, X, ArrowLeft, Globe, Phone, MessageCircle } from "lucide-react";
+import { Star, Clock, Users, MapPin, CheckCircle, X, ArrowLeft } from "lucide-react";
+import type { Locale } from "@/lib/dictionaries";
 import BookingWidget from "@/components/BookingWidget";
+import { OperatorCard } from "@/components/operator/OperatorCard";
 import { ScrollScene } from "@/components/sketch/ScrollScene";
 import { SCENES, type SceneKey } from "@/components/sketch/scenes";
 import type { Metadata } from "next";
@@ -164,45 +166,8 @@ export default async function ExperienceDetailPage({
               <p className="text-blue-700 text-sm">{CANCELLATION_LABELS[experience.cancellation] ?? experience.cancellation}</p>
             </div>
 
-            {/* Operator profile */}
-            {operator && (
-              <div className="border border-border rounded-2xl p-5 shadow-sm bg-card">
-                <h2 className="text-xl font-black text-foreground mb-4">Your Guide / Operator</h2>
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-accent/15 rounded-2xl flex items-center justify-center text-accent-foreground text-2xl font-black shrink-0 overflow-hidden">
-                    {operator.avatar_url
-                      ? <Image src={operator.avatar_url} alt={operator.business_name} width={64} height={64} className="object-cover w-full h-full" />
-                      : operator.business_name?.[0]
-                    }
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-black text-foreground text-lg">{operator.business_name}</h3>
-                      {operator.verified && (
-                        <span className="flex items-center gap-1 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
-                          <CheckCircle className="w-3 h-3" /> Verified
-                        </span>
-                      )}
-                    </div>
-                    {operator.city && <p className="text-muted-foreground text-sm mb-2 flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{operator.city}</p>}
-                    {operator.bio && <p className="text-foreground/70 text-sm mb-3">{operator.bio}</p>}
-                    <div className="flex flex-wrap gap-2">
-                      {operator.languages?.map((l: string) => (
-                        <span key={l} className="flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
-                          <Globe className="w-3 h-3" /> {l}
-                        </span>
-                      ))}
-                    </div>
-                    {operator.slug && (
-                      <Link href={`/${locale}/operators/${operator.slug}`}
-                        className="inline-block mt-3 text-primary text-sm font-semibold hover:underline">
-                        View all experiences by {operator.business_name} →
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Operator profile — who delivers this experience (not Atlas) */}
+            {operator && <OperatorCard operator={operator} locale={locale as Locale} />}
 
             {/* Reviews */}
             <div>

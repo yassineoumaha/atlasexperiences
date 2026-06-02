@@ -147,6 +147,60 @@ export async function getExperienceMeta(
   }
 }
 
+/** An operator profile joined with its published experiences. */
+export type OperatorWithExperiences = OperatorRow & {
+  experiences: ExperienceCard[];
+};
+
+/** Public operator profile by slug, with their live experiences. */
+export async function getOperatorBySlug(
+  slug: string,
+): Promise<OperatorWithExperiences | null> {
+  try {
+    const supabase = await createClient();
+    const { data: operator } = await supabase
+      .from("operators")
+      .select("*")
+      .eq("slug", slug)
+      .single();
+    if (!operator) return null;
+
+    const { data: experiences } = await supabase
+      .from("experiences")
+      .select(CARD_SELECT)
+      .eq("operator_id", operator.id)
+      .eq("published", true)
+      .eq("approved", true)
+      .order("featured", { ascending: false })
+      .order("total_bookings", { ascending: false })
+      .limit(48);
+
+    return {
+      ...(operator as OperatorRow),
+      experiences: (experiences as unknown as ExperienceCard[] | null) ?? [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Lightweight name/bio lookup for an operator's generateMetadata. */
+export async function getOperatorMeta(
+  slug: string,
+): Promise<Pick<OperatorRow, "business_name" | "bio" | "city"> | null> {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("operators")
+      .select("business_name, bio, city")
+      .eq("slug", slug)
+      .single();
+    return data ?? null;
+  } catch {
+    return null;
+  }
+}
+
 /** Counts for the homepage stats band. */
 export async function getPlatformStats(): Promise<{ operators: number; experiences: number }> {
   try {
