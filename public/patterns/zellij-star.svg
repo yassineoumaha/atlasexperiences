@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Seamless 8-point Moroccan zellij star tessellation, drawn as faint hairlines -->
+  <g fill="none" stroke="#1f3a8a" stroke-opacity="0.06" stroke-width="1.2">
+    <!-- central 8-point star -->
+    <path d="M60 18 L70 38 L92 38 L76 54 L84 76 L60 64 L36 76 L44 54 L28 38 L50 38 Z"/>
+    <!-- rotated overlay square to complete the khatim look -->
+    <path d="M60 30 L78 48 L78 72 L60 90 L42 72 L42 48 Z"/>
+    <!-- corner stars (tessellation continuation) -->
+    <path d="M0 0 L8 16 L24 8 L16 24 L0 18 Z" transform="translate(-4,-4)"/>
+    <path d="M120 0 L112 16 L96 8 L104 24 L120 18 Z" transform="translate(4,-4)"/>
+    <path d="M0 120 L8 104 L24 112 L16 96 L0 102 Z" transform="translate(-4,4)"/>
+    <path d="M120 120 L112 104 L96 112 L104 96 L120 102 Z" transform="translate(4,4)"/>
+    <!-- connecting lattice -->
+    <line x1="0" y1="60" x2="28" y2="38"/>
+    <line x1="120" y1="60" x2="92" y2="38"/>
+    <line x1="0" y1="60" x2="28" y2="82"/>
+    <line x1="120" y1="60" x2="92" y2="82"/>
+  </g>
+</svg>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Raleway, Open_Sans } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -34,9 +35,9 @@ export default function RootLayout({
     <html suppressHydrationWarning className={`${openSans.variable} ${raleway.variable} h-full`}>
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col antialiased bg-white text-stone-900"
+        className="min-h-full flex flex-col antialiased bg-background text-foreground"
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

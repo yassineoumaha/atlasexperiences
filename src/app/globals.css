@@ -1,130 +1,241 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   IMOURIG DESIGN SYSTEM
+   Moroccan zellij + Amazigh heritage. Mobile-first. Light + dark.
+   Palette: Majorelle/cobalt blue, saffron amber, emerald, terracotta,
+   warm plaster neutrals. Colors in OKLCH for perceptual consistency.
+   ========================================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Brand scales (raw) ───────────────────────────── */
+  /* Majorelle / cobalt blue */
+  --blue-50:  oklch(0.97 0.02 264);
+  --blue-500: oklch(0.55 0.20 264);
+  --blue-600: oklch(0.48 0.20 264);
+  --blue-700: oklch(0.42 0.18 264);
+  /* Saffron amber (continuity with old brand accent) */
+  --amber-50:  oklch(0.97 0.04 85);
+  --amber-400: oklch(0.83 0.16 80);
+  --amber-500: oklch(0.78 0.17 70);
+  --amber-600: oklch(0.70 0.17 60);
+  /* Emerald (verified / success) */
+  --emerald-500: oklch(0.65 0.15 162);
+  --emerald-600: oklch(0.56 0.14 162);
+  /* Terracotta / clay (desert, warmth) */
+  --terracotta-500: oklch(0.62 0.15 40);
+  --terracotta-600: oklch(0.54 0.15 38);
+
+  /* ── Semantic tokens (light) ──────────────────────── */
+  --background: oklch(0.985 0.008 85);      /* warm plaster off-white */
+  --foreground: oklch(0.22 0.02 50);        /* deep charcoal-brown */
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --primary: var(--blue-600);               /* Majorelle blue */
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: var(--emerald-600);
+  --secondary-foreground: oklch(0.99 0 0);
+  --accent: var(--amber-500);               /* saffron CTAs */
+  --accent-foreground: oklch(0.22 0.02 50);
+  --terracotta: var(--terracotta-500);
+  --muted: oklch(0.95 0.01 85);
+  --muted-foreground: oklch(0.50 0.02 60);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.90 0.01 80);
+  --input: oklch(0.90 0.01 80);
+  --ring: var(--blue-500);
+
+  /* ── Fonts ────────────────────────────────────────── */
   --font-inter: "Open Sans", sans-serif;
   --font-heading: "Raleway", sans-serif;
 
-  /* Brand palette */
-  --amber-50: #fffbeb;
-  --amber-400: #fbbf24;
-  --amber-500: #f59e0b;
-  --amber-600: #d97706;
-
-  /* Section rhythm */
+  /* ── Radius / rhythm ──────────────────────────────── */
+  --radius: 0.75rem;
   --section-py: 5rem;
-
-  /* Transitions */
   --img-transition: 0.35s;
   --img-scale: scale(1.07);
+
+  /* ── Zellij motif colors (for SVG patterns) ───────── */
+  --zellij-1: var(--blue-600);
+  --zellij-2: var(--amber-500);
+  --zellij-3: var(--emerald-600);
+  --zellij-4: var(--terracotta-500);
+}
+
+.dark {
+  --background: oklch(0.20 0.015 60);       /* warm near-black */
+  --foreground: oklch(0.96 0.008 85);
+  --card: oklch(0.25 0.015 60);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.25 0.015 60);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.68 0.16 264);          /* lighter Majorelle */
+  --primary-foreground: oklch(0.18 0.02 60);
+  --secondary: var(--emerald-500);
+  --secondary-foreground: oklch(0.18 0.02 60);
+  --accent: var(--amber-400);
+  --accent-foreground: oklch(0.20 0.02 60);
+  --terracotta: oklch(0.66 0.15 42);
+  --muted: oklch(0.30 0.015 60);
+  --muted-foreground: oklch(0.72 0.02 80);
+  --destructive: oklch(0.70 0.19 22);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.68 0.16 264);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-terracotta: var(--terracotta);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
   --font-sans: var(--font-inter);
   --font-heading: var(--font-heading);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
 }
 
 /* ─── Base ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+* { border-color: var(--border); }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;          /* no iOS font auto-zoom */
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* respect iOS safe areas (notch / home indicator) */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-family: var(--font-heading), Arial, Helvetica, sans-serif;
 }
+
+/* Mobile: prevent zoom-on-focus by keeping inputs >= 16px */
+@media (max-width: 640px) {
+  input, select, textarea { font-size: 16px; }
+}
+
+/* Tap targets & touch feel */
+button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
 
 /* ─── RTL ──────────────────────────────────────────── */
 [dir="rtl"] .rtl-flip { transform: scaleX(-1); }
 
-/* ─── Image hover scale (bedimcode pattern) ─────────── */
+/* =========================================================================
+   ZELLIJ MOTIF LAYER
+   ========================================================================= */
+
+/* Subtle zellij star tessellation background texture (very low opacity).
+   Apply .zellij-bg to a section for a tiled geometric texture. */
+.zellij-bg {
+  background-color: var(--background);
+  background-image: url("/patterns/zellij-star.svg");
+  background-size: 120px 120px;
+  background-repeat: repeat;
+}
+.zellij-bg-faint { background-image: url("/patterns/zellij-star.svg"); background-size: 120px; opacity: 1; }
+
+/* Zellij hairline divider between sections */
+.zellij-divider {
+  height: 16px;
+  background-image: url("/patterns/zellij-band.svg");
+  background-size: auto 16px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+/* "Tile" hover: experience cards flip-lift like a zellij tile being set */
+.tile-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+  will-change: transform;
+}
+@media (hover: hover) {
+  .tile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ─── Image hover scale ─────────────────────────────── */
 .img-hover-zoom { overflow: hidden; }
 .img-hover-zoom img,
-.img-hover-zoom .img-inner {
-  transition: transform var(--img-transition);
-}
-.img-hover-zoom:hover img,
-.img-hover-zoom:hover .img-inner {
-  transform: var(--img-scale);
+.img-hover-zoom .img-inner { transition: transform var(--img-transition); }
+@media (hover: hover) {
+  .img-hover-zoom:hover img,
+  .img-hover-zoom:hover .img-inner { transform: var(--img-scale); }
 }
 
 /* ─── Section helpers ──────────────────────────────── */
-.section-title {
-  font-family: "Raleway", sans-serif;
-  font-weight: 800;
-  text-transform: capitalize;
-}
+.section-title { font-family: var(--font-heading), sans-serif; font-weight: 800; }
 
 /* ─── Scroll snap for carousels ─────────────────────── */
-.snap-scroll {
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
+.snap-scroll { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
 .snap-scroll > * { scroll-snap-align: start; }
 
 /* ─── Custom scrollbar ──────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-foreground); }
 
-/* ─── Glassmorphism utility ─────────────────────────── */
+/* ─── Glass utility (tinted for warm theme) ─────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in oklch, var(--card) 70%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--border);
 }
 
 /* ─── Nav link underline animation ─────────────────── */
-.nav-link {
-  position: relative;
-}
+.nav-link { position: relative; }
 .nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: currentColor;
-  transition: width 0.25s ease;
-  border-radius: 2px;
+  content: ""; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 2px; background: currentColor;
+  transition: width 0.25s ease; border-radius: 2px;
 }
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* ─── Place card overlay pattern (bedimcode) ─────────── */
-.place-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1rem;
-}
-.place-card .place-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--img-transition);
-}
-.place-card:hover .place-img {
-  transform: var(--img-scale);
-}
+/* ─── Place card overlay pattern ────────────────────── */
+.place-card { position: relative; overflow: hidden; border-radius: 1rem; }
+.place-card .place-img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--img-transition); }
+@media (hover: hover) { .place-card:hover .place-img { transform: var(--img-scale); } }
 .place-card .place-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.12) 50%, transparent 100%);
 }
 
 /* ─── Hide scrollbar utility ───────────────────────── */
@@ -132,56 +243,40 @@ h1, h2, h3, h4, h5, h6 {
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ─── Discover card ─────────────────────────────────── */
-.discover-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.25rem;
-  flex-shrink: 0;
-}
-.discover-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--img-transition);
-}
-.discover-card:hover img {
-  transform: var(--img-scale);
-}
+.discover-card { position: relative; overflow: hidden; border-radius: 1.25rem; flex-shrink: 0; }
+.discover-card img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--img-transition); }
+@media (hover: hover) { .discover-card:hover img { transform: var(--img-scale); } }
 
-/* ─── Fade-in animation ─────────────────────────────── */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.fade-in-up {
-  animation: fadeInUp 0.55s ease both;
-}
+/* ─── Animations ────────────────────────────────────── */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in-up { animation: fadeInUp 0.55s ease both; }
 .fade-in-up-delay-1 { animation-delay: 0.1s; }
 .fade-in-up-delay-2 { animation-delay: 0.2s; }
 .fade-in-up-delay-3 { animation-delay: 0.35s; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
 
 /* ─── Stat counter number ───────────────────────────── */
-.stat-number {
-  font-family: "Raleway", sans-serif;
-  font-weight: 800;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1;
+.stat-number { font-family: var(--font-heading), sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1; }
+
+/* ─── Safe-area helpers for sticky mobile bars ──────── */
+.pb-safe { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
+.sticky-mobile-bar {
+  position: sticky; bottom: 0; left: 0; right: 0;
+  background: color-mix(in oklch, var(--card) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
 }
 
-/* ─── Button base ───────────────────────────────────── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #f59e0b;
-  color: #fff;
-  font-family: "Raleway", sans-serif;
-  font-weight: 700;
-  padding: 0.875rem 2rem;
-  border-radius: 0.75rem;
-  transition: background 0.2s, transform 0.15s;
+/* ─── MapLibre popup theming (from square-ui) ───────── */
+.maplibregl-popup-content {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  border-radius: 1rem !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.25) !important;
+  padding: 0 !important;
 }
-.btn-primary:hover {
-  background: #d97706;
-  transform: translateY(-1px);
-}
+.maplibregl-popup-tip { display: none !important; }
+.maplibregl-popup-close-button { display: none !important; }
