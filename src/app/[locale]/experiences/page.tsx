@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { listExperiences, type ExperienceFilters, type ExperienceSort } from "@/lib/db";
@@ -43,6 +44,7 @@ export default async function ExperiencesPage({
   }>;
 }) {
   const { locale } = await params;
+  if (!hasLocale(locale)) notFound();
   const sp = await searchParams;
   const { category, city } = sp;
 
@@ -146,7 +148,7 @@ export default async function ExperiencesPage({
         {/* Results */}
         {experiences.length === 0 ? (
           <div className="text-center py-20">
-            <img src="/logo.png" alt="Imourig" className="h-14 w-auto mx-auto mb-4" />
+            <Image src="/logo.png" alt="Imourig" width={1066} height={320} className="h-14 w-auto mx-auto mb-4" />
             <h2 className="text-xl font-black text-foreground mb-2">{d.noResults}</h2>
             <p className="text-muted-foreground mb-6">{d.noResultsSub}</p>
             <Link href={`/${locale}/operators/register`}
