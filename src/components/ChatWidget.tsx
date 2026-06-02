@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import type { RealtimePostgresInsertPayload } from "@supabase/supabase-js";
 
 interface Message {
   id: string;
@@ -47,10 +48,11 @@ export default function ChatWidget({
       .select("*")
       .eq("booking_id", bookingId)
       .order("created_at", { ascending: true })
-      .then(({ data }: any) => {
-        setMessages(data ?? []);
-        const unreadCount = (data ?? []).filter(
-          (m: Message) => !m.read && m.sender_id !== currentUserId
+      .then(({ data }) => {
+        const rows = (data as unknown as Message[] | null) ?? [];
+        setMessages(rows);
+        const unreadCount = rows.filter(
+          (m) => !m.read && m.sender_id !== currentUserId
         ).length;
         setUnread(unreadCount);
       });
@@ -66,8 +68,8 @@ export default function ChatWidget({
           table: "messages",
           filter: `booking_id=eq.${bookingId}`,
         },
-        (payload: any) => {
-          const newMsg = payload.new as Message;
+        (payload: RealtimePostgresInsertPayload<Message>) => {
+          const newMsg = payload.new;
           setMessages((prev) => [...prev, newMsg]);
           if (newMsg.sender_id !== currentUserId) {
             if (!open) setUnread((n) => n + 1);
@@ -97,6 +99,8 @@ export default function ChatWidget({
         .eq("booking_id", bookingId)
         .neq("sender_id", currentUserId)
         .eq("read", false);
+      // Reset the badge once the thread is opened and messages marked read.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUnread(0);
     }
   }, [open]);

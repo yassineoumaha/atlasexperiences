@@ -16,7 +16,9 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Re-sync the error banner when the ?error query param changes.
     const urlError = searchParams.get("error");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (urlError) setError(urlError);
   }, [searchParams]);
 

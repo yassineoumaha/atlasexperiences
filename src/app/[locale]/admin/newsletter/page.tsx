@@ -9,7 +9,7 @@ export default async function AdminNewsletterPage() {
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false });
 
-  const byLocale = subscribers?.reduce((acc: any, s: any) => {
+  const byLocale = subscribers?.reduce<Record<string, number>>((acc, s) => {
     acc[s.locale] = (acc[s.locale] || 0) + 1;
     return acc;
   }, {}) ?? {};
@@ -51,7 +51,7 @@ export default async function AdminNewsletterPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-50">
-            {subscribers?.map((sub: any) => (
+            {subscribers?.map((sub) => (
               <tr key={sub.id} className="hover:bg-muted/40 transition-colors">
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-2">

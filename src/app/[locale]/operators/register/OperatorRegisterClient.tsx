@@ -60,8 +60,8 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
       });
 
       setStep("done");
-    } catch (err: any) {
-      alert(err?.message ?? "Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      alert(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
     setLoading(false);
   }

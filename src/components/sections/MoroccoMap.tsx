@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { MapPin, Sun, Thermometer, Star, ArrowRight, ChevronLeft, X, Search } from "lucide-react";
 import "maplibre-gl/dist/maplibre-gl.css";
+import type { Map as MapLibreMap, Marker } from "maplibre-gl";
 import { REGIONS, ALL_CITIES, type CityInfo, type RegionInfo } from "@/components/map/morocco-data";
 
 // ── Map dict type ──────────────────────────────────────────────────────────────
@@ -27,8 +28,10 @@ interface MapDict {
 
 export default function MoroccoMap({ locale, dict }: { locale: string; dict: MapDict }) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
-  const markersRef = useRef<any[]>([]);
+  const mapRef = useRef<MapLibreMap | null>(null);
+  const markersRef = useRef<
+    { marker: Marker; el: HTMLElement; inner: HTMLElement | null; cityName: string; color: string }[]
+  >([]);
 
   const [selectedRegion, setSelectedRegion] = useState<RegionInfo | null>(null);
   const [selectedCity, setSelectedCity] = useState<CityInfo | null>(null);
@@ -67,7 +70,7 @@ export default function MoroccoMap({ locale, dict }: { locale: string; dict: Map
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
 
-    let map: any;
+    let map: MapLibreMap;
     import("maplibre-gl").then(maplibregl => {
       map = new maplibregl.Map({
         container: mapContainer.current!,

@@ -21,11 +21,11 @@ export default async function SuggestionsAdminPage() {
     .order("created_at", { ascending: false });
 
   const byStatus = {
-    new:      (suggestions ?? []).filter((s: any) => s.status === "new"),
-    reviewed: (suggestions ?? []).filter((s: any) => s.status === "reviewed"),
-    planned:  (suggestions ?? []).filter((s: any) => s.status === "planned"),
-    done:     (suggestions ?? []).filter((s: any) => s.status === "done"),
-    declined: (suggestions ?? []).filter((s: any) => s.status === "declined"),
+    new:      (suggestions ?? []).filter((s) => s.status === "new"),
+    reviewed: (suggestions ?? []).filter((s) => s.status === "reviewed"),
+    planned:  (suggestions ?? []).filter((s) => s.status === "planned"),
+    done:     (suggestions ?? []).filter((s) => s.status === "done"),
+    declined: (suggestions ?? []).filter((s) => s.status === "declined"),
   };
 
   return (
@@ -48,7 +48,7 @@ export default async function SuggestionsAdminPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-50">
-            {(suggestions ?? []).map((s: any) => (
+            {(suggestions ?? []).map((s) => (
               <tr key={s.id} className="hover:bg-muted/40">
                 <td className="px-4 py-3 text-xl">{TYPE_EMOJI[s.type] ?? "💬"}</td>
                 <td className="px-4 py-3 text-foreground/80 max-w-sm">

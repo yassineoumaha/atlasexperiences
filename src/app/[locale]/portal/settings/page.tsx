@@ -28,7 +28,7 @@ export default function PortalSettingsPage({ params }: { params: Promise<{ local
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) return;
       supabase.from("user_profiles").select("*").eq("id", user.id).single()
-        .then(({ data }: any) => {
+        .then(({ data }) => {
           if (data) setForm({
             display_name: data.display_name || "",
             bio: data.bio || "",

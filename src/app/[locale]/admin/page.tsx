@@ -17,7 +17,7 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
     db.from("newsletter_subscribers").select("id", { count: "exact", head: true }),
   ]);
 
-  const totalRevenue = (revenue.data ?? []).reduce((s: number, b: any) => s + (b.platform_fee ?? 0), 0);
+  const totalRevenue = (revenue.data ?? []).reduce((s: number, b: { platform_fee: number | null }) => s + (b.platform_fee ?? 0), 0);
 
   const stats = [
     { label: "Operators",        value: operators.count ?? 0,  badge: pendingOps.count,  color: "bg-blue-100 text-blue-700",    icon: Users,       href: `/${locale}/admin/operators` },

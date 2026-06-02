@@ -25,6 +25,8 @@ export default function AnnouncementsAdminPage() {
     setAnnouncements(data ?? []);
   }
 
+  // Initial fetch on mount; load() sets state once the query resolves.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load(); }, []);
 
   async function handleCreate(e: React.FormEvent) {

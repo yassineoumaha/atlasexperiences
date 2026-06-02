@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ChatWidget from "@/components/ChatWidget";
 import { CheckCircle, Clock, Calendar, Users, DollarSign, MessageCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import type { BookingRow } from "@/lib/supabase/types";
 
@@ -10,7 +11,7 @@ type BookingWithJoins = BookingRow & {
   operators: { business_name: string; phone: string | null; whatsapp: string | null } | null;
 };
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; icon: any }> = {
+const STATUS_CONFIG: Record<string, { label: string; color: string; icon: LucideIcon }> = {
   pending:   { label: "Awaiting confirmation",  color: "bg-orange-100 text-orange-700 border-orange-200", icon: Clock },
   confirmed: { label: "Confirmed",              color: "bg-emerald-100 text-emerald-700 border-emerald-200", icon: CheckCircle },
   completed: { label: "Completed",              color: "bg-blue-100 text-blue-700 border-blue-200",    icon: CheckCircle },

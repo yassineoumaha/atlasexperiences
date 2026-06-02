@@ -3,8 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/server";
 
-type Db = { from: (t: string) => any };
-const db = async (): Promise<Db> => (await createAdminClient()) as unknown as Db;
+const db = () => createAdminClient();
 
 // ─── Operators ────────────────────────────────────────────────────────────────
 

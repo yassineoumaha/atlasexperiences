@@ -2,16 +2,22 @@ import { createAdminClient } from "@/lib/supabase/server";
 import { approveExperienceAction, rejectExperienceAction, toggleExperienceFeaturedAction, deleteExperienceAction } from "@/app/actions/admin";
 import { CheckCircle, XCircle, Star, Trash2 } from "lucide-react";
 import { CATEGORIES } from "@/lib/experiences-data";
+import type { ExperienceRow } from "@/lib/supabase/types";
+
+// The embedded `operators(...)` join can't be inferred from the hand-written
+// schema (no FK metadata), so name the row shape explicitly.
+type AdminExperienceRow = ExperienceRow & { operators: { business_name: string } | null };
 
 export default async function AdminExperiencesPage() {
   const db = await createAdminClient();
-  const { data: experiences } = await db
+  const { data } = await db
     .from("experiences")
     .select("*, operators(business_name)")
     .order("created_at", { ascending: false });
+  const experiences = (data as unknown as AdminExperienceRow[] | null) ?? [];
 
-  const pending  = experiences?.filter((e: any) => !e.approved) ?? [];
-  const approved = experiences?.filter((e: any) => e.approved) ?? [];
+  const pending  = experiences.filter((e) => !e.approved);
+  const approved = experiences.filter((e) => e.approved);
 
   return (
     <div>
@@ -27,7 +33,7 @@ export default async function AdminExperiencesPage() {
         <div className="mb-10">
           <h2 className="font-bold text-orange-600 text-sm uppercase tracking-wide mb-4">Awaiting Approval ({pending.length})</h2>
           <div className="space-y-3">
-            {pending.map((exp: any) => {
+            {pending.map((exp) => {
               const cat = CATEGORIES[exp.category as keyof typeof CATEGORIES];
               return (
                 <div key={exp.id} className="bg-card border border-orange-100 rounded-2xl p-5 shadow-sm flex flex-wrap items-start justify-between gap-4">
@@ -60,7 +66,7 @@ export default async function AdminExperiencesPage() {
         </div>
       )}
 
-      <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide mb-4">All Experiences ({experiences?.length ?? 0})</h2>
+      <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide mb-4">All Experiences ({experiences.length})</h2>
       <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm">
         <table className="w-full text-sm">
           <thead className="bg-muted/40 border-b border-border">
@@ -75,7 +81,7 @@ export default async function AdminExperiencesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-50">
-            {experiences?.map((exp: any) => (
+            {experiences.map((exp) => (
               <tr key={exp.id} className="hover:bg-muted/40">
                 <td className="px-4 py-3 font-medium text-foreground max-w-xs"><p className="line-clamp-1">{exp.title}</p></td>
                 <td className="px-4 py-3 text-muted-foreground">{exp.operators?.business_name}</td>
@@ -104,7 +110,7 @@ export default async function AdminExperiencesPage() {
             ))}
           </tbody>
         </table>
-        {(!experiences || experiences.length === 0) && (
+        {experiences.length === 0 && (
           <div className="py-12 text-center text-muted-foreground text-sm">No experiences yet.</div>
         )}
       </div>

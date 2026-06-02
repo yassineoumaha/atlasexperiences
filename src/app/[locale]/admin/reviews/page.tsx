@@ -1,16 +1,21 @@
 import { createAdminClient } from "@/lib/supabase/server";
 import { approveExpReviewAction, deleteExpReviewAction } from "@/app/actions/admin";
 import { CheckCircle, Trash2, Star } from "lucide-react";
+import type { ExperienceReviewRow } from "@/lib/supabase/types";
+
+// Embedded `experiences(...)` join — name the row shape explicitly.
+type AdminReviewRow = ExperienceReviewRow & { experiences: { title: string } | null };
 
 export default async function AdminReviewsPage() {
   const db = await createAdminClient();
-  const { data: reviews } = await db
+  const { data } = await db
     .from("experience_reviews")
     .select("*, experiences(title)")
     .order("created_at", { ascending: false });
+  const reviews = (data as unknown as AdminReviewRow[] | null) ?? [];
 
-  const pending  = reviews?.filter((r: any) => !r.approved) ?? [];
-  const approved = reviews?.filter((r: any) => r.approved) ?? [];
+  const pending  = reviews.filter((r) => !r.approved);
+  const approved = reviews.filter((r) => r.approved);
 
   return (
     <div>
@@ -26,7 +31,7 @@ export default async function AdminReviewsPage() {
         <div className="mb-10">
           <h2 className="font-bold text-orange-600 text-sm uppercase tracking-wide mb-4">Awaiting Approval</h2>
           <div className="space-y-3">
-            {pending.map((r: any) => (
+            {pending.map((r) => (
               <div key={r.id} className="bg-card border border-orange-100 rounded-2xl p-5 shadow-sm">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div>
@@ -71,7 +76,7 @@ export default async function AdminReviewsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-50">
-                {approved.map((r: any) => (
+                {approved.map((r) => (
                   <tr key={r.id} className="hover:bg-muted/40">
                     <td className="px-4 py-3 text-foreground/80 max-w-xs"><p className="line-clamp-2">{r.body}</p></td>
                     <td className="px-4 py-3 text-muted-foreground text-xs">{r.experiences?.title}</td>
