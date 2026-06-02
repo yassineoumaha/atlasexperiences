@@ -35,28 +35,73 @@ export type ExperienceCard = Pick<
 const LISTING_SELECT =
   "*, operators(business_name, avatar_url, verified, slug, avg_rating, ranking_score)";
 
+// `!inner` forces the operator join so filtering on operators.verified works.
+const LISTING_SELECT_VERIFIED =
+  "*, operators!inner(business_name, avatar_url, verified, slug, avg_rating, ranking_score)";
+
 const CARD_SELECT =
   "id, title, slug, category, city, price_per_person, images, avg_rating, review_count, duration_hours, operators(business_name, verified)";
 
-/** Public listing — optionally filtered by category and/or city. */
+/** Sort options surfaced in the discovery UI. */
+export type ExperienceSort = "recommended" | "rated" | "popular" | "newest";
+
+/** Full discovery filter set. All optional; absent filters are not applied. */
+export interface ExperienceFilters {
+  category?: string;
+  city?: string;
+  /** Max duration in hours (e.g. 3 = half-day, 6 = full-day). */
+  maxDuration?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  /** Spoken language the experience must offer (matches `languages` array). */
+  language?: string;
+  /** Only experiences from Atlas-verified operators. */
+  verifiedOnly?: boolean;
+  sort?: ExperienceSort;
+}
+
+/** Public listing — filtered and sorted for the discovery page. */
 export async function listExperiences(
-  filters: { category?: string; city?: string } = {},
+  filters: ExperienceFilters = {},
   limit = 48,
 ): Promise<ExperienceWithOperator[]> {
   try {
     const supabase = await createClient();
     let query = supabase
       .from("experiences")
-      .select(LISTING_SELECT)
+      .select(filters.verifiedOnly ? LISTING_SELECT_VERIFIED : LISTING_SELECT)
       .eq("published", true)
-      .eq("approved", true)
-      .order("featured", { ascending: false })
-      .order("avg_rating", { ascending: false, nullsFirst: false })
-      .order("total_bookings", { ascending: false });
+      .eq("approved", true);
+
     if (filters.category && filters.category !== "all") {
       query = query.eq("category", filters.category as ExperienceRow["category"]);
     }
     if (filters.city) query = query.eq("city", filters.city);
+    if (filters.maxDuration) query = query.lte("duration_hours", filters.maxDuration);
+    if (typeof filters.minPrice === "number") query = query.gte("price_per_person", filters.minPrice);
+    if (typeof filters.maxPrice === "number") query = query.lte("price_per_person", filters.maxPrice);
+    if (filters.language) query = query.contains("languages", [filters.language]);
+    if (filters.verifiedOnly) query = query.eq("operators.verified", true);
+
+    // Featured always floats first; the chosen sort orders the rest.
+    query = query.order("featured", { ascending: false });
+    switch (filters.sort) {
+      case "rated":
+        query = query.order("avg_rating", { ascending: false, nullsFirst: false });
+        break;
+      case "popular":
+        query = query.order("total_bookings", { ascending: false });
+        break;
+      case "newest":
+        query = query.order("created_at", { ascending: false });
+        break;
+      case "recommended":
+      default:
+        query = query
+          .order("ranking_score", { ascending: false })
+          .order("avg_rating", { ascending: false, nullsFirst: false });
+    }
+
     const { data } = await query.limit(limit);
     // The hand-written schema carries no FK metadata, so the embedded
     // `operators(...)` select can't be inferred — assert the known shape.

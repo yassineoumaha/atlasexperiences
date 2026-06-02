@@ -115,6 +115,16 @@
     "builtWith": "Construido con honestidad.",
     "copyright": "Imourig. Todos los derechos reservados."
   },
+  "filters": {
+    "filters": "Filtros",
+    "verifiedOnly": "Solo verificados",
+    "sortBy": "Ordenar por",
+    "clear": "Borrar filtros",
+    "duration": "Duración",
+    "price": "Precio",
+    "language": "Idioma",
+    "any": "Cualquiera"
+  },
   "common": {
     "loading": "Cargando...",
     "error": "Algo salió mal.",

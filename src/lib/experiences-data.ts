@@ -41,6 +41,34 @@ export const CANCELLATION_LABELS: Record<string, string> = {
 // Platform commission rate
 export const PLATFORM_COMMISSION = 0.10; // 10%
 
+// Languages experiences are commonly offered in (for the discovery filter)
+export const EXPERIENCE_LANGUAGES = [
+  "English", "French", "Arabic", "Spanish", "German", "Italian", "Berber",
+];
+
+// Duration buckets for the discovery filter — value is the max hours (lte).
+export const DURATION_BUCKETS: { key: string; label: string; maxHours: number }[] = [
+  { key: "short",   label: "Up to 3h",   maxHours: 3 },
+  { key: "halfday", label: "Half day (≤5h)", maxHours: 5 },
+  { key: "fullday", label: "Full day (≤9h)", maxHours: 9 },
+  { key: "multiday", label: "Multi-day (24h+)", maxHours: 9999 },
+];
+
+// Price buckets (USD per person) for the discovery filter.
+export const PRICE_BUCKETS: { key: string; label: string; min?: number; max?: number }[] = [
+  { key: "budget", label: "Under $30", max: 30 },
+  { key: "mid",    label: "$30–$75", min: 30, max: 75 },
+  { key: "premium", label: "$75–$150", min: 75, max: 150 },
+  { key: "luxury", label: "$150+", min: 150 },
+];
+
+export const SORT_OPTIONS: { key: string; label: string }[] = [
+  { key: "recommended", label: "Recommended" },
+  { key: "rated",       label: "Highest Rated" },
+  { key: "popular",     label: "Most Popular" },
+  { key: "newest",      label: "Newest" },
+];
+
 // All cities on the platform — kept in sync with MoroccoMap.tsx REGIONS data
 export const EXPERIENCE_CITIES = [
   // Tanger-Tétouan-Rif

@@ -115,6 +115,16 @@
     "builtWith": "Built with honest traveler intent.",
     "copyright": "Imourig. All rights reserved."
   },
+  "filters": {
+    "filters": "Filters",
+    "verifiedOnly": "Verified only",
+    "sortBy": "Sort by",
+    "clear": "Clear filters",
+    "duration": "Duration",
+    "price": "Price",
+    "language": "Language",
+    "any": "Any"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong.",

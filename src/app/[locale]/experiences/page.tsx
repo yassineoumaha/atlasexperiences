@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { listExperiences } from "@/lib/db";
-import { CATEGORIES, CATEGORY_LIST, EXPERIENCE_CITIES } from "@/lib/experiences-data";
+import { listExperiences, type ExperienceFilters, type ExperienceSort } from "@/lib/db";
+import {
+  CATEGORIES, CATEGORY_LIST, EXPERIENCE_CITIES,
+  DURATION_BUCKETS, PRICE_BUCKETS,
+} from "@/lib/experiences-data";
 import { Star, Clock, Users, MapPin } from "lucide-react";
 import SchemaScript from "@/components/SchemaScript";
+import { DiscoveryFilters } from "@/components/experience/DiscoveryFilters";
 import { getDictionary, hasLocale, type Locale } from "@/lib/dictionaries";
 import { ScrollScene } from "@/components/sketch/ScrollScene";
 import { SCENES, type SceneKey } from "@/components/sketch/scenes";
@@ -32,16 +36,39 @@ export default async function ExperiencesPage({
   params, searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string; city?: string }>;
+  searchParams: Promise<{
+    category?: string; city?: string;
+    duration?: string; price?: string; language?: string;
+    verified?: string; sort?: string;
+  }>;
 }) {
   const { locale } = await params;
-  const { category, city } = await searchParams;
+  const sp = await searchParams;
+  const { category, city } = sp;
+
+  // Map URL buckets → concrete numeric filters for the data layer.
+  const durationBucket = DURATION_BUCKETS.find((b) => b.key === sp.duration);
+  const priceBucket = PRICE_BUCKETS.find((b) => b.key === sp.price);
+  const validSorts: ExperienceSort[] = ["recommended", "rated", "popular", "newest"];
+
+  const filters: ExperienceFilters = {
+    category,
+    city,
+    maxDuration: durationBucket && durationBucket.maxHours < 9999 ? durationBucket.maxHours : undefined,
+    minPrice: priceBucket?.min,
+    maxPrice: priceBucket?.max,
+    language: sp.language || undefined,
+    verifiedOnly: sp.verified === "1",
+    sort: validSorts.includes(sp.sort as ExperienceSort) ? (sp.sort as ExperienceSort) : "recommended",
+  };
+
   const [experiences, dict] = await Promise.all([
-    listExperiences({ category, city }),
+    listExperiences(filters),
     getDictionary(locale as Locale),
   ]);
   const d = dict.experiences;
   const common = dict.common;
+  const f = dict.filters;
 
   return (
     <div className="pt-16 min-h-screen bg-background">
@@ -101,6 +128,20 @@ export default async function ExperiencesPage({
             </Link>
           ))}
         </div>
+
+        {/* Advanced discovery filters + sort */}
+        <DiscoveryFilters
+          labels={{
+            filters: f.filters,
+            verifiedOnly: f.verifiedOnly,
+            sortBy: f.sortBy,
+            clear: f.clear,
+            duration: f.duration,
+            price: f.price,
+            language: f.language,
+            any: f.any,
+          }}
+        />
 
         {/* Results */}
         {experiences.length === 0 ? (
