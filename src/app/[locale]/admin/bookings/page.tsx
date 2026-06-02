@@ -24,7 +24,7 @@ export default async function AdminBookingsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-black text-stone-900">Bookings</h1>
+        <h1 className="text-2xl font-black text-foreground">Bookings</h1>
         <div className="flex gap-2 text-sm flex-wrap">
           <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">{pending.length} pending</span>
           <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium">${totalFees} earned</span>
@@ -34,27 +34,27 @@ export default async function AdminBookingsPage() {
 
       <div className="space-y-3">
         {bookings?.map((b: any) => (
-          <div key={b.id} className={`bg-white border rounded-2xl p-5 shadow-sm ${b.status === "pending" ? "border-orange-200" : "border-stone-100"}`}>
+          <div key={b.id} className={`bg-card border rounded-2xl p-5 shadow-sm ${b.status === "pending" ? "border-orange-200" : "border-border"}`}>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <h3 className="font-bold text-stone-900">{b.traveler_name}</h3>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_STYLE[b.status] ?? "bg-stone-100 text-stone-500"}`}>{b.status}</span>
+                  <h3 className="font-bold text-foreground">{b.traveler_name}</h3>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_STYLE[b.status] ?? "bg-muted text-muted-foreground"}`}>{b.status}</span>
                   {b.operator_invoiced && <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">invoiced</span>}
                   {b.operator_paid && <span className="text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full">paid</span>}
                 </div>
-                <p className="text-stone-600 text-sm">{b.experiences?.title}</p>
-                <p className="text-stone-400 text-xs">by {b.operators?.business_name}</p>
-                <div className="flex flex-wrap gap-3 text-xs text-stone-400 mt-1">
+                <p className="text-foreground/80 text-sm">{b.experiences?.title}</p>
+                <p className="text-muted-foreground text-xs">by {b.operators?.business_name}</p>
+                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mt-1">
                   <span>📅 {new Date(b.requested_date).toLocaleDateString()}</span>
                   <span>👥 {b.group_size} person{b.group_size !== 1 ? "s" : ""}</span>
                   <span>📧 {b.traveler_email}</span>
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <div className="text-lg font-black text-stone-900">${b.total_price}</div>
-                <div className="text-xs text-stone-400">Platform fee: <strong className="text-amber-600">${b.platform_fee}</strong></div>
-                <div className="text-xs text-stone-400">Operator payout: ${b.operator_payout}</div>
+                <div className="text-lg font-black text-foreground">${b.total_price}</div>
+                <div className="text-xs text-muted-foreground">Platform fee: <strong className="text-primary">${b.platform_fee}</strong></div>
+                <div className="text-xs text-muted-foreground">Operator payout: ${b.operator_payout}</div>
                 <div className="flex gap-1.5 mt-2 justify-end flex-wrap">
                   {b.status === "pending" && (
                     <form action={markBookingCompletedAction.bind(null, b.id)}>
@@ -90,7 +90,7 @@ export default async function AdminBookingsPage() {
           </div>
         ))}
         {(!bookings || bookings.length === 0) && (
-          <div className="bg-white border border-stone-100 rounded-2xl p-12 text-center text-stone-400">No bookings yet.</div>
+          <div className="bg-card border border-border rounded-2xl p-12 text-center text-muted-foreground">No bookings yet.</div>
         )}
       </div>
     </div>

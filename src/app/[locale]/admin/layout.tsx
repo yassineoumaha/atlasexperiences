@@ -30,13 +30,13 @@ export default async function AdminLayout({
   ];
 
   return (
-    <div className="flex min-h-screen bg-stone-50">
-      <aside className="w-52 bg-stone-900 text-white fixed inset-y-0 left-0 flex flex-col z-40">
+    <div className="flex min-h-screen bg-muted/40">
+      <aside className="w-52 bg-foreground text-white fixed inset-y-0 left-0 flex flex-col z-40">
         <div className="p-5 border-b border-stone-800">
           <Link href={`/${locale}`} className="flex items-center">
             <img src="/logo.png" alt="Imourig" className="h-8 w-auto" />
           </Link>
-          <div className="text-stone-500 text-xs mt-0.5">Admin</div>
+          <div className="text-muted-foreground text-xs mt-0.5">Admin</div>
         </div>
         <nav className="flex-1 p-3 space-y-0.5">
           {nav.map(item => (
@@ -48,12 +48,12 @@ export default async function AdminLayout({
         </nav>
         <div className="p-3 border-t border-stone-800 space-y-1">
           <Link href={`/${locale}`} target="_blank"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg text-stone-500 hover:text-white hover:bg-stone-800 transition-colors text-xs">
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-stone-800 transition-colors text-xs">
             <ExternalLink className="w-3.5 h-3.5" /> View site
           </Link>
-          <div className="px-3 py-1 text-stone-600 text-xs truncate">{user.email}</div>
+          <div className="px-3 py-1 text-foreground/80 text-xs truncate">{user.email}</div>
           <form action={signOutAction.bind(null, locale)}>
-            <button type="submit" className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-stone-400 hover:text-white hover:bg-stone-800 transition-colors text-sm">
+            <button type="submit" className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-muted-foreground hover:text-white hover:bg-stone-800 transition-colors text-sm">
               <LogOut className="w-4 h-4" /> Sign out
             </button>
           </form>

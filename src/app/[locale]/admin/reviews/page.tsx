@@ -15,7 +15,7 @@ export default async function AdminReviewsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-black text-stone-900">Experience Reviews</h1>
+        <h1 className="text-2xl font-black text-foreground">Experience Reviews</h1>
         <div className="flex gap-2 text-sm">
           <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">{pending.length} pending</span>
           <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium">{approved.length} live</span>
@@ -27,15 +27,15 @@ export default async function AdminReviewsPage() {
           <h2 className="font-bold text-orange-600 text-sm uppercase tracking-wide mb-4">Awaiting Approval</h2>
           <div className="space-y-3">
             {pending.map((r: any) => (
-              <div key={r.id} className="bg-white border border-orange-100 rounded-2xl p-5 shadow-sm">
+              <div key={r.id} className="bg-card border border-orange-100 rounded-2xl p-5 shadow-sm">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div>
                     <div className="flex items-center gap-1 mb-1">
                       {[1,2,3,4,5].map(s => <Star key={s} className={`w-4 h-4 ${s <= r.rating ? "text-amber-400 fill-amber-400" : "text-stone-200"}`} />)}
                     </div>
-                    {r.title && <h4 className="font-bold text-stone-900">{r.title}</h4>}
-                    <p className="text-stone-600 text-sm">{r.body}</p>
-                    <p className="text-stone-400 text-xs mt-1">by {r.display_name} · for <strong>{r.experiences?.title}</strong></p>
+                    {r.title && <h4 className="font-bold text-foreground">{r.title}</h4>}
+                    <p className="text-foreground/80 text-sm">{r.body}</p>
+                    <p className="text-muted-foreground text-xs mt-1">by {r.display_name} · for <strong>{r.experiences?.title}</strong></p>
                   </div>
                   <div className="flex gap-2">
                     <form action={approveExpReviewAction.bind(null, r.id)}>
@@ -58,24 +58,24 @@ export default async function AdminReviewsPage() {
 
       {approved.length > 0 && (
         <div>
-          <h2 className="font-bold text-stone-700 text-sm uppercase tracking-wide mb-4">Live Reviews ({approved.length})</h2>
-          <div className="bg-white rounded-2xl border border-stone-100 overflow-hidden shadow-sm">
+          <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide mb-4">Live Reviews ({approved.length})</h2>
+          <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm">
             <table className="w-full text-sm">
-              <thead className="bg-stone-50 border-b border-stone-100">
+              <thead className="bg-muted/40 border-b border-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-stone-600">Review</th>
-                  <th className="text-left px-4 py-3 font-semibold text-stone-600">Experience</th>
-                  <th className="text-left px-4 py-3 font-semibold text-stone-600">Author</th>
-                  <th className="text-center px-4 py-3 font-semibold text-stone-600">Rating</th>
+                  <th className="text-left px-4 py-3 font-semibold text-foreground/80">Review</th>
+                  <th className="text-left px-4 py-3 font-semibold text-foreground/80">Experience</th>
+                  <th className="text-left px-4 py-3 font-semibold text-foreground/80">Author</th>
+                  <th className="text-center px-4 py-3 font-semibold text-foreground/80">Rating</th>
                   <th className="px-4 py-3"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-50">
                 {approved.map((r: any) => (
-                  <tr key={r.id} className="hover:bg-stone-50">
-                    <td className="px-4 py-3 text-stone-700 max-w-xs"><p className="line-clamp-2">{r.body}</p></td>
-                    <td className="px-4 py-3 text-stone-500 text-xs">{r.experiences?.title}</td>
-                    <td className="px-4 py-3 text-stone-500">{r.display_name}</td>
+                  <tr key={r.id} className="hover:bg-muted/40">
+                    <td className="px-4 py-3 text-foreground/80 max-w-xs"><p className="line-clamp-2">{r.body}</p></td>
+                    <td className="px-4 py-3 text-muted-foreground text-xs">{r.experiences?.title}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{r.display_name}</td>
                     <td className="px-4 py-3 text-center">
                       <div className="flex justify-center gap-0.5">
                         {[1,2,3,4,5].map(s => <Star key={s} className={`w-3.5 h-3.5 ${s <= r.rating ? "text-amber-400 fill-amber-400" : "text-stone-200"}`} />)}
@@ -94,7 +94,7 @@ export default async function AdminReviewsPage() {
         </div>
       )}
       {(!reviews || reviews.length === 0) && (
-        <div className="bg-stone-50 border border-stone-100 rounded-2xl p-12 text-center text-stone-400">No reviews yet.</div>
+        <div className="bg-muted/40 border border-border rounded-2xl p-12 text-center text-muted-foreground">No reviews yet.</div>
       )}
     </div>
   );

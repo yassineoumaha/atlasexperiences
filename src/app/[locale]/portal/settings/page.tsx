@@ -54,50 +54,50 @@ export default function PortalSettingsPage({ params }: { params: Promise<{ local
   if (loading) return <div className="pt-24 flex justify-center"><div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" /></div>;
 
   return (
-    <div className="pt-20 min-h-screen bg-stone-50">
+    <div className="pt-20 min-h-screen bg-muted/40">
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="flex items-center gap-3 mb-8">
-          <Link href={`/${locale}/portal`} className="text-stone-400 hover:text-stone-700"><ArrowLeft className="w-5 h-5" /></Link>
-          <h1 className="text-2xl font-black text-stone-900">Account Settings</h1>
+          <Link href={`/${locale}/portal`} className="text-muted-foreground hover:text-foreground/80"><ArrowLeft className="w-5 h-5" /></Link>
+          <h1 className="text-2xl font-black text-foreground">Account Settings</h1>
         </div>
 
         <form onSubmit={handleSave} className="space-y-6">
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm space-y-4">
-            <h2 className="font-bold text-stone-700 text-sm uppercase tracking-wide">Profile</h2>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm space-y-4">
+            <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide">Profile</h2>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Display Name</label>
+              <label className="block text-xs font-medium text-foreground/80 mb-1">Display Name</label>
               <input value={form.display_name} onChange={(e) => setForm((f) => ({ ...f, display_name: e.target.value }))}
-                placeholder="Your name" className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                placeholder="Your name" className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Bio</label>
+              <label className="block text-xs font-medium text-foreground/80 mb-1">Bio</label>
               <textarea value={form.bio} onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
-                rows={3} placeholder="Tell travelers about yourself..." className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 resize-none bg-white" />
+                rows={3} placeholder="Tell travelers about yourself..." className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary resize-none bg-card" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Website</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Website</label>
                 <input value={form.website} onChange={(e) => setForm((f) => ({ ...f, website: e.target.value }))}
-                  placeholder="https://..." className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  placeholder="https://..." className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Instagram</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Instagram</label>
                 <input value={form.social_instagram} onChange={(e) => setForm((f) => ({ ...f, social_instagram: e.target.value }))}
-                  placeholder="@handle" className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  placeholder="@handle" className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm">
-            <h2 className="font-bold text-stone-700 text-sm uppercase tracking-wide mb-4">Account Role</h2>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+            <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide mb-4">Account Role</h2>
             <div className="space-y-3">
               {ROLES.map((r) => (
-                <label key={r.value} className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${form.role === r.value ? "border-amber-400 bg-amber-50" : "border-stone-100 hover:border-stone-200"}`}>
+                <label key={r.value} className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${form.role === r.value ? "border-amber-400 bg-accent/10" : "border-border hover:border-input"}`}>
                   <input type="radio" name="role" value={r.value} checked={form.role === r.value}
                     onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))} className="mt-0.5" />
                   <div>
-                    <div className="font-bold text-stone-800">{r.label}</div>
-                    <div className="text-stone-500 text-xs">{r.desc}</div>
+                    <div className="font-bold text-foreground">{r.label}</div>
+                    <div className="text-muted-foreground text-xs">{r.desc}</div>
                   </div>
                 </label>
               ))}
@@ -105,7 +105,7 @@ export default function PortalSettingsPage({ params }: { params: Promise<{ local
           </div>
 
           <button type="submit" disabled={saving}
-            className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2">
+            className="w-full bg-accent hover:brightness-105 disabled:opacity-60 text-white py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <CheckCircle className="w-4 h-4" /> : null}
             {saved ? "Saved!" : saving ? "Saving..." : "Save Settings"}
           </button>

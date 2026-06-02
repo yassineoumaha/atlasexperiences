@@ -22,9 +22,9 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
   const stats = [
     { label: "Operators",        value: operators.count ?? 0,  badge: pendingOps.count,  color: "bg-blue-100 text-blue-700",    icon: Users,       href: `/${locale}/admin/operators` },
     { label: "Live Experiences", value: experiences.count ?? 0, badge: pendingExp.count, color: "bg-emerald-100 text-emerald-700", icon: Star,      href: `/${locale}/admin/experiences` },
-    { label: "Bookings",         value: bookings.count ?? 0,   badge: pendingBook.count, color: "bg-amber-100 text-amber-700",   icon: ShoppingBag, href: `/${locale}/admin/bookings` },
+    { label: "Bookings",         value: bookings.count ?? 0,   badge: pendingBook.count, color: "bg-amber-100 text-accent-foreground",   icon: ShoppingBag, href: `/${locale}/admin/bookings` },
     { label: "Platform Revenue", value: `$${totalRevenue}`,    badge: null,              color: "bg-purple-100 text-purple-700", icon: DollarSign,  href: `/${locale}/admin/bookings` },
-    { label: "Subscribers",      value: subscribers.count ?? 0, badge: null,             color: "bg-stone-100 text-stone-700",   icon: Mail,        href: `/${locale}/admin/newsletter` },
+    { label: "Subscribers",      value: subscribers.count ?? 0, badge: null,             color: "bg-muted text-foreground/80",   icon: Mail,        href: `/${locale}/admin/newsletter` },
   ];
 
   const urgent = [
@@ -38,7 +38,7 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-black text-stone-900">Dashboard</h1>
+        <h1 className="text-2xl font-black text-foreground">Dashboard</h1>
         {totalUrgent > 0 && (
           <span className="bg-red-100 text-red-700 text-sm px-3 py-1 rounded-full font-bold">
             {totalUrgent} item{totalUrgent > 1 ? "s" : ""} need attention
@@ -49,12 +49,12 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
         {stats.map(s => (
           <Link key={s.label} href={s.href}
-            className="bg-white rounded-2xl p-5 border border-stone-100 shadow-sm hover:shadow-md transition-all group relative">
+            className="bg-card rounded-2xl p-5 border border-border shadow-sm hover:shadow-md transition-all group relative">
             <div className={`w-10 h-10 rounded-xl ${s.color} flex items-center justify-center mb-3`}>
               <s.icon className="w-5 h-5" />
             </div>
-            <div className="text-3xl font-black text-stone-900">{s.value}</div>
-            <div className="text-stone-400 text-xs mt-0.5">{s.label}</div>
+            <div className="text-3xl font-black text-foreground">{s.value}</div>
+            <div className="text-muted-foreground text-xs mt-0.5">{s.label}</div>
             {s.badge != null && s.badge > 0 && (
               <span className="absolute top-3 right-3 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
                 {s.badge}
@@ -64,13 +64,13 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-5 mb-8">
-        <h2 className="font-black text-stone-900 mb-4">Action Required</h2>
+      <div className="bg-card rounded-2xl border border-border shadow-sm p-5 mb-8">
+        <h2 className="font-black text-foreground mb-4">Action Required</h2>
         <div className="space-y-2">
           {urgent.map(item => (
             <Link key={item.label} href={item.href}
-              className="flex items-center justify-between p-3 rounded-xl hover:bg-stone-50 transition-colors">
-              <span className={`text-sm font-medium ${item.value > 0 ? "text-stone-800" : "text-stone-400"}`}>
+              className="flex items-center justify-between p-3 rounded-xl hover:bg-muted/40 transition-colors">
+              <span className={`text-sm font-medium ${item.value > 0 ? "text-foreground" : "text-muted-foreground"}`}>
                 {item.label}
               </span>
               {item.value > 0
@@ -81,9 +81,9 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
         </div>
       </div>
 
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+      <div className="bg-accent/10 border border-accent/30 rounded-2xl p-5">
         <h3 className="font-bold text-amber-800 mb-3 flex items-center gap-2"><Clock className="w-4 h-4" /> Setup Checklist</h3>
-        <ul className="space-y-2 text-sm text-amber-700">
+        <ul className="space-y-2 text-sm text-accent-foreground">
           {[
             "Run experiences_schema.sql in Supabase SQL Editor",
             "Run chat_schema.sql in Supabase SQL Editor",

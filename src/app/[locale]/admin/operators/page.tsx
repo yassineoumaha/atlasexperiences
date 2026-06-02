@@ -12,7 +12,7 @@ export default async function AdminOperatorsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-black text-stone-900">Operators</h1>
+        <h1 className="text-2xl font-black text-foreground">Operators</h1>
         <div className="flex gap-2 text-sm">
           <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">{pending.length} pending</span>
           <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium">{verified.length} verified</span>
@@ -24,16 +24,16 @@ export default async function AdminOperatorsPage() {
           <h2 className="font-bold text-orange-600 text-sm uppercase tracking-wide mb-4">Awaiting Verification ({pending.length})</h2>
           <div className="space-y-4">
             {pending.map((op: any) => (
-              <div key={op.id} className="bg-white border border-orange-100 rounded-2xl p-5 shadow-sm flex flex-wrap items-start justify-between gap-4">
+              <div key={op.id} className="bg-card border border-orange-100 rounded-2xl p-5 shadow-sm flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <h3 className="font-black text-stone-900 text-lg">{op.business_name}</h3>
-                  <div className="text-stone-500 text-sm space-y-0.5 mt-1">
+                  <h3 className="font-black text-foreground text-lg">{op.business_name}</h3>
+                  <div className="text-muted-foreground text-sm space-y-0.5 mt-1">
                     <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" />{op.phone}</div>
                     <div>📍 {op.city} · {op.years_experience} yr{op.years_experience !== 1 ? "s" : ""} exp</div>
                     {op.languages?.length > 0 && (
                       <div className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" />{op.languages.join(", ")}</div>
                     )}
-                    {op.bio && <p className="text-xs text-stone-400 italic mt-1 max-w-sm">{op.bio}</p>}
+                    {op.bio && <p className="text-xs text-muted-foreground italic mt-1 max-w-sm">{op.bio}</p>}
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -54,31 +54,31 @@ export default async function AdminOperatorsPage() {
         </div>
       )}
 
-      <h2 className="font-bold text-stone-700 text-sm uppercase tracking-wide mb-4">All Operators ({operators?.length ?? 0})</h2>
-      <div className="bg-white rounded-2xl border border-stone-100 overflow-hidden shadow-sm">
+      <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide mb-4">All Operators ({operators?.length ?? 0})</h2>
+      <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm">
         <table className="w-full text-sm">
-          <thead className="bg-stone-50 border-b border-stone-100">
+          <thead className="bg-muted/40 border-b border-border">
             <tr>
-              <th className="text-left px-4 py-3 font-semibold text-stone-600">Business</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-600">City</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-600">Phone</th>
-              <th className="text-center px-4 py-3 font-semibold text-stone-600">Status</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-600">Joined</th>
+              <th className="text-left px-4 py-3 font-semibold text-foreground/80">Business</th>
+              <th className="text-left px-4 py-3 font-semibold text-foreground/80">City</th>
+              <th className="text-left px-4 py-3 font-semibold text-foreground/80">Phone</th>
+              <th className="text-center px-4 py-3 font-semibold text-foreground/80">Status</th>
+              <th className="text-left px-4 py-3 font-semibold text-foreground/80">Joined</th>
               <th className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-50">
             {operators?.map((op: any) => (
-              <tr key={op.id} className="hover:bg-stone-50">
-                <td className="px-4 py-3 font-medium text-stone-800">{op.business_name}</td>
-                <td className="px-4 py-3 text-stone-500">{op.city}</td>
-                <td className="px-4 py-3 text-stone-500">{op.phone}</td>
+              <tr key={op.id} className="hover:bg-muted/40">
+                <td className="px-4 py-3 font-medium text-foreground">{op.business_name}</td>
+                <td className="px-4 py-3 text-muted-foreground">{op.city}</td>
+                <td className="px-4 py-3 text-muted-foreground">{op.phone}</td>
                 <td className="px-4 py-3 text-center">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${op.verified ? "bg-emerald-100 text-emerald-700" : "bg-orange-100 text-orange-700"}`}>
                     {op.verified ? "Verified" : "Pending"}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-stone-400 text-xs">{new Date(op.created_at).toLocaleDateString()}</td>
+                <td className="px-4 py-3 text-muted-foreground text-xs">{new Date(op.created_at).toLocaleDateString()}</td>
                 <td className="px-4 py-3">
                   <form action={deleteOperatorAction.bind(null, op.id)}>
                     <button type="submit" className="text-stone-200 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
@@ -89,7 +89,7 @@ export default async function AdminOperatorsPage() {
           </tbody>
         </table>
         {(!operators || operators.length === 0) && (
-          <div className="py-12 text-center text-stone-400 text-sm">No operators yet.</div>
+          <div className="py-12 text-center text-muted-foreground text-sm">No operators yet.</div>
         )}
       </div>
     </div>

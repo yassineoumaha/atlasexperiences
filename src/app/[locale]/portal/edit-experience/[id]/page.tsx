@@ -236,17 +236,17 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
   }
 
   if (loading) return (
-    <div className="pt-20 min-h-screen bg-stone-50 flex items-center justify-center">
-      <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
+    <div className="pt-20 min-h-screen bg-muted/40 flex items-center justify-center">
+      <Loader2 className="w-8 h-8 animate-spin text-accent" />
     </div>
   );
 
   if (loadError) return (
-    <div className="pt-20 min-h-screen bg-stone-50 flex items-center justify-center px-4">
+    <div className="pt-20 min-h-screen bg-muted/40 flex items-center justify-center px-4">
       <div className="text-center max-w-md">
-        <h2 className="text-2xl font-black text-stone-900 mb-2">Can&apos;t edit this listing</h2>
-        <p className="text-stone-600 mb-6">{loadError}</p>
-        <Link href={`/${locale}/portal`} className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
+        <h2 className="text-2xl font-black text-foreground mb-2">Can&apos;t edit this listing</h2>
+        <p className="text-foreground/80 mb-6">{loadError}</p>
+        <Link href={`/${locale}/portal`} className="bg-accent hover:brightness-105 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
           Back to Dashboard
         </Link>
       </div>
@@ -254,13 +254,13 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
   );
 
   if (success) return (
-    <div className="pt-20 min-h-screen bg-stone-50 flex items-center justify-center px-4">
+    <div className="pt-20 min-h-screen bg-muted/40 flex items-center justify-center px-4">
       <div className="text-center max-w-md">
         <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-black text-stone-900 mb-2">Changes Saved!</h2>
-        <p className="text-stone-600 mb-6">Your updated listing will be reviewed and re-approved within 48 hours before going live again.</p>
+        <h2 className="text-2xl font-black text-foreground mb-2">Changes Saved!</h2>
+        <p className="text-foreground/80 mb-6">Your updated listing will be reviewed and re-approved within 48 hours before going live again.</p>
         <div className="flex gap-3 justify-center">
-          <Link href={`/${locale}/portal`} className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
+          <Link href={`/${locale}/portal`} className="bg-accent hover:brightness-105 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
             My Dashboard
           </Link>
         </div>
@@ -269,98 +269,98 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
   );
 
   return (
-    <div className="pt-20 min-h-screen bg-stone-50">
+    <div className="pt-20 min-h-screen bg-muted/40">
       <div className="max-w-3xl mx-auto px-4 py-10">
         <div className="flex items-center gap-3 mb-8">
-          <Link href={`/${locale}/portal`} className="text-stone-400 hover:text-stone-700 transition-colors">
+          <Link href={`/${locale}/portal`} className="text-muted-foreground hover:text-foreground/80 transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div className="flex-1">
-            <h1 className="text-2xl font-black text-stone-900">Edit Listing</h1>
-            <p className="text-stone-400 text-sm">
+            <h1 className="text-2xl font-black text-foreground">Edit Listing</h1>
+            <p className="text-muted-foreground text-sm">
               {approved ? "Edits are re-reviewed within 48h before going live" : "Pending review · edits keep it in the queue"}
             </p>
           </div>
         </div>
 
-        {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
+        {error && <div className="bg-destructive/10 border border-destructive/30 text-destructive text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* Basics */}
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm space-y-4">
-            <h3 className="font-bold text-stone-700 text-xs uppercase tracking-widest">Basics</h3>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm space-y-4">
+            <h3 className="font-bold text-foreground/80 text-xs uppercase tracking-widest">Basics</h3>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Title *</label>
+              <label className="block text-xs font-medium text-foreground/80 mb-1">Title *</label>
               <input required value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
                 placeholder="e.g. 2-Hour Surf Lesson in Taghazout"
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Category *</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Category *</label>
                 <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white">
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card">
                   {CATEGORY_LIST.map(c => <option key={c.key} value={c.key}>{c.emoji} {c.label}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">City *</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">City *</label>
                 <select value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))}
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white">
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card">
                   {EXPERIENCE_CITIES.map(c => <option key={c}>{c}</option>)}
                 </select>
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-1">Description *</label>
+              <label className="block text-xs font-medium text-foreground/80 mb-1">Description *</label>
               <textarea required value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
                 rows={4} placeholder="Describe your experience. What will travelers do? What makes it special?"
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 resize-none bg-white" />
+                className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary resize-none bg-card" />
             </div>
           </div>
 
           {/* Pricing & logistics */}
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm space-y-4">
-            <h3 className="font-bold text-stone-700 text-xs uppercase tracking-widest">Pricing & Logistics</h3>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm space-y-4">
+            <h3 className="font-bold text-foreground/80 text-xs uppercase tracking-widest">Pricing & Logistics</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Price/person (USD) *</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Price/person (USD) *</label>
                 <input type="number" min={1} value={form.price_per_person}
                   onChange={e => setForm(f => ({ ...f, price_per_person: parseInt(e.target.value) || 0 }))}
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Group price (opt.)</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Group price (opt.)</label>
                 <input type="number" min={1} value={form.price_group}
                   onChange={e => setForm(f => ({ ...f, price_group: e.target.value }))}
                   placeholder="Private"
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Duration (hours)</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Duration (hours)</label>
                 <input type="number" min={0.5} step={0.5} value={form.duration_hours}
                   onChange={e => setForm(f => ({ ...f, duration_hours: parseFloat(e.target.value) || 1 }))}
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Max group size</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Max group size</label>
                 <input type="number" min={1} value={form.max_group_size}
                   onChange={e => setForm(f => ({ ...f, max_group_size: parseInt(e.target.value) || 1 }))}
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Meeting point</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Meeting point</label>
                 <input value={form.meeting_point} onChange={e => setForm(f => ({ ...f, meeting_point: e.target.value }))}
                   placeholder="e.g. Taghazout main beach car park"
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white" />
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-600 mb-1">Cancellation policy</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">Cancellation policy</label>
                 <select value={form.cancellation} onChange={e => setForm(f => ({ ...f, cancellation: e.target.value }))}
-                  className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-white">
+                  className="w-full border border-input rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary bg-card">
                   <option value="free_cancel">Free cancellation anytime</option>
                   <option value="24h">Free up to 24h before</option>
                   <option value="48h">Free up to 48h before</option>
@@ -369,11 +369,11 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-600 mb-2">Languages spoken</label>
+              <label className="block text-xs font-medium text-foreground/80 mb-2">Languages spoken</label>
               <div className="flex flex-wrap gap-2">
                 {LANGUAGES.map(l => (
                   <button key={l} type="button" onClick={() => toggleLanguage(l)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${form.languages.includes(l) ? "bg-amber-500 text-white border-amber-500" : "bg-white text-stone-600 border-stone-200 hover:border-amber-300"}`}>
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${form.languages.includes(l) ? "bg-accent text-white border-amber-500" : "bg-card text-foreground/80 border-input hover:border-amber-300"}`}>
                     {l}
                   </button>
                 ))}
@@ -383,13 +383,13 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
 
           {/* Lists: highlights, includes, excludes, what to bring */}
           {(["highlights", "includes", "excludes", "what_to_bring"] as const).map(field => (
-            <div key={field} className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm">
+            <div key={field} className="bg-card border border-border rounded-2xl p-5 shadow-sm">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-stone-700 text-xs uppercase tracking-widest">
+                <h3 className="font-bold text-foreground/80 text-xs uppercase tracking-widest">
                   {field === "what_to_bring" ? "What to Bring" : field.charAt(0).toUpperCase() + field.slice(1)}
                 </h3>
                 <button type="button" onClick={() => addListItem(field)}
-                  className="flex items-center gap-1 text-xs text-amber-600 hover:text-amber-700 font-medium">
+                  className="flex items-center gap-1 text-xs text-primary hover:text-accent-foreground font-medium">
                   <Plus className="w-3.5 h-3.5" /> Add
                 </button>
               </div>
@@ -398,7 +398,7 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
                   <div key={idx} className="flex gap-2">
                     <input value={item} onChange={e => updateListItem(field, idx, e.target.value)}
                       placeholder={field === "highlights" ? "e.g. Learn to stand up on your first wave" : field === "includes" ? "e.g. Surfboard and wetsuit" : field === "excludes" ? "e.g. Transport to beach" : "e.g. Sunscreen, towel"}
-                      className="flex-1 border border-stone-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-amber-400 bg-white" />
+                      className="flex-1 border border-input rounded-xl px-3 py-2 text-sm outline-none focus:border-primary bg-card" />
                     {form[field].length > 1 && (
                       <button type="button" onClick={() => removeListItem(field, idx)}
                         className="text-stone-300 hover:text-red-400 transition-colors">
@@ -412,8 +412,8 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
           ))}
 
           {/* Photos */}
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 shadow-sm">
-            <h3 className="font-bold text-stone-700 text-xs uppercase tracking-widest mb-3">Photos (up to 8)</h3>
+          <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+            <h3 className="font-bold text-foreground/80 text-xs uppercase tracking-widest mb-3">Photos (up to 8)</h3>
             {form.images.length > 0 && (
               <div className="grid grid-cols-4 gap-2 mb-3">
                 {form.images.map((url, i) => (
@@ -428,21 +428,21 @@ export default function EditExperiencePage({ params }: { params: Promise<{ local
                 ))}
               </div>
             )}
-            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-stone-200 rounded-xl p-5 cursor-pointer hover:border-amber-300 transition-colors">
+            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-input rounded-xl p-5 cursor-pointer hover:border-amber-300 transition-colors">
               {uploadingImages
-                ? <><Loader2 className="w-5 h-5 animate-spin text-amber-500" /><span className="text-amber-600 text-sm">Uploading...</span></>
-                : <><Upload className="w-5 h-5 text-stone-400" /><span className="text-stone-500 text-sm">Upload photos ({form.images.length}/8)</span></>
+                ? <><Loader2 className="w-5 h-5 animate-spin text-accent" /><span className="text-primary text-sm">Uploading...</span></>
+                : <><Upload className="w-5 h-5 text-muted-foreground" /><span className="text-muted-foreground text-sm">Upload photos ({form.images.length}/8)</span></>
               }
               <input type="file" accept="image/*" multiple disabled={uploadingImages || form.images.length >= 8} onChange={handleImageUpload} className="hidden" />
             </label>
           </div>
 
-          <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 text-xs text-amber-700">
+          <div className="bg-accent/10 border border-accent/20 rounded-xl p-4 text-xs text-accent-foreground">
             Editing a listing sends it back for review and temporarily hides it from travelers until re-approved (within 48h).
           </div>
 
           <button type="submit" disabled={saving || deleting}
-            className="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-bold text-lg py-4 rounded-2xl transition-colors flex items-center justify-center gap-2">
+            className="w-full bg-accent hover:brightness-105 disabled:opacity-60 text-white font-bold text-lg py-4 rounded-2xl transition-colors flex items-center justify-center gap-2">
             {saving && <Loader2 className="w-5 h-5 animate-spin" />}
             {saving ? "Saving..." : "Save Changes"}
           </button>
