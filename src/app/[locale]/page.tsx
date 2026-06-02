@@ -7,6 +7,7 @@ import TestimonialsStrip from "@/components/sections/TestimonialsStrip";
 import StatsSection from "@/components/sections/StatsSection";
 import { getDictionary } from "@/lib/dictionaries";
 import { ZellijDivider } from "@/components/zellij/Zellij";
+import { ScrollSketch } from "@/components/sketch/ScrollSketch";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -16,16 +17,34 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <MarketplaceHero locale={locale as Locale} dict={dict} />
-      <StatsSection />
+
+      {/* Stats — surfer sketch drifting behind */}
+      <div className="relative overflow-hidden">
+        <ScrollSketch sketch="surf" side="right" colorClass="text-primary" className="opacity-[0.07] dark:opacity-[0.12]" />
+        <StatsSection />
+      </div>
+
       <ZellijDivider />
-      <ExperiencesSection locale={locale as Locale} dict={dict} />
+
+      {/* Experiences — biker + hiker sketches */}
+      <div className="relative overflow-hidden">
+        <ScrollSketch sketch="adventure" side="left" colorClass="text-terracotta" className="opacity-[0.07] dark:opacity-[0.12]" />
+        <ScrollSketch sketch="hiking" side="right" colorClass="text-secondary" className="opacity-[0.06] dark:opacity-[0.11] top-[78%]" />
+        <ExperiencesSection locale={locale as Locale} dict={dict} />
+      </div>
+
       <ZellijDivider />
-      <TestimonialsStrip
-        title={dict.testimonials.title}
-        subtitle={dict.testimonials.subtitle}
-        featuredLabel={dict.testimonials.featured}
-        featuredSub={dict.testimonials.featuredSub}
-      />
+
+      <div className="relative overflow-hidden">
+        <ScrollSketch sketch="desert" side="left" colorClass="text-accent" className="opacity-[0.06] dark:opacity-[0.12]" />
+        <TestimonialsStrip
+          title={dict.testimonials.title}
+          subtitle={dict.testimonials.subtitle}
+          featuredLabel={dict.testimonials.featured}
+          featuredSub={dict.testimonials.featuredSub}
+        />
+      </div>
+
       <NewsletterSection dict={dict} />
     </>
   );

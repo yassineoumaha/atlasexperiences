@@ -269,6 +269,28 @@ button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
   border-top: 1px solid var(--border);
 }
 
+/* ─── Scroll-sketch: draw-on-scroll line art ────────── */
+.sketch-draw path,
+.sketch-draw circle {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sketch-draw.is-drawn path,
+.sketch-draw.is-drawn circle {
+  stroke-dashoffset: 0;
+}
+/* Stagger each stroke slightly for a hand-drawn feel */
+.sketch-draw path:nth-child(2), .sketch-draw circle:nth-child(2) { transition-delay: 0.12s; }
+.sketch-draw path:nth-child(3), .sketch-draw circle:nth-child(3) { transition-delay: 0.24s; }
+.sketch-draw path:nth-child(4), .sketch-draw circle:nth-child(4) { transition-delay: 0.36s; }
+.sketch-draw path:nth-child(5), .sketch-draw circle:nth-child(5) { transition-delay: 0.48s; }
+.sketch-draw path:nth-child(n+6), .sketch-draw circle:nth-child(n+6) { transition-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sketch-draw path, .sketch-draw circle { stroke-dashoffset: 0; transition: none; }
+}
+
 /* ─── MapLibre popup theming (from square-ui) ───────── */
 .maplibregl-popup-content {
   background-color: var(--card) !important;

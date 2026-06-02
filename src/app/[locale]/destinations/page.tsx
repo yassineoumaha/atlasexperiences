@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, type Locale } from "@/lib/dictionaries";
 import { createClient } from "@/lib/supabase/server";
 import { MapPin, ArrowRight, Compass } from "lucide-react";
+import { ScrollSketch } from "@/components/sketch/ScrollSketch";
 
 export const metadata: Metadata = {
   title: "Morocco Destinations — Imourig",
@@ -43,21 +44,25 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
   const rest = destinations.filter((d: any) => !d.featured);
 
   return (
-    <div className="pt-20 min-h-screen bg-card">
+    <div className="pt-20 min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-16 px-4 text-center">
-        <span className="inline-flex items-center gap-2 text-amber-400 text-sm font-semibold uppercase tracking-wider mb-4">
-          <Compass className="w-4 h-4" /> Morocco Destinations
-        </span>
-        <h1 className="text-4xl sm:text-5xl font-black mb-4">Where will you go?</h1>
-        <p className="text-white/70 text-lg max-w-xl mx-auto">
-          {destinations.length > 0
-            ? `${destinations.length} destinations across Morocco — from the Sahara to the Atlantic.`
-            : "Explore Morocco's most captivating destinations."}
-        </p>
+      <div className="relative overflow-hidden bg-gradient-to-br from-[oklch(0.30_0.10_264)] via-[oklch(0.34_0.10_290)] to-[oklch(0.42_0.12_40)] text-white py-16 px-4 text-center">
+        <div className="zellij-bg absolute inset-0 opacity-[0.08] mix-blend-screen" aria-hidden="true" />
+        <div className="relative">
+          <span className="inline-flex items-center gap-2 text-amber-300 text-sm font-semibold uppercase tracking-wider mb-4">
+            <Compass className="w-4 h-4" /> Morocco Destinations
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-black mb-4">Where will you go?</h1>
+          <p className="text-white/70 text-lg max-w-xl mx-auto">
+            {destinations.length > 0
+              ? `${destinations.length} destinations across Morocco — from the Sahara to the Atlantic.`
+              : "Explore Morocco's most captivating destinations."}
+          </p>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <ScrollSketch sketch="landmark" side="right" colorClass="text-primary" className="opacity-[0.06] dark:opacity-[0.11]" />
         {destinations.length === 0 ? (
           <div className="text-center py-20">
             <MapPin className="w-12 h-12 text-stone-200 mx-auto mb-4" />

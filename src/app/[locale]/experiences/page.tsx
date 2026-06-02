@@ -6,6 +6,18 @@ import { CATEGORIES, CATEGORY_LIST, EXPERIENCE_CITIES } from "@/lib/experiences-
 import { Star, Clock, Users, MapPin } from "lucide-react";
 import SchemaScript from "@/components/SchemaScript";
 import { getDictionary, hasLocale, type Locale } from "@/lib/dictionaries";
+import { ScrollSketch } from "@/components/sketch/ScrollSketch";
+import type { SketchKey } from "@/components/sketch/sketches";
+
+const CATEGORY_SKETCH: Record<string, SketchKey> = {
+  surf: "surf",
+  water: "surf",
+  adventure: "adventure",
+  desert: "desert",
+  food: "food",
+  culture: "landmark",
+  "day-trip": "compass",
+};
 
 export const metadata: Metadata = {
   title: "Morocco Experiences & Activities — Book Local Experts",
@@ -60,7 +72,14 @@ export default async function ExperiencesPage({
 
       {/* Hero */}
       <div className="relative overflow-hidden bg-gradient-to-br from-[oklch(0.30_0.10_264)] via-[oklch(0.34_0.10_280)] to-[oklch(0.40_0.12_40)] text-white py-16 px-4">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="zellij-bg absolute inset-0 opacity-[0.08] mix-blend-screen" aria-hidden="true" />
+        <ScrollSketch
+          sketch={CATEGORY_SKETCH[category ?? ""] ?? "compass"}
+          side="right"
+          colorClass="text-white"
+          className="opacity-[0.12] hidden md:block"
+        />
+        <div className="relative max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 text-amber-200 text-sm px-4 py-1.5 rounded-full mb-5">
             ✅ {d.badge}
           </div>
