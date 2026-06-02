@@ -7,7 +7,7 @@ import TestimonialsStrip from "@/components/sections/TestimonialsStrip";
 import StatsSection from "@/components/sections/StatsSection";
 import { getDictionary } from "@/lib/dictionaries";
 import { ZellijDivider } from "@/components/zellij/Zellij";
-import { ScrollSketch } from "@/components/sketch/ScrollSketch";
+import { ScrollScene } from "@/components/sketch/ScrollScene";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -18,32 +18,28 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <MarketplaceHero locale={locale as Locale} dict={dict} />
 
-      {/* Stats — surfer sketch drifting behind */}
-      <div className="relative overflow-hidden">
-        <ScrollSketch sketch="surf" side="right" colorClass="text-primary" className="opacity-[0.07] dark:opacity-[0.12]" />
-        <StatsSection />
+      {/* Stats — a wave swells and a surfer rides across */}
+      <div className="relative overflow-hidden isolate bg-background">
+        <ScrollScene scene="surf" direction="ltr" colorClass="text-foreground" />
+        <div className="relative z-10"><StatsSection /></div>
       </div>
 
       <ZellijDivider />
 
-      {/* Experiences — biker + hiker sketches */}
-      <div className="relative overflow-hidden">
-        <ScrollSketch sketch="adventure" side="left" colorClass="text-terracotta" className="opacity-[0.07] dark:opacity-[0.12]" />
-        <ScrollSketch sketch="hiking" side="right" colorClass="text-secondary" className="opacity-[0.06] dark:opacity-[0.11] top-[78%]" />
-        <ExperiencesSection locale={locale as Locale} dict={dict} />
+      {/* Experiences — mountain biker climbs across the ridge */}
+      <div className="relative overflow-hidden isolate bg-muted/30">
+        <ScrollScene scene="adventure" direction="rtl" colorClass="text-foreground" />
+        <div className="relative z-10"><ExperiencesSection locale={locale as Locale} dict={dict} /></div>
       </div>
 
       <ZellijDivider />
 
-      <div className="relative overflow-hidden">
-        <ScrollSketch sketch="desert" side="left" colorClass="text-accent" className="opacity-[0.06] dark:opacity-[0.12]" />
-        <TestimonialsStrip
-          title={dict.testimonials.title}
-          subtitle={dict.testimonials.subtitle}
-          featuredLabel={dict.testimonials.featured}
-          featuredSub={dict.testimonials.featuredSub}
-        />
-      </div>
+      <TestimonialsStrip
+        title={dict.testimonials.title}
+        subtitle={dict.testimonials.subtitle}
+        featuredLabel={dict.testimonials.featured}
+        featuredSub={dict.testimonials.featuredSub}
+      />
 
       <NewsletterSection dict={dict} />
     </>

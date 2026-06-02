@@ -41,7 +41,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
   return (
     <>
       {/* ══ DISCOVER SECTION (bedimcode discover pattern) ══════════════════ */}
-      <section className="py-16 sm:py-20 bg-muted/40 overflow-hidden">
+      <section className="py-16 sm:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
@@ -88,7 +88,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
       </section>
 
       {/* ══ EXPERIENCES SECTION (place-card + grid patterns) ══════════════ */}
-      <section className="py-16 sm:py-20 bg-background">
+      <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
