@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Logo working files (not shipped)
+public/images/imourig-source.png.png
+public/*.bak
+public/*.OLD*
+src/app/*.bak
+src/app/*.OLD*

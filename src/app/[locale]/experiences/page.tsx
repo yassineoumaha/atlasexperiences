@@ -105,7 +105,7 @@ export default async function ExperiencesPage({
         {/* Results */}
         {experiences.length === 0 ? (
           <div className="text-center py-20">
-            <img src="/logo.png" alt="Imourig" className="h-14 w-auto mx-auto mb-4 [mix-blend-mode:multiply]" />
+            <img src="/logo.png" alt="Imourig" className="h-14 w-auto mx-auto mb-4" />
             <h2 className="text-xl font-black text-foreground mb-2">{d.noResults}</h2>
             <p className="text-muted-foreground mb-6">{d.noResultsSub}</p>
             <Link href={`/${locale}/operators/register`}

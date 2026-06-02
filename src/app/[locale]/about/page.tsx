@@ -58,7 +58,7 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
       <div className="bg-gradient-to-br from-stone-900 via-stone-800 to-amber-900 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center mb-6">
-            <img src="/logo.png" alt="Imourig" className="h-20 w-auto [mix-blend-mode:screen]" />
+            <img src="/logo.png" alt="Imourig" className="h-20 w-auto" />
           </div>
           <h1 className="text-4xl sm:text-5xl font-black mb-5 leading-tight">
             We built the Morocco travel guide<br className="hidden sm:block" />
