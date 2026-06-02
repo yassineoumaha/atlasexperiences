@@ -19,6 +19,17 @@ const STATIC_PATHS = [
   "/terms",
 ];
 
+// SEO landing pages — keep in sync with the route resolvers.
+const CATEGORY_SLUGS = [
+  "desert-tours", "surfing", "hiking", "food-experiences", "cultural-tours",
+  "private-drivers", "transfers", "wellness", "water-sports",
+  "photography-tours", "day-trips",
+];
+const DESTINATION_SLUGS = [
+  "marrakech", "agadir", "essaouira", "fez", "merzouga",
+  "chefchaouen", "tangier", "ouarzazate",
+];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
@@ -31,6 +42,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: path === "" ? "daily" : "weekly",
         priority: path === "" ? 1.0 : 0.8,
       });
+    }
+    // SEO landing pages
+    for (const slug of CATEGORY_SLUGS) {
+      entries.push({ url: `${SITE_URL}/${locale}/categories/${slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 });
+    }
+    for (const slug of DESTINATION_SLUGS) {
+      entries.push({ url: `${SITE_URL}/${locale}/destinations/${slug}`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 });
     }
   }
 
