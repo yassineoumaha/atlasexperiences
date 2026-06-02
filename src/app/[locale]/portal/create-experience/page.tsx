@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import type { ExperienceRow } from "@/lib/supabase/types";
 import { ArrowLeft, Upload, Plus, X, Loader2, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
@@ -102,11 +103,11 @@ export default function CreateExperiencePage({ params }: { params: Promise<{ loc
       .replace(/\s+/g, "-")
       .slice(0, 80) + "-" + Date.now().toString(36);
 
-    const { error: err } = await (supabase as unknown as any).from("experiences").insert({
+    const { error: err } = await supabase.from("experiences").insert({
       operator_id: user.id,
       title: form.title,
       slug,
-      category: form.category,
+      category: form.category as ExperienceRow["category"],
       city: form.city,
       description: form.description,
       price_per_person: form.price_per_person,

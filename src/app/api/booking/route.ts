@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
   // Fetch experience from DB — prices must come from DB, never from client
   const supabase = await createClient();
-  const { data: experience, error: expError } = await (supabase as unknown as any)
+  const { data: experience, error: expError } = await supabase
     .from("experiences")
     .select("id, title, price_per_person, currency, max_group_size, operator_id, published, approved")
     .eq("id", input.experience_id)
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
   // Insert booking with admin client (bypasses RLS for insert)
   const admin = await createAdminClient();
-  const { data: booking, error: insertError } = await (admin as unknown as any)
+  const { data: booking, error: insertError } = await admin
     .from("bookings")
     .insert({
       experience_id:    input.experience_id,

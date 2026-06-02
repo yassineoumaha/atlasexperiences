@@ -10,7 +10,7 @@ type ConsentState = {
   marketing: boolean;
 };
 
-const STORAGE_KEY = "atlas_maroc_cookie_consent";
+const STORAGE_KEY = "imourig_cookie_consent";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);

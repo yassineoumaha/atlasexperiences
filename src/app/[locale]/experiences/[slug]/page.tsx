@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { getExperienceBySlug, getExperienceMeta } from "@/lib/db";
 import { CATEGORIES, CANCELLATION_LABELS } from "@/lib/experiences-data";
 import { Star, Clock, Users, MapPin, CheckCircle, X, ArrowLeft, Globe, Phone, MessageCircle } from "lucide-react";
 import BookingWidget from "@/components/BookingWidget";
@@ -15,12 +15,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  try {
-    const supabase = await createClient();
-    const { data } = await (supabase as unknown as any).from("experiences").select("title, description").eq("slug", slug).single() as { data: { title: string; description: string } | null; error: unknown };
-    if (!data) return {};
-    return { title: data.title, description: data.description?.slice(0, 155) };
-  } catch { return {}; }
+  const data = await getExperienceMeta(slug);
+  if (!data) return {};
+  return { title: data.title, description: data.description?.slice(0, 155) };
 }
 
 export default async function ExperienceDetailPage({
@@ -30,34 +27,10 @@ export default async function ExperienceDetailPage({
 }) {
   const { locale, slug } = await params;
 
-  let experience: any = null;
-  let operator: any = null;
-  let reviews: any[] = [];
-  let related: any[] = [];
-
-  try {
-    const supabase = await createClient();
-    const { data: exp } = await (supabase as unknown as any)
-      .from("experiences")
-      .select(`*, operators(*)`)
-      .eq("slug", slug)
-      .eq("published", true)
-      .eq("approved", true)
-      .single();
-
-    if (!exp) notFound();
-    experience = exp;
-    operator = exp.operators;
-
-    const [reviewsRes, relatedRes] = await Promise.all([
-      supabase.from("experience_reviews").select("*").eq("experience_id", exp.id).eq("approved", true).order("created_at", { ascending: false }).limit(8),
-      supabase.from("experiences").select("id, title, slug, category, city, price_per_person, images, avg_rating, duration_hours").eq("category", exp.category).eq("published", true).eq("approved", true).neq("id", exp.id).limit(4),
-    ]);
-    reviews = reviewsRes.data ?? [];
-    related = relatedRes.data ?? [];
-  } catch {
-    notFound();
-  }
+  const result = await getExperienceBySlug(slug);
+  if (!result) notFound();
+  const { experience, reviews, related } = result;
+  const operator = experience.operators;
 
   const cat = CATEGORIES[experience.category as keyof typeof CATEGORIES];
   const scene: SceneKey = (experience.category in SCENES ? experience.category : "desert") as SceneKey;
@@ -247,7 +220,7 @@ export default async function ExperienceDetailPage({
               </div>
               {reviews.length > 0 ? (
                 <div className="space-y-4">
-                  {reviews.map((r: any) => (
+                  {reviews.map((r) => (
                     <div key={r.id} className="bg-muted border border-border rounded-2xl p-4">
                       <div className="flex items-center gap-1 mb-1">
                         {[1,2,3,4,5].map((s) => (
@@ -270,7 +243,7 @@ export default async function ExperienceDetailPage({
               <div>
                 <h2 className="text-xl font-black text-foreground mb-4">Similar Experiences</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {related.map((exp: any) => (
+                  {related.map((exp) => (
                     <Link key={exp.id} href={`/${locale}/experiences/${exp.slug}`}
                       className="flex gap-3 bg-muted border border-border rounded-xl p-3 hover:border-accent transition-colors group">
                       <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">

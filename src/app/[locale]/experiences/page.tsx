@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { listExperiences } from "@/lib/db";
 import { CATEGORIES, CATEGORY_LIST, EXPERIENCE_CITIES } from "@/lib/experiences-data";
 import { Star, Clock, Users, MapPin } from "lucide-react";
 import SchemaScript from "@/components/SchemaScript";
@@ -21,24 +21,6 @@ export const metadata: Metadata = {
   keywords: ["Morocco activities", "Morocco experiences", "Morocco tours", "surf lessons Morocco", "Sahara tour", "Morocco cooking class"],
 };
 
-async function getExperiences(category?: string, city?: string) {
-  try {
-    const supabase = await createClient();
-    let query = supabase
-      .from("experiences")
-      .select(`*, operators(business_name, avatar_url, verified, slug, avg_rating, ranking_score)`)
-      .eq("published", true)
-      .eq("approved", true)
-      .order("featured", { ascending: false })
-      .order("avg_rating", { ascending: false, nullsFirst: false })
-      .order("total_bookings", { ascending: false });
-    if (category && category !== "all") query = query.eq("category", category);
-    if (city) query = query.eq("city", city);
-    const { data } = await query.limit(48);
-    return data ?? [];
-  } catch { return []; }
-}
-
 const schema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -55,7 +37,7 @@ export default async function ExperiencesPage({
   const { locale } = await params;
   const { category, city } = await searchParams;
   const [experiences, dict] = await Promise.all([
-    getExperiences(category, city),
+    listExperiences({ category, city }),
     getDictionary(locale as Locale),
   ]);
   const d = dict.experiences;
@@ -137,7 +119,7 @@ export default async function ExperiencesPage({
               {experiences.length} {experiences.length !== 1 ? d.countPlural : d.count} {d.found}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {experiences.map((exp: any) => (
+              {experiences.map((exp) => (
                 <Link key={exp.id} href={`/${locale}/experiences/${exp.slug}`}
                   className="group tile-card bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                   {/* Image */}

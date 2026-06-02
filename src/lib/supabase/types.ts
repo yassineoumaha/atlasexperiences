@@ -1,31 +1,21 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
+/**
+ * supabase-js v2.x derives its query types from a `GenericSchema`, which
+ * requires every table to expose a `Relationships` array and the schema to
+ * carry `Views`/`Functions` records. Hand-written table definitions omit the
+ * boilerplate, so `WithRelationships<T>` injects an empty `Relationships: []`
+ * into each table. Without it the client resolves every row to `never` —
+ * which is exactly what forced the old `as any` casts.
+ */
+type WithRelationships<T> = {
+  [K in keyof T]: T[K] & { Relationships: [] };
+};
+
 export interface Database {
   public: {
-    Tables: {
+    Tables: WithRelationships<{
       // ── Core ──────────────────────────────────────────────────────────────
-      destinations: {
-        Row: {
-          id: string; name: string; slug: string; description: string;
-          hero_image: string | null; weather: string; avg_stay: number;
-          region: string; filters: string[]; featured: boolean;
-          lat: number; lng: number; created_at: string; updated_at: string;
-        };
-        Insert: Omit<Database["public"]["Tables"]["destinations"]["Row"], "id"|"created_at"|"updated_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["destinations"]["Insert"]>;
-      };
-      properties: {
-        Row: {
-          id: string; destination_slug: string; name: string; type: string;
-          rating: number; review_count: number; price_from: number; currency: string;
-          image: string | null; amenities: string[]; booking_url: string;
-          agoda_url: string | null; tripadvisor_url: string | null; description: string;
-          featured: boolean; created_at: string; updated_at: string;
-          submitted_by: string | null; approved: boolean;
-        };
-        Insert: Omit<Database["public"]["Tables"]["properties"]["Row"], "id"|"created_at"|"updated_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["properties"]["Insert"]>;
-      };
       blog_posts: {
         Row: {
           id: string; title: string; slug: string; excerpt: string; content: string;
@@ -40,15 +30,6 @@ export interface Database {
         Row: { id: string; email: string; locale: string; created_at: string };
         Insert: Omit<Database["public"]["Tables"]["newsletter_subscribers"]["Row"], "id"|"created_at"> & { id?: string };
         Update: Partial<Database["public"]["Tables"]["newsletter_subscribers"]["Insert"]>;
-      };
-      property_submissions: {
-        Row: {
-          id: string; property_name: string; city: string; property_type: string;
-          booking_url: string; contact_email: string; contact_name: string;
-          description: string | null; status: "pending"|"approved"|"rejected"; created_at: string;
-        };
-        Insert: Omit<Database["public"]["Tables"]["property_submissions"]["Row"], "id"|"created_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["property_submissions"]["Insert"]>;
       };
       saved_trips: {
         Row: { id: string; user_id: string; title: string; data: Json; created_at: string };
@@ -67,8 +48,10 @@ export interface Database {
           avg_rating: number | null; review_count: number; ranking_score: number;
           created_at: string; updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["operators"]["Row"], "created_at"|"updated_at">;
-        Update: Partial<Database["public"]["Tables"]["operators"]["Insert"]>;
+        // Columns with DB defaults / nullable columns are optional on insert.
+        Insert: Pick<OperatorRow, "id" | "business_name" | "slug" | "city">
+          & Partial<Omit<OperatorRow, "id" | "business_name" | "slug" | "city" | "created_at" | "updated_at">>;
+        Update: Partial<Omit<OperatorRow, "created_at">>;
       };
       experiences: {
         Row: {
@@ -84,8 +67,12 @@ export interface Database {
           total_bookings: number; avg_rating: number | null; review_count: number;
           created_at: string; updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["experiences"]["Row"], "id"|"created_at"|"updated_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["experiences"]["Insert"]>;
+        Insert: Pick<
+          ExperienceRow,
+          "operator_id" | "title" | "slug" | "category" | "description"
+          | "city" | "duration_hours" | "max_group_size" | "price_per_person"
+        > & Partial<Omit<ExperienceRow, "id" | "created_at" | "updated_at">> & { id?: string };
+        Update: Partial<Omit<ExperienceRow, "id" | "created_at">>;
       };
       bookings: {
         Row: {
@@ -101,7 +88,13 @@ export interface Database {
           operator_invoiced: boolean; operator_paid: boolean; notes: string | null;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["bookings"]["Row"], "id"|"created_at"> & { id?: string };
+        // Status/payout/timestamp columns default server-side.
+        Insert: Pick<
+          BookingRow,
+          "experience_id" | "operator_id" | "traveler_name" | "traveler_email"
+          | "requested_date" | "group_size" | "price_per_person" | "total_price"
+          | "platform_fee" | "operator_payout" | "currency"
+        > & Partial<Omit<BookingRow, "created_at">>;
         Update: Partial<Database["public"]["Tables"]["bookings"]["Insert"]>;
       };
       experience_reviews: {
@@ -110,7 +103,8 @@ export interface Database {
           user_id: string | null; display_name: string; rating: number;
           title: string | null; body: string; approved: boolean; created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["experience_reviews"]["Row"], "id"|"created_at"> & { id?: string };
+        Insert: Pick<ExperienceReviewRow, "experience_id" | "display_name" | "rating" | "body">
+          & Partial<Omit<ExperienceReviewRow, "experience_id" | "display_name" | "rating" | "body" | "created_at">>;
         Update: Partial<Database["public"]["Tables"]["experience_reviews"]["Insert"]>;
       };
       // ── Messaging ──────────────────────────────────────────────────────────
@@ -119,7 +113,8 @@ export interface Database {
           id: string; booking_id: string; sender_id: string; sender_name: string;
           sender_role: "traveler"|"operator"; body: string; read: boolean; created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["messages"]["Row"], "id"|"created_at"> & { id?: string };
+        Insert: Pick<MessageRow, "booking_id" | "sender_id" | "sender_name" | "sender_role" | "body">
+          & Partial<Omit<MessageRow, "booking_id" | "sender_id" | "sender_name" | "sender_role" | "body" | "created_at">>;
         Update: Partial<Database["public"]["Tables"]["messages"]["Insert"]>;
       };
       // ── Features 2 ─────────────────────────────────────────────────────────
@@ -129,7 +124,8 @@ export interface Database {
           link_url: string | null; link_label: string | null;
           active: boolean; created_at: string; expires_at: string | null;
         };
-        Insert: Omit<Database["public"]["Tables"]["announcements"]["Row"], "id"|"created_at"> & { id?: string };
+        Insert: Pick<AnnouncementRow, "message" | "type">
+          & Partial<Omit<AnnouncementRow, "message" | "type" | "created_at">>;
         Update: Partial<Database["public"]["Tables"]["announcements"]["Insert"]>;
       };
       suggestions: {
@@ -139,7 +135,8 @@ export interface Database {
           message: string; status: "new"|"reviewed"|"planned"|"done"|"declined";
           admin_note: string | null; created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["suggestions"]["Row"], "id"|"created_at"> & { id?: string };
+        Insert: Pick<SuggestionRow, "type" | "message">
+          & Partial<Omit<SuggestionRow, "type" | "message" | "created_at">>;
         Update: Partial<Database["public"]["Tables"]["suggestions"]["Insert"]>;
       };
       operator_areas: {
@@ -148,46 +145,9 @@ export interface Database {
           description: string; best_for: string[]; best_months: string[];
           tips: string[]; images: string[]; published: boolean; created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["operator_areas"]["Row"], "id"|"created_at"> & { id?: string };
+        Insert: Pick<OperatorAreaRow, "operator_id" | "city" | "area_name" | "description">
+          & Partial<Omit<OperatorAreaRow, "operator_id" | "city" | "area_name" | "description" | "created_at">>;
         Update: Partial<Database["public"]["Tables"]["operator_areas"]["Insert"]>;
-      };
-      // ── Taxi ───────────────────────────────────────────────────────────────
-      taxi_drivers: {
-        Row: {
-          id: string; driver_name: string; phone: string; whatsapp: string | null;
-          city: string; languages: string[];
-          vehicle_type: "petit-taxi"|"grand-taxi"|"minibus"|"4x4"|"vip";
-          seats: number; verified: boolean; photo_url: string | null;
-          description: string | null; active: boolean;
-          verification_status: "pending"|"under_review"|"approved"|"rejected";
-          licence_number: string | null; licence_image_url: string | null;
-          rejection_reason: string | null; reviewed_by: string | null;
-          reviewed_at: string | null; created_at: string;
-        };
-        Insert: Omit<Database["public"]["Tables"]["taxi_drivers"]["Row"], "id"|"created_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["taxi_drivers"]["Insert"]>;
-      };
-      taxi_routes: {
-        Row: {
-          id: string; driver_id: string; from_city: string; to_city: string;
-          price_mad: number; price_usd: number | null; duration_mins: number | null;
-          transport_mode: "private"|"shared"|"both"; notes: string | null; created_at: string;
-        };
-        Insert: Omit<Database["public"]["Tables"]["taxi_routes"]["Row"], "id"|"created_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["taxi_routes"]["Insert"]>;
-      };
-      taxi_reports: {
-        Row: {
-          id: string; driver_id: string | null; reported_driver_name: string | null;
-          reported_phone: string | null; incident_city: string; incident_date: string;
-          incident_type: "overcharging"|"scam"|"route_deviation"|"harassment"|"unsafe_driving"|"no_show"|"wrong_info"|"other";
-          description: string; reporter_name: string; reporter_contact: string;
-          wants_follow_up: boolean;
-          status: "open"|"under_review"|"resolved"|"dismissed";
-          admin_notes: string | null; resolved_at: string | null; created_at: string;
-        };
-        Insert: Omit<Database["public"]["Tables"]["taxi_reports"]["Row"], "id"|"created_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["taxi_reports"]["Insert"]>;
       };
       // ── User features ──────────────────────────────────────────────────────
       user_profiles: {
@@ -199,36 +159,20 @@ export interface Database {
           social_twitter: string | null; verified: boolean;
           created_at: string; updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["user_profiles"]["Row"], "created_at"|"updated_at">;
+        Insert: Pick<UserProfileRow, "id">
+          & Partial<Omit<UserProfileRow, "id" | "created_at" | "updated_at">>;
         Update: Partial<Database["public"]["Tables"]["user_profiles"]["Insert"]>;
       };
-      destination_photos: {
-        Row: {
-          id: string; destination_slug: string; storage_path: string; url: string;
-          caption: string | null; display_order: number; uploaded_by: string | null;
-          created_at: string;
-        };
-        Insert: Omit<Database["public"]["Tables"]["destination_photos"]["Row"], "id"|"created_at"> & { id?: string };
-        Update: Partial<Database["public"]["Tables"]["destination_photos"]["Insert"]>;
-      };
-    };
-    Views: Record<string, never>;
-    Functions: {
-      get_driver_open_report_count: {
-        Args: { driver_uuid: string };
-        Returns: number;
-      };
-    };
-    Enums: Record<string, never>;
-    CompositeTypes: Record<string, never>;
+    }>;
+    Views: { [_ in never]: never };
+    Functions: { [_ in never]: never };
+    Enums: { [_ in never]: never };
+    CompositeTypes: { [_ in never]: never };
   };
 }
 
 // ── Convenience aliases ────────────────────────────────────────────────────────
-export type DestinationRow        = Database["public"]["Tables"]["destinations"]["Row"];
-export type PropertyRow           = Database["public"]["Tables"]["properties"]["Row"];
 export type BlogPostRow           = Database["public"]["Tables"]["blog_posts"]["Row"];
-export type PropertySubmissionRow = Database["public"]["Tables"]["property_submissions"]["Row"];
 export type SavedTripRow          = Database["public"]["Tables"]["saved_trips"]["Row"];
 export type OperatorRow           = Database["public"]["Tables"]["operators"]["Row"];
 export type ExperienceRow         = Database["public"]["Tables"]["experiences"]["Row"];
@@ -238,8 +182,4 @@ export type MessageRow            = Database["public"]["Tables"]["messages"]["Ro
 export type AnnouncementRow       = Database["public"]["Tables"]["announcements"]["Row"];
 export type SuggestionRow         = Database["public"]["Tables"]["suggestions"]["Row"];
 export type OperatorAreaRow       = Database["public"]["Tables"]["operator_areas"]["Row"];
-export type TaxiDriverRow         = Database["public"]["Tables"]["taxi_drivers"]["Row"];
-export type TaxiRouteRow          = Database["public"]["Tables"]["taxi_routes"]["Row"];
-export type TaxiReportRow         = Database["public"]["Tables"]["taxi_reports"]["Row"];
 export type UserProfileRow        = Database["public"]["Tables"]["user_profiles"]["Row"];
-export type DestinationPhotoRow   = Database["public"]["Tables"]["destination_photos"]["Row"];

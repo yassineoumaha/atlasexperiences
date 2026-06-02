@@ -4,18 +4,16 @@ import { EXPERIENCE_CITIES } from "@/lib/experiences-data";
 async function getPlatformStats() {
   try {
     const supabase = await createClient();
-    const [operatorsRes, experiencesRes, destinationsRes] = await Promise.all([
-      (supabase as unknown as any).from("operators").select("id", { count: "exact", head: true }).eq("verified", true),
-      (supabase as unknown as any).from("experiences").select("id", { count: "exact", head: true }).eq("published", true).eq("approved", true),
-      (supabase as unknown as any).from("destinations").select("id", { count: "exact", head: true }),
+    const [operatorsRes, experiencesRes] = await Promise.all([
+      supabase.from("operators").select("id", { count: "exact", head: true }).eq("verified", true),
+      supabase.from("experiences").select("id", { count: "exact", head: true }).eq("published", true).eq("approved", true),
     ]);
     return {
-      operators: (operatorsRes.count as number) ?? 0,
-      experiences: (experiencesRes.count as number) ?? 0,
-      destinations: (destinationsRes.count as number) ?? 0,
+      operators: operatorsRes.count ?? 0,
+      experiences: experiencesRes.count ?? 0,
     };
   } catch {
-    return { operators: 0, experiences: 0, destinations: 0 };
+    return { operators: 0, experiences: 0 };
   }
 }
 

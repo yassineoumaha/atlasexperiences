@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic: published experiences
   try {
     const supabase = await createClient();
-    const { data: experiences } = await (supabase as unknown as any)
+    const { data: experiences } = await supabase
       .from("experiences")
       .select("slug, updated_at")
       .eq("published", true)
@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic: published blog posts
   try {
     const supabase = await createClient();
-    const { data: posts } = await (supabase as unknown as any)
+    const { data: posts } = await supabase
       .from("blog_posts")
       .select("slug, updated_at")
       .eq("published", true);

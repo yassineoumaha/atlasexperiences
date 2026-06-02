@@ -7,7 +7,7 @@ export type TypedClient = SupabaseClient<Database>;
 
 async function makeClient(key: string): Promise<TypedClient> {
   const store = await cookies();
-  const client = createServerClient(
+  return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     key,
     {
@@ -20,7 +20,6 @@ async function makeClient(key: string): Promise<TypedClient> {
       },
     }
   );
-  return client as unknown as TypedClient;
 }
 
 export function createClient(): Promise<TypedClient> {

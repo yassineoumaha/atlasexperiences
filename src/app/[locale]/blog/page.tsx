@@ -1,29 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { hasLocale, type Locale } from "@/lib/dictionaries";
-import { createClient } from "@/lib/supabase/server";
+import { hasLocale } from "@/lib/dictionaries";
+import { listBlogPosts } from "@/lib/db";
 import { ArrowRight, BookOpen, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Morocco Travel Blog — Imourig",
   description: "Real guides, itineraries, safety tips and insider knowledge about travelling in Morocco.",
 };
-
-async function getBlogPosts() {
-  try {
-    const supabase = await createClient();
-    const { data } = await (supabase as unknown as any)
-      .from("blog_posts")
-      .select("id, title, slug, excerpt, image, category, read_time, published_at, author")
-      .eq("published", true)
-      .order("published_at", { ascending: false })
-      .limit(24);
-    return (data as any[]) ?? [];
-  } catch {
-    return [];
-  }
-}
 
 const CATEGORY_COLORS: Record<string, string> = {
   itinerary: "bg-blue-50 text-blue-700 border-blue-200",
@@ -38,7 +23,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
 
-  const posts = await getBlogPosts();
+  const posts = await listBlogPosts();
 
   return (
     <div className="pt-20 min-h-screen bg-card">
@@ -113,7 +98,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
 
             {/* Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.slice(1).map((post: any) => (
+              {posts.slice(1).map((post) => (
                 <Link
                   key={post.id}
                   href={`/${locale}/blog/${post.slug}`}

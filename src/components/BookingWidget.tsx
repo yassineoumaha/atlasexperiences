@@ -3,25 +3,15 @@
 import { useState } from "react";
 import { Calendar, Users, MessageCircle, Phone, CheckCircle, Loader2, Shield, AlertTriangle } from "lucide-react";
 import { PLATFORM_COMMISSION } from "@/lib/experiences-data";
+import type { ExperienceRow, OperatorRow } from "@/lib/supabase/types";
 
 interface BookingWidgetProps {
-  experience: {
-    id: string;
-    title: string;
-    price_per_person: number;
-    price_group?: number;
-    currency: string;
-    max_group_size: number;
-    min_age: number;
-    duration_hours: number;
-    cancellation: string;
-    available_days: string[];
-  };
-  operator: {
-    business_name: string;
-    phone?: string;
-    whatsapp?: string;
-  } | null;
+  experience: Pick<
+    ExperienceRow,
+    | "id" | "title" | "price_per_person" | "price_group" | "currency"
+    | "max_group_size" | "min_age" | "duration_hours" | "cancellation" | "available_days"
+  >;
+  operator: Pick<OperatorRow, "business_name" | "phone" | "whatsapp"> | null;
   locale: string;
 }
 
