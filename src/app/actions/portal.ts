@@ -4,16 +4,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-type Db = { from: (t: string) => any };
-
 // Ensures the authenticated user owns the experience before mutating
 async function getOwnedExperience(experienceId: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("Unauthenticated");
 
-  const db = supabase as unknown as Db;
-  const { data: exp } = await db
+  const { data: exp } = await supabase
     .from("experiences")
     .select("id, operator_id")
     .eq("id", experienceId)
@@ -23,7 +20,7 @@ async function getOwnedExperience(experienceId: string) {
     throw new Error("Forbidden");
   }
 
-  return { db, exp };
+  return { db: supabase, exp };
 }
 
 export async function unpublishExperienceAction(experienceId: string, locale: string) {

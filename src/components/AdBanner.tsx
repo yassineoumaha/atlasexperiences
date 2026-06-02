@@ -2,6 +2,8 @@
 // To activate Google AdSense: set NEXT_PUBLIC_ADSENSE_CLIENT in .env.local
 // and replace the placeholder div with the actual AdSense script tag
 
+import Link from "next/link";
+
 interface AdBannerProps {
   slot: "sidebar" | "article-end" | "taxis-inline";
   className?: string;
@@ -29,7 +31,7 @@ export default function AdBanner({ slot, className = "" }: AdBannerProps) {
           <span className="text-muted-foreground/60 text-xs font-medium uppercase tracking-wide">Advertisement</span>
           <span className="text-muted-foreground text-xs">
             Interested in advertising on Imourig?{" "}
-            <a href="/en/contact" className="text-amber-500 hover:underline">Get in touch</a>
+            <Link href="/en/contact" className="text-amber-500 hover:underline">Get in touch</Link>
           </span>
         </div>
       )}

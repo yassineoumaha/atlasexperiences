@@ -141,7 +141,7 @@ export default function CreateExperiencePage({ params }: { params: Promise<{ loc
       <div className="text-center max-w-md">
         <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
         <h2 className="text-2xl font-black text-foreground mb-2">Experience Submitted!</h2>
-        <p className="text-foreground/80 mb-6">Our team will review and approve your listing within 48 hours. You'll receive an email once it's live.</p>
+        <p className="text-foreground/80 mb-6">Our team will review and approve your listing within 48 hours. You&apos;ll receive an email once it&apos;s live.</p>
         <div className="flex gap-3 justify-center">
           <Link href={`/${locale}/portal`} className="bg-accent hover:brightness-105 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
             My Dashboard
@@ -324,7 +324,7 @@ export default function CreateExperiencePage({ params }: { params: Promise<{ loc
 
           <div className="bg-accent/10 border border-accent/20 rounded-xl p-4 text-xs text-accent-foreground">
             After approval, travelers can find and book your experience on Imourig.
-            You'll receive booking requests by email. Imourig invoices <strong>10% of confirmed bookings</strong> monthly.
+            You&apos;ll receive booking requests by email. Imourig invoices <strong>10% of confirmed bookings</strong> monthly.
           </div>
 
           <button type="submit" disabled={saving}

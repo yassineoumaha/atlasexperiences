@@ -22,7 +22,10 @@ export default function CookieConsent() {
   });
 
   useEffect(() => {
+    // localStorage is unavailable during SSR, so the first-visit check must
+    // run in an effect; setVisible fires only when no consent is stored.
     const stored = localStorage.getItem(STORAGE_KEY);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!stored) setVisible(true);
   }, []);
 

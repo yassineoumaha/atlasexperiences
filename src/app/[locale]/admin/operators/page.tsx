@@ -6,8 +6,8 @@ export default async function AdminOperatorsPage() {
   const db = await createAdminClient();
   const { data: operators } = await db.from("operators").select("*").order("created_at", { ascending: false });
 
-  const pending  = operators?.filter((o: any) => !o.verified) ?? [];
-  const verified = operators?.filter((o: any) => o.verified) ?? [];
+  const pending  = operators?.filter((o) => !o.verified) ?? [];
+  const verified = operators?.filter((o) => o.verified) ?? [];
 
   return (
     <div>
@@ -23,7 +23,7 @@ export default async function AdminOperatorsPage() {
         <div className="mb-10">
           <h2 className="font-bold text-orange-600 text-sm uppercase tracking-wide mb-4">Awaiting Verification ({pending.length})</h2>
           <div className="space-y-4">
-            {pending.map((op: any) => (
+            {pending.map((op) => (
               <div key={op.id} className="bg-card border border-orange-100 rounded-2xl p-5 shadow-sm flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <h3 className="font-black text-foreground text-lg">{op.business_name}</h3>
@@ -68,7 +68,7 @@ export default async function AdminOperatorsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-50">
-            {operators?.map((op: any) => (
+            {operators?.map((op) => (
               <tr key={op.id} className="hover:bg-muted/40">
                 <td className="px-4 py-3 font-medium text-foreground">{op.business_name}</td>
                 <td className="px-4 py-3 text-muted-foreground">{op.city}</td>
