@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { EXPERIENCE_CITIES } from "@/lib/experiences-data";
 
@@ -95,18 +96,22 @@ export default async function StatsSection() {
           {/* Right: overlapping image composition */}
           <div className="relative flex justify-center lg:justify-end">
             <div className="relative">
-              <div className="img-hover-zoom w-64 sm:w-72 h-80 sm:h-96 rounded-2xl overflow-hidden shadow-xl">
-                <img
+              <div className="img-hover-zoom relative w-64 sm:w-72 h-80 sm:h-96 rounded-2xl overflow-hidden shadow-xl">
+                <Image
                   src="https://images.pexels.com/photos/1009861/pexels-photo-1009861.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop"
                   alt="Morocco experience"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 640px) 256px, 288px"
+                  className="object-cover"
                 />
               </div>
               <div className="absolute -bottom-8 -right-8 w-36 sm:w-44 h-48 sm:h-56 rounded-xl overflow-hidden shadow-2xl border-4 border-white img-hover-zoom">
-                <img
+                <Image
                   src="https://images.pexels.com/photos/5560779/pexels-photo-5560779.jpeg?auto=compress&cs=tinysrgb&w=300&h=400&fit=crop"
                   alt="Moroccan cooking"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 640px) 144px, 176px"
+                  className="object-cover"
                 />
               </div>
             </div>

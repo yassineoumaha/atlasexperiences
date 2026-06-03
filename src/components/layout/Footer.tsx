@@ -28,6 +28,7 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
               alt="Imourig"
               width={1066}
               height={320}
+              sizes="340px"
               className="h-11 w-auto mb-4"
             />
             <p className="text-stone-500 text-sm leading-relaxed mb-6 max-w-xs">

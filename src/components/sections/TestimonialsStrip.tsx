@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { Volume2, VolumeX, Play, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Testimonial {
@@ -95,10 +96,12 @@ function VideoCard({ t }: { t: Testimonial }) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <img
+          <Image
             src={t.poster}
             alt={t.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            sizes="(max-width: 640px) 288px, 320px"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         )}
 

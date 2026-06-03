@@ -68,7 +68,7 @@ export default function CookieConsent() {
                 Essential cookies are always active. Analytics cookies help us improve the site.
               </p>
             </div>
-            <button onClick={rejectAll} className="text-muted-foreground/60 hover:text-muted-foreground shrink-0">
+            <button onClick={rejectAll} aria-label="Reject cookies and close" className="text-muted-foreground/60 hover:text-muted-foreground shrink-0">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -138,9 +138,7 @@ export default function CookieConsent() {
 
           <p className="text-muted-foreground text-xs mt-3 text-center">
             By accepting you consent to our{" "}
-            <Link href="/en/cookie-policy" className="underline hover:text-foreground/80">Cookie Policy</Link>
-            {" "}and{" "}
-            <Link href="/en/privacy" className="underline hover:text-foreground/80">Privacy Policy</Link>.
+            <Link href="/en/privacy" className="underline hover:text-foreground/80">Privacy &amp; Cookie Policy</Link>.
             CNDP Declaration No. D-939-2025.
           </p>
         </div>

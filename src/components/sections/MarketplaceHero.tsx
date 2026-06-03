@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Search, MapPin, Star, Shield, ChevronDown, AtSign, Share2, Play, Compass, Store } from "lucide-react";
 import { CATEGORY_LIST, EXPERIENCE_CITIES } from "@/lib/experiences-data";
@@ -38,10 +39,13 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
     <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* ── Full-screen background ─────────────────────── */}
       <div className="absolute inset-0">
-        <img
+        <Image
           src={HERO_PHOTOS[bgIdx]}
           alt="Morocco"
-          className="w-full h-full object-cover object-[83%_center]"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[83%_center]"
         />
         {/* Multi-layer gradient for depth, with a Majorelle tint */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/75" />
@@ -122,6 +126,7 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                aria-label={dict.hero.searchCategory}
                 className="w-full appearance-none px-4 py-3.5 text-stone-700 text-sm outline-none rounded-xl bg-stone-50 border border-stone-100 pr-8 cursor-pointer"
               >
                 <option value="">{dict.hero.searchCategory}</option>
@@ -136,6 +141,7 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                aria-label={dict.hero.searchCity}
                 className="w-full appearance-none px-4 py-3.5 text-stone-700 text-sm outline-none rounded-xl bg-stone-50 border border-stone-100 pr-8 cursor-pointer"
               >
                 <option value="">{dict.hero.searchCity}</option>
@@ -172,7 +178,7 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
       {/* ── Info card (bedimcode bottom-right overlay) ──── */}
       <div className="absolute bottom-8 right-6 hidden lg:flex items-center gap-3 bg-amber-500/90 backdrop-blur-sm text-white px-5 py-4 z-10 rounded-2xl shadow-xl max-w-xs">
         <div className="img-hover-zoom w-24 h-16 rounded-xl overflow-hidden shrink-0">
-          <img src={INFO_PHOTO} alt="Morocco experience" className="w-full h-full object-cover" />
+          <Image src={INFO_PHOTO} alt="Morocco experience" width={96} height={64} sizes="96px" className="w-full h-full object-cover" />
         </div>
         <div>
           <span className="block text-xs font-semibold opacity-80 mb-0.5">Top rated this week</span>

@@ -10,7 +10,7 @@ interface Props { locale: Locale; dict: Dictionary; }
 
 // Category cards with Morocco-specific destination images
 const DISCOVER_CARDS = [
-  { key: "desert",    label: "Sahara Desert",     img: "https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "desert",    label: "Sahara Desert",     img: "https://images.pexels.com/photos/1703314/pexels-photo-1703314.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
   { key: "surf",      label: "Atlantic Coast",     img: "https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
   { key: "culture",   label: "Imperial Cities",    img: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
   { key: "food",      label: "Moroccan Cuisine",   img: "https://images.pexels.com/photos/5560779/pexels-photo-5560779.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
