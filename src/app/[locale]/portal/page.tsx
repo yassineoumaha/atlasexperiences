@@ -89,8 +89,8 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
               <Link href={`/${locale}/portal/create-experience`} className="text-primary font-bold text-sm hover:underline">Create your first listing →</Link>
             </div>
           ) : (
-            <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
-              <table className="w-full text-sm">
+            <div className="bg-card border border-border rounded-2xl overflow-x-auto shadow-sm">
+              <table className="w-full min-w-[600px] text-sm">
                 <thead className="bg-muted/40 border-b border-border">
                   <tr>
                     <th className="text-left px-4 py-3 font-semibold text-foreground/80">Experience</th>

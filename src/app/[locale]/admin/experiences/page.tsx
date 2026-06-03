@@ -67,8 +67,8 @@ export default async function AdminExperiencesPage() {
       )}
 
       <h2 className="font-bold text-foreground/80 text-sm uppercase tracking-wide mb-4">All Experiences ({experiences.length})</h2>
-      <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm">
-        <table className="w-full text-sm">
+      <div className="bg-card rounded-2xl border border-border overflow-x-auto shadow-sm">
+        <table className="w-full min-w-[640px] text-sm">
           <thead className="bg-muted/40 border-b border-border">
             <tr>
               <th className="text-left px-4 py-3 font-semibold text-foreground/80">Title</th>

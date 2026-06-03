@@ -38,8 +38,8 @@ export default async function AdminNewsletterPage() {
         To export: Supabase Dashboard → Table Editor → newsletter_subscribers → Export CSV
       </div>
 
-      <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm">
-        <table className="w-full text-sm">
+      <div className="bg-card rounded-2xl border border-border overflow-x-auto shadow-sm">
+        <table className="w-full min-w-[480px] text-sm">
           <thead className="bg-muted/40 border-b border-border">
             <tr>
               <th className="text-left px-5 py-3 font-semibold text-foreground/80">Email</th>

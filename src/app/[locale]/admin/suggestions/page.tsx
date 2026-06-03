@@ -36,8 +36,8 @@ export default async function SuggestionsAdminPage() {
         <span className="bg-blue-100 text-blue-700 text-sm px-3 py-0.5 rounded-full font-medium">{byStatus.new.length} new</span>
       </div>
 
-      <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
-        <table className="w-full text-sm">
+      <div className="bg-card border border-border rounded-2xl overflow-x-auto shadow-sm">
+        <table className="w-full min-w-[560px] text-sm">
           <thead className="bg-muted/40 border-b border-border">
             <tr>
               <th className="text-left px-4 py-3 font-semibold text-foreground/80">Type</th>
