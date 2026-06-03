@@ -104,5 +104,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Failed to create booking" }, { status: 500 });
   }
 
+  // Record the commission for this booking. Best-effort: the split is already
+  // persisted on the booking row, so a failure here must not fail the booking.
+  const { error: commissionError } = await admin.from("commissions").insert({
+    booking_id:        booking.id,
+    operator_id:       experience.operator_id,
+    booking_value:     total_price,
+    commission_amount: platform_fee,
+    rate:              PLATFORM_COMMISSION,
+    status:            "pending",
+  });
+  if (commissionError) {
+    console.error("[booking API] commission insert error (non-fatal)", commissionError);
+  }
+
   return NextResponse.json({ booking_id: booking.id }, { status: 201 });
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Calendar, Users, MessageCircle, Phone, CheckCircle, Loader2, Shield, AlertTriangle } from "lucide-react";
 import { PLATFORM_COMMISSION } from "@/lib/experiences-data";
+import { track } from "@/lib/analytics";
 import type { ExperienceRow, OperatorRow } from "@/lib/supabase/types";
 
 interface BookingWidgetProps {
@@ -52,6 +53,12 @@ export default function BookingWidget({ experience, operator, locale }: BookingW
         throw new Error(data.error || "Failed to submit booking. Please try again.");
       }
 
+      track("lead_submit", {
+        experience_id: experience.id,
+        group_size: groupSize,
+        value: total,
+        currency: experience.currency,
+      });
       setStep("done");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Booking failed. Please try again or contact us directly.");
