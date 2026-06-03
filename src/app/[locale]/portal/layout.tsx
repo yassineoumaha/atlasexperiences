@@ -13,7 +13,7 @@ export default async function PortalLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect(`/${locale}/auth/login?next=/${locale}/portal`);
+    redirect(`/${locale}/operators/login`);
   }
 
   // Verify operator record exists; if not, send to registration

@@ -32,6 +32,10 @@ export async function signInAction(formData: FormData) {
 
   const adminEmails = (process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim());
   if (adminEmails.includes(email)) redirect(`/${locale}/admin`);
+
+  // Honor a safe same-site `next` target (e.g. the portal the user came from).
+  const next = formData.get("next") as string | null;
+  if (next && next.startsWith(`/${locale}/`)) redirect(next);
   redirect(`/${locale}`);
 }
 

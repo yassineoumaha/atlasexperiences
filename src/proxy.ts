@@ -100,8 +100,16 @@ export async function proxy(request: NextRequest) {
 
     if (!user) {
       const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = `/${locale}/auth/login`;
-      loginUrl.searchParams.set("next", pathname);
+      // The portal is the operator workspace — send logged-out visitors to the
+      // operator-branded sign-in (with its "Join the team" path). Other
+      // protected paths (e.g. /bookings) use the general traveler login.
+      if (pathWithoutLocale === "/portal" || pathWithoutLocale.startsWith("/portal/")) {
+        loginUrl.pathname = `/${locale}/operators/login`;
+        loginUrl.search = "";
+      } else {
+        loginUrl.pathname = `/${locale}/auth/login`;
+        loginUrl.searchParams.set("next", pathname);
+      }
       return NextResponse.redirect(loginUrl);
     }
 
