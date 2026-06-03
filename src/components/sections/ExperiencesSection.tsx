@@ -55,12 +55,14 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
               <Link
                 key={card.key}
                 href={`/${locale}/experiences?category=${card.key}`}
-                className="discover-card snap-start flex-shrink-0 w-44 sm:w-52 h-72 sm:h-80 rounded-2xl group"
+                className="discover-card snap-start flex-shrink-0 w-44 sm:w-52 h-72 sm:h-80 rounded-2xl group relative overflow-hidden"
               >
-                <img
+                <Image
                   src={card.img}
                   alt={card.label}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 640px) 176px, 208px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent rounded-2xl" />
                 <div className="absolute bottom-0 left-0 p-4">
@@ -118,7 +120,13 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                   href={`/${locale}/experiences?category=${card.key}`}
                   className="place-card tile-card h-56 sm:h-64 group"
                 >
-                  <img src={card.img} alt={card.label} className="place-img w-full h-full object-cover" />
+                  <Image
+                    src={card.img}
+                    alt={card.label}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="place-img object-cover"
+                  />
                   <div className="place-overlay" />
                   <div className="absolute inset-0 flex flex-col justify-end p-4">
                     <div>

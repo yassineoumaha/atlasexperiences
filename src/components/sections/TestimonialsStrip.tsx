@@ -187,12 +187,14 @@ export default function TestimonialsStrip({ title, subtitle, featuredLabel, feat
           <div className="hidden sm:flex gap-2">
             <button
               onClick={() => scroll("left")}
+              aria-label="Scroll testimonials left"
               className="w-10 h-10 rounded-xl border border-stone-700 text-stone-400 hover:bg-stone-800 hover:text-white flex items-center justify-center transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll("right")}
+              aria-label="Scroll testimonials right"
               className="w-10 h-10 rounded-xl border border-stone-700 text-stone-400 hover:bg-stone-800 hover:text-white flex items-center justify-center transition-colors"
             >
               <ChevronRight className="w-5 h-5" />

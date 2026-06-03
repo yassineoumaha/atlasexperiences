@@ -73,6 +73,7 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
                 width={1066}
                 height={320}
                 priority
+                sizes="180px"
                 className={cn(
                   "h-9 lg:h-10 w-auto transition-[filter]",
                   overHero && "drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"

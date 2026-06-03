@@ -44,6 +44,15 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   return response;
 }
 
+// Expose the current pathname to Server Components (via headers()) so the
+// locale layout can skip the public chrome on /admin and /portal, which render
+// their own full-screen shells.
+function withPathHeader(request: NextRequest): NextResponse {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+  return NextResponse.next({ request: { headers: requestHeaders } });
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -127,7 +136,7 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  return addSecurityHeaders(NextResponse.next());
+  return addSecurityHeaders(withPathHeader(request));
 }
 
 export const config = {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import { getDictionary, hasLocale, rtlLocales, type Locale } from "@/lib/dictionaries";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -70,6 +71,14 @@ export default async function LocaleLayout({
   const dict = await getDictionary(locale as Locale);
   const isRTL = rtlLocales.includes(locale as Locale);
 
+  // /admin and /portal render their own full-screen shells (sidebar, own logo).
+  // Skip the public navbar/footer/banner there so they don't overlap.
+  const pathname = (await headers()).get("x-pathname") || "";
+  const pathWithoutLocale = "/" + pathname.split("/").slice(2).join("/");
+  const bareChrome =
+    pathWithoutLocale === "/admin" || pathWithoutLocale.startsWith("/admin/") ||
+    pathWithoutLocale === "/portal" || pathWithoutLocale.startsWith("/portal/");
+
   const supabase = await createClient();
   const { data: announcements } = await supabase
     .from("announcements")
@@ -78,6 +87,15 @@ export default async function LocaleLayout({
     .or("expires_at.is.null,expires_at.gt." + new Date().toISOString())
     .order("created_at", { ascending: false })
     .limit(3);
+
+  if (bareChrome) {
+    return (
+      <>
+        <LocaleAttributes locale={locale} isRTL={isRTL} />
+        {children}
+      </>
+    );
+  }
 
   return (
     <>
