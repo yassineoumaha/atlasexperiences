@@ -21,6 +21,14 @@ const nextConfig: NextConfig = {
       fullUrl: process.env.NODE_ENV === "development",
     },
   },
+  async redirects() {
+    return [
+      // Legacy/marketing link consolidation → the real operator onboarding route.
+      // Covers both the bare path and the locale-prefixed form.
+      { source: "/for-operators", destination: "/en/operators/register", permanent: true },
+      { source: "/:locale/for-operators", destination: "/:locale/operators/register", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
