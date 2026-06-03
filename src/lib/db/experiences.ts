@@ -97,16 +97,23 @@ export async function listExperiences(
         break;
       case "recommended":
       default:
+        // NB: ranking_score lives on the operators table, not experiences —
+        // ordering an experiences query by it errors out in PostgREST and the
+        // whole listing comes back empty. Rank by real experience columns.
         query = query
-          .order("ranking_score", { ascending: false })
-          .order("avg_rating", { ascending: false, nullsFirst: false });
+          .order("avg_rating", { ascending: false, nullsFirst: false })
+          .order("total_bookings", { ascending: false });
     }
 
-    const { data } = await query.limit(limit);
+    const { data, error } = await query.limit(limit);
+    // A query error (e.g. ordering by a non-existent column) must not silently
+    // masquerade as "no experiences" — log it so the empty state is honest.
+    if (error) console.error("listExperiences query error:", error.message);
     // The hand-written schema carries no FK metadata, so the embedded
     // `operators(...)` select can't be inferred — assert the known shape.
     return (data as unknown as ExperienceWithOperator[] | null) ?? [];
-  } catch {
+  } catch (e) {
+    console.error("listExperiences failed:", e);
     return [];
   }
 }
@@ -175,15 +182,15 @@ export async function getExperienceBySlug(slug: string): Promise<{
   }
 }
 
-/** Lightweight title/description lookup for generateMetadata. */
+/** Lightweight metadata lookup (title/description/images) for generateMetadata. */
 export async function getExperienceMeta(
   slug: string,
-): Promise<Pick<ExperienceRow, "title" | "description"> | null> {
+): Promise<Pick<ExperienceRow, "title" | "description" | "images" | "city" | "category"> | null> {
   try {
     const supabase = await createClient();
     const { data } = await supabase
       .from("experiences")
-      .select("title, description")
+      .select("title, description, images, city, category")
       .eq("slug", slug)
       .single();
     return data ?? null;

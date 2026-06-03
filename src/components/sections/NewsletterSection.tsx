@@ -86,7 +86,8 @@ export default function NewsletterSection({ dict }: Props) {
               </div>
             ) : (
               <>
-                <h3 className="text-white font-black text-lg mb-6">Join {">"}5,000 Morocco travelers</h3>
+                <h3 className="text-white font-black text-lg mb-1">Be the first to know</h3>
+                <p className="text-white/70 text-sm mb-6">One monthly Morocco guide. No spam, unsubscribe anytime.</p>
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <input
                     type="email"

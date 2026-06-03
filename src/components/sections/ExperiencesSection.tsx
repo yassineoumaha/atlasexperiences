@@ -168,7 +168,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
 
                     {/* Top: rating */}
                     <div className="absolute top-0 left-0 w-full flex items-start justify-between p-3">
-                      {exp.avg_rating && (
+                      {exp.avg_rating && exp.review_count > 0 && (
                         <span className="flex items-center gap-1 bg-black/40 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded-full">
                           <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                           {exp.avg_rating}

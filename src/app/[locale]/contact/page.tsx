@@ -46,7 +46,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="https://wa.me/212600000000?text=Hello%20Atlas%20Maroc"
+            href="https://wa.me/212600000000?text=Hello%20Imourig"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-4 bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-green-200 transition-all group"

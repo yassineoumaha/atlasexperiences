@@ -19,13 +19,32 @@ const HERO_PHOTOS = [
   "https://images.pexels.com/photos/1537635/pexels-photo-1537635.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
 ];
 
-const INFO_PHOTO = "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop";
+/** A real featured experience used for the hero spotlight (null until seeded). */
+export interface HeroSpotlight {
+  title: string;
+  slug: string;
+  city: string;
+  image: string | null;
+  rating: number | null;
+}
 
-export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export default function MarketplaceHero({
+  locale,
+  dict,
+  spotlight,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  spotlight?: HeroSpotlight | null;
+}) {
   const router = useRouter();
   const [category, setCategory] = useState("");
   const [city, setCity] = useState("");
   const [bgIdx] = useState(0);
+
+  // Prefer a real operator's photo for the hero background; fall back to stock
+  // only when no featured experience has been published yet.
+  const heroBg = spotlight?.image ?? HERO_PHOTOS[bgIdx];
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -40,8 +59,8 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
       {/* ── Full-screen background ─────────────────────── */}
       <div className="absolute inset-0">
         <Image
-          src={HERO_PHOTOS[bgIdx]}
-          alt="Morocco"
+          src={heroBg}
+          alt={spotlight ? `${spotlight.title} — ${spotlight.city}` : "Morocco"}
           fill
           priority
           sizes="100vw"
@@ -117,48 +136,60 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
             </Link>
           </div>
 
-          {/* Search bar */}
-          <form
-            onSubmit={handleSearch}
-            className="bg-white/96 backdrop-blur-md rounded-2xl shadow-2xl p-2 flex flex-col sm:flex-row gap-2 max-w-2xl mb-10 fade-in-up fade-in-up-delay-3"
-          >
-            <div className="relative flex-1">
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                aria-label={dict.hero.searchCategory}
-                className="w-full appearance-none px-4 py-3.5 text-stone-700 text-sm outline-none rounded-xl bg-stone-50 border border-stone-100 pr-8 cursor-pointer"
-              >
-                <option value="">{dict.hero.searchCategory}</option>
-                {CATEGORY_LIST.map((c) => (
-                  <option key={c.key} value={c.key}>{c.emoji} {c.label}</option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+          {/* Search — tappable category chips + a slim city refinement.
+              Chips set the category; the button (or tapping a chip) searches. */}
+          <div className="max-w-2xl mb-10 fade-in-up fade-in-up-delay-3">
+            {/* Category chips — the primary, mobile-friendly discovery action */}
+            <div className="flex gap-2 overflow-x-auto pb-3 no-scrollbar -mx-1 px-1">
+              {CATEGORY_LIST.map((c) => {
+                const active = category === c.key;
+                return (
+                  <button
+                    key={c.key}
+                    type="button"
+                    onClick={() => setCategory(active ? "" : c.key)}
+                    aria-pressed={active}
+                    className={`shrink-0 inline-flex items-center gap-1.5 px-4 h-10 rounded-full text-sm font-semibold transition-all active:scale-95 ${
+                      active
+                        ? "bg-accent text-accent-foreground shadow-md"
+                        : "glass text-white/90 hover:bg-white/20"
+                    }`}
+                  >
+                    <span>{c.emoji}</span> {c.label}
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="relative flex-1">
-              <select
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                aria-label={dict.hero.searchCity}
-                className="w-full appearance-none px-4 py-3.5 text-stone-700 text-sm outline-none rounded-xl bg-stone-50 border border-stone-100 pr-8 cursor-pointer"
-              >
-                <option value="">{dict.hero.searchCity}</option>
-                {EXPERIENCE_CITIES.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
-            </div>
-
-            <button
-              type="submit"
-              className="bg-accent hover:brightness-105 text-accent-foreground font-bold px-6 min-h-[3rem] rounded-xl flex items-center justify-center gap-2 transition-all whitespace-nowrap shadow-md active:scale-95"
+            {/* City refinement + search */}
+            <form
+              onSubmit={handleSearch}
+              className="bg-white/96 backdrop-blur-md rounded-2xl shadow-2xl p-2 flex flex-col sm:flex-row gap-2"
             >
-              <Search className="w-4 h-4" /> {dict.hero.searchBtn}
-            </button>
-          </form>
+              <div className="relative flex-1">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+                <select
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  aria-label={dict.hero.searchCity}
+                  className="w-full appearance-none pl-9 pr-8 py-3.5 text-stone-700 text-sm outline-none rounded-xl bg-stone-50 border border-stone-100 cursor-pointer"
+                >
+                  <option value="">{dict.hero.searchCity}</option>
+                  {EXPERIENCE_CITIES.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-accent hover:brightness-105 text-accent-foreground font-bold px-6 min-h-[3rem] rounded-xl flex items-center justify-center gap-2 transition-all whitespace-nowrap shadow-md active:scale-95"
+              >
+                <Search className="w-4 h-4" /> {dict.hero.searchBtn}
+              </button>
+            </form>
+          </div>
 
           {/* Trust badges */}
           <div className="flex flex-wrap gap-3 text-sm fade-in-up fade-in-up-delay-3">
@@ -175,22 +206,33 @@ export default function MarketplaceHero({ locale, dict }: { locale: Locale; dict
         </div>
       </div>
 
-      {/* ── Info card (bedimcode bottom-right overlay) ──── */}
-      <div className="absolute bottom-8 right-6 hidden lg:flex items-center gap-3 bg-amber-500/90 backdrop-blur-sm text-white px-5 py-4 z-10 rounded-2xl shadow-xl max-w-xs">
-        <div className="img-hover-zoom w-24 h-16 rounded-xl overflow-hidden shrink-0">
-          <Image src={INFO_PHOTO} alt="Morocco experience" width={96} height={64} sizes="96px" className="w-full h-full object-cover" />
-        </div>
-        <div>
-          <span className="block text-xs font-semibold opacity-80 mb-0.5">Top rated this week</span>
-          <span className="text-sm font-bold leading-tight">Sahara Sunset Camel Trek</span>
-          <Link
-            href={`/${locale}/experiences`}
-            className="flex items-center gap-1 text-xs mt-1 opacity-80 hover:opacity-100 transition-opacity"
-          >
-            See all experiences →
-          </Link>
-        </div>
-      </div>
+      {/* ── Spotlight card — a real featured experience, not a placeholder.
+            Hidden entirely until at least one is published. ──────────── */}
+      {spotlight && (
+        <Link
+          href={`/${locale}/experiences/${spotlight.slug}`}
+          className="group absolute bottom-8 right-6 hidden lg:flex items-center gap-3 bg-amber-500/90 backdrop-blur-sm text-white px-5 py-4 z-10 rounded-2xl shadow-xl max-w-xs hover:bg-amber-500 transition-colors"
+        >
+          {spotlight.image && (
+            <div className="img-hover-zoom w-24 h-16 rounded-xl overflow-hidden shrink-0">
+              <Image src={spotlight.image} alt={spotlight.title} width={96} height={64} sizes="96px" className="w-full h-full object-cover" />
+            </div>
+          )}
+          <div className="min-w-0">
+            <span className="flex items-center gap-1 text-xs font-semibold opacity-80 mb-0.5">
+              {spotlight.rating ? (
+                <><Star className="w-3 h-3 fill-white" /> Top rated · {spotlight.rating}</>
+              ) : (
+                <>Featured experience</>
+              )}
+            </span>
+            <span className="block text-sm font-bold leading-tight truncate">{spotlight.title}</span>
+            <span className="flex items-center gap-1 text-xs mt-1 opacity-80 group-hover:opacity-100 transition-opacity">
+              View experience →
+            </span>
+          </div>
+        </Link>
+      )}
 
       {/* ── Scroll indicator ───────────────────────────── */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-1 text-white/40 animate-bounce">

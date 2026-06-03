@@ -19,12 +19,20 @@ function sceneFor(category?: string): SceneKey {
   return "desert";
 }
 
-export const metadata: Metadata = {
-  title: "Morocco Experiences & Activities — Book Local Experts",
-  description:
-    "Book authentic Morocco experiences directly from local experts. Surf lessons, Sahara tours, cooking classes, hammam, hiking and more — 100% verified local operators.",
-  keywords: ["Morocco activities", "Morocco experiences", "Morocco tours", "surf lessons Morocco", "Sahara tour", "Morocco cooking class"],
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: "Morocco Experiences & Activities — Book Local Experts",
+    description:
+      "Book authentic Morocco experiences directly from local experts. Surf lessons, Sahara tours, cooking classes, hammam, hiking and more — 100% verified local operators.",
+    keywords: ["Morocco activities", "Morocco experiences", "Morocco tours", "surf lessons Morocco", "Sahara tour", "Morocco cooking class"],
+    alternates: { canonical: `/${locale}/experiences` },
+  };
+}
 
 const schema = {
   "@context": "https://schema.org",

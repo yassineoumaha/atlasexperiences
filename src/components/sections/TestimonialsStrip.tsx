@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import Image from "next/image";
-import { Volume2, VolumeX, Play, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
+import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -11,19 +10,35 @@ interface Testimonial {
   flag: string;
   experience: string;
   quote: string;
-  videoUrl?: string;
-  poster: string;
+}
+
+// Deterministic warm-toned gradient per reviewer, derived from the name — so
+// the initials avatar is colorful and stable without reusing any stock photo.
+const AVATAR_GRADIENTS = [
+  "from-amber-500 to-orange-600",
+  "from-rose-500 to-pink-600",
+  "from-emerald-500 to-teal-600",
+  "from-sky-500 to-indigo-600",
+  "from-violet-500 to-purple-600",
+];
+
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .map((p) => p[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 }
 
 const TESTIMONIALS: Testimonial[] = [
   {
     id: "t1",
     name: "James R.",
-    country: "UK",
+    country: "United Kingdom",
     flag: "🇬🇧",
     experience: "Sahara Camel Trek – Merzouga",
     quote: "Three nights under the stars in the Sahara with a guide who felt like family. Nothing like anything I'd experienced before. Imourig made it effortless to book.",
-    poster: "https://images.pexels.com/photos/1009861/pexels-photo-1009861.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
   },
   {
     id: "t2",
@@ -32,16 +47,14 @@ const TESTIMONIALS: Testimonial[] = [
     flag: "🇪🇸",
     experience: "Surf Lessons – Taghazout",
     quote: "I'd never surfed before. Within two days I was standing up. The instructor was patient, the waves were perfect, and the price was a third of what I paid in Biarritz.",
-    poster: "https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
   },
   {
     id: "t3",
     name: "Amara K.",
-    country: "USA",
+    country: "United States",
     flag: "🇺🇸",
     experience: "Cooking Class – Marrakech Medina",
     quote: "Our host took us to the souk at 8am to buy the ingredients, then we cooked a feast. That tagine recipe is now a staple at home. Best half-day I've spent anywhere.",
-    poster: "https://images.pexels.com/photos/5560779/pexels-photo-5560779.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
   },
   {
     id: "t4",
@@ -50,7 +63,6 @@ const TESTIMONIALS: Testimonial[] = [
     flag: "🇩🇪",
     experience: "Chefchaouen Photography Walk",
     quote: "I'm a travel photographer and this was the best guided photo tour I've done. The guide knew every alley and the best light times. Came back with 400 keeper shots.",
-    poster: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
   },
   {
     id: "t5",
@@ -59,90 +71,37 @@ const TESTIMONIALS: Testimonial[] = [
     flag: "🇯🇵",
     experience: "Fes Medina Walking Tour",
     quote: "The medina is impossibly complex but our guide made it feel like home. We discovered riads, workshops, and cafes no tourist would find alone. Absolutely unmissable.",
-    poster: "https://images.pexels.com/photos/2404843/pexels-photo-2404843.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
   },
 ];
 
-function VideoCard({ t }: { t: Testimonial }) {
-  const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  function handlePlay() {
-    if (!t.videoUrl) return;
-    setPlaying(true);
-    videoRef.current?.play();
-  }
-
-  function toggleMute() {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !videoRef.current.muted;
-    setMuted(videoRef.current.muted);
-  }
+function QuoteCard({ t, index }: { t: Testimonial; index: number }) {
+  const gradient = AVATAR_GRADIENTS[index % AVATAR_GRADIENTS.length];
 
   return (
-    <div className="relative rounded-2xl overflow-hidden bg-stone-900 shadow-xl group flex-shrink-0 w-72 sm:w-80">
-      {/* Image / video */}
-      <div className="relative h-64 overflow-hidden">
-        {t.videoUrl ? (
-          <video
-            ref={videoRef}
-            src={t.videoUrl}
-            poster={t.poster}
-            muted
-            loop
-            playsInline
-            autoPlay
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <Image
-            src={t.poster}
-            alt={t.name}
-            fill
-            sizes="(max-width: 640px) 288px, 320px"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        )}
+    <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 flex flex-col">
+      <Quote className="w-7 h-7 text-amber-400/70 mb-4" />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/30 to-transparent" />
-
-        {t.videoUrl && !playing && (
-          <button
-            onClick={handlePlay}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <div className="w-14 h-14 glass rounded-full flex items-center justify-center border border-white/30 hover:bg-white/30 transition-colors">
-              <Play className="w-6 h-6 text-white fill-white ml-1" />
-            </div>
-          </button>
-        )}
-
-        {t.videoUrl && playing && (
-          <button
-            onClick={toggleMute}
-            className="absolute top-3 right-3 w-8 h-8 bg-black/40 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/60 transition-colors"
-          >
-            {muted ? <VolumeX className="w-4 h-4 text-white" /> : <Volume2 className="w-4 h-4 text-white" />}
-          </button>
-        )}
-
-        {/* Flag */}
-        <div className="absolute top-3 left-3 text-2xl">{t.flag}</div>
+      {/* 5-star rating */}
+      <div className="flex gap-0.5 mb-3" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+        ))}
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <Quote className="w-5 h-5 text-amber-400 mb-3" />
-        <p className="text-white/80 text-sm leading-relaxed line-clamp-3 mb-4">{t.quote}</p>
-        <div className="flex items-end justify-between">
-          <div>
-            <div className="font-bold text-white text-sm">{t.name}</div>
-            <div className="text-stone-400 text-xs">{t.country}</div>
+      <p className="text-white/85 text-sm leading-relaxed flex-1 mb-5">“{t.quote}”</p>
+
+      <div className="flex items-center gap-3 pt-4 border-t border-stone-700/60">
+        <div
+          className={`w-11 h-11 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-black text-sm shrink-0`}
+          aria-hidden="true"
+        >
+          {initials(t.name)}
+        </div>
+        <div className="min-w-0">
+          <div className="font-bold text-white text-sm flex items-center gap-1.5">
+            {t.name} <span className="text-base leading-none">{t.flag}</span>
           </div>
-          <div className="text-right">
-            <div className="text-amber-400 text-xs font-semibold">{t.experience}</div>
-          </div>
+          <div className="text-amber-400/90 text-xs truncate">{t.experience}</div>
         </div>
       </div>
     </div>
@@ -208,9 +167,9 @@ export default function TestimonialsStrip({ title, subtitle, featuredLabel, feat
           className="flex gap-5 overflow-x-auto pb-4 snap-scroll"
           style={{ scrollbarWidth: "none" }}
         >
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.map((t, i) => (
             <div key={t.id} className="snap-start">
-              <VideoCard t={t} />
+              <QuoteCard t={t} index={i} />
             </div>
           ))}
 

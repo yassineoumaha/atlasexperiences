@@ -6,13 +6,26 @@ import { getBlogPost } from "@/lib/db";
 import { ArrowLeft, Clock, Calendar, User } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = await getBlogPost(slug);
   if (!post) return { title: "Article not found — Imourig" };
+  const description = post.excerpt ?? post.title;
   return {
     title: `${post.title} — Imourig Blog`,
-    description: post.excerpt ?? post.title,
-    openGraph: post.image ? { images: [post.image] } : undefined,
+    description,
+    alternates: { canonical: `/${locale}/blog/${slug}` },
+    openGraph: {
+      title: `${post.title} | Imourig`,
+      description,
+      type: "article",
+      images: post.image ? [{ url: post.image, alt: post.title }] : undefined,
+    },
+    twitter: {
+      card: post.image ? "summary_large_image" : "summary",
+      title: `${post.title} | Imourig`,
+      description,
+      images: post.image ? [post.image] : undefined,
+    },
   };
 }
 

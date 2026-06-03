@@ -21,12 +21,6 @@ async function getPlatformStats() {
 export default async function StatsSection() {
   const stats = await getPlatformStats();
 
-  const ADVANTAGES = [
-    { icon: "🤝", text: "Book directly with local operators — no Viator markup" },
-    { icon: "✅", text: "Every operator personally verified before listing" },
-    { icon: "💬", text: "Real-time chat with your guide before booking" },
-  ];
-
   const STATS = [
     {
       value: stats.operators > 0 ? `${stats.operators}` : "—",
@@ -58,20 +52,16 @@ export default async function StatsSection() {
           {/* Left: why us + stats */}
           <div>
             <span className="block text-primary font-semibold text-sm mb-3 uppercase tracking-wider">
-              Why Imourig
+              By the numbers
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-foreground section-title mb-4">
-              Authentic Morocco,<br />
-              <span className="text-accent">direct from locals.</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-foreground section-title mb-8">
+              A growing network<br />
+              <span className="text-accent">across Morocco.</span>
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-10 max-w-md">
-              We connect travelers directly with vetted local operators — no inflated prices,
-              no middlemen. Just genuine Morocco experiences at honest rates.
-            </p>
 
             {/* Live stats — only shown when we have real data */}
             {hasData && (
-              <div className="grid grid-cols-3 gap-6 mb-10">
+              <div className="grid grid-cols-3 gap-6">
                 {STATS.map(({ value, label, desc }) => (
                   <div key={label} className="text-center sm:text-left">
                     <div className="stat-number text-foreground mb-1">{value}</div>
@@ -81,16 +71,6 @@ export default async function StatsSection() {
                 ))}
               </div>
             )}
-
-            {/* Platform advantages */}
-            <div className="space-y-3">
-              {ADVANTAGES.map(({ icon, text }) => (
-                <div key={text} className="flex items-start gap-3">
-                  <span className="text-xl shrink-0 mt-0.5">{icon}</span>
-                  <p className="text-foreground/80 text-sm">{text}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Right: overlapping image composition */}

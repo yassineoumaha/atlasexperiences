@@ -8,6 +8,10 @@ import { ExperienceCardTile } from "@/components/experience/ExperienceCardTile";
 import { TrackView } from "@/components/analytics/TrackView";
 import SchemaScript from "@/components/SchemaScript";
 
+// Queries Supabase (cookies) per request — render dynamically rather than
+// attempting static prerender at build time.
+export const dynamic = "force-dynamic";
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://imourig.com";
 
 /** Resolve a URL city slug (lowercased, hyphenated) to the canonical city name. */

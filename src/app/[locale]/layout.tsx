@@ -45,7 +45,9 @@ export async function generateMetadata({
     },
     twitter: { card: "summary_large_image" },
     alternates: {
-      canonical: `${SITE_URL}/${locale}`,
+      // No canonical here — a layout-level canonical would make every child
+      // page (experiences, about, blog…) claim to be the homepage. Each page
+      // sets its own; pages that don't self-canonicalize to their own URL.
       languages: {
         "en": `${SITE_URL}/en`,
         "fr": `${SITE_URL}/fr`,

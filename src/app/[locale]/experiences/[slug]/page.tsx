@@ -14,12 +14,30 @@ import type { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const data = await getExperienceMeta(slug);
   if (!data) return {};
-  return { title: data.title, description: data.description?.slice(0, 155) };
+  const description = data.description?.slice(0, 200);
+  const ogImage = data.images?.[0];
+  return {
+    title: data.title,
+    description,
+    alternates: { canonical: `/${locale}/experiences/${slug}` },
+    openGraph: {
+      title: `${data.title} | Imourig`,
+      description,
+      type: "website",
+      images: ogImage ? [{ url: ogImage, alt: data.title }] : undefined,
+    },
+    twitter: {
+      card: ogImage ? "summary_large_image" : "summary",
+      title: `${data.title} | Imourig`,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
+  };
 }
 
 export default async function ExperienceDetailPage({
@@ -61,8 +79,10 @@ export default async function ExperienceDetailPage({
             <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{experience.city}</span>
             <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{experience.duration_hours} hours</span>
             <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" />Max {experience.max_group_size} people</span>
-            {experience.avg_rating && (
+            {experience.avg_rating && experience.review_count > 0 ? (
               <span className="flex items-center gap-1"><Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />{experience.avg_rating} ({experience.review_count})</span>
+            ) : (
+              <span className="text-white/60">New experience</span>
             )}
           </div>
         </div>
@@ -175,7 +195,7 @@ export default async function ExperienceDetailPage({
                 <h2 className="text-xl font-black text-stone-900">
                   Reviews {reviews.length > 0 && <span className="text-muted-foreground font-normal">({reviews.length})</span>}
                 </h2>
-                {experience.avg_rating && (
+                {experience.avg_rating && experience.review_count > 0 && (
                   <div className="flex items-center gap-1.5">
                     <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                     <span className="text-2xl font-black text-foreground">{experience.avg_rating}</span>
