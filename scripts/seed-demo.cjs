@@ -46,7 +46,7 @@ const OPERATORS = [
     languages: ["English", "French", "Arabic"],
     years_experience: 9,
     avatar_url: px(1654698, 200, 200),
-    cover_url: px(390051, 1200, 400),
+    cover_url: px(1654489, 1200, 400),
   },
   {
     email: "demo.desert@imourig.com",
@@ -70,7 +70,7 @@ const OPERATORS = [
     languages: ["English", "French"],
     years_experience: 7,
     avatar_url: px(3201921, 200, 200),
-    cover_url: px(7438979, 1200, 400),
+    cover_url: px(4198015, 1200, 400),
   },
   {
     email: "demo.culture@imourig.com",
@@ -97,7 +97,7 @@ const EXPERIENCES = {
       includes: ["Surfboard & wetsuit", "Beach insurance", "Bottled water"],
       excludes: ["Transport to beach", "Lunch"],
       what_to_bring: ["Swimwear", "Towel", "Sunscreen"],
-      images: [px(390051), px(1654698), px(1430677)],
+      images: [px(1654489), px(1654698), px(1430677)],
     },
     {
       title: "Full-Day Surf Safari — 3 Secret Spots", category: "surf", city: "Taghazout",
@@ -105,7 +105,7 @@ const EXPERIENCES = {
       price_per_person: 95, duration_hours: 7, max_group_size: 5, featured: false,
       highlights: ["4x4 spot-hopping", "Lunch in a fishing village", "Intermediate / advanced"],
       includes: ["Board & wetsuit", "4x4 transport", "Lunch"], excludes: ["Tips"],
-      what_to_bring: ["Swimwear", "Towel"], images: [px(1430677), px(390051)],
+      what_to_bring: ["Swimwear", "Towel"], images: [px(1430677), px(1654489)],
     },
   ],
   "demo.desert@imourig.com": [
@@ -136,7 +136,7 @@ const EXPERIENCES = {
       highlights: ["Guided spice-souk walk", "Cook a 3-course meal", "Recipe booklet to take home"],
       includes: ["All ingredients", "Riad venue", "The meal you cook", "Apron"],
       excludes: ["Hotel pickup"], what_to_bring: ["An appetite"],
-      images: [px(7438979), px(5560763), px(4040692)],
+      images: [px(4198015), px(5560763), px(4040692)],
     },
     {
       title: "Marrakech Street Food Evening Tour", category: "food", city: "Marrakech",
@@ -144,7 +144,7 @@ const EXPERIENCES = {
       price_per_person: 40, duration_hours: 3, max_group_size: 8, featured: false,
       highlights: ["6+ tastings", "Jemaa el-Fnaa by night", "Vegetarian option"],
       includes: ["All food tastings", "Guide"], excludes: ["Alcohol"],
-      what_to_bring: ["Comfortable shoes"], images: [px(4040692), px(7438979)],
+      what_to_bring: ["Comfortable shoes"], images: [px(4040692), px(4198015)],
     },
   ],
   "demo.culture@imourig.com": [
