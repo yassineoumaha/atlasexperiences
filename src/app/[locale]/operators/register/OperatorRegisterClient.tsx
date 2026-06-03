@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { CheckCircle, Loader2, Shield, TrendingUp, Users } from "lucide-react";
 import { EXPERIENCE_CITIES, CATEGORY_LIST } from "@/lib/experiences-data";
+import { registerOperatorAction } from "@/app/actions/operators";
+import { track } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionaries";
 
 const LANGUAGES = ["English", "French", "Arabic", "Spanish", "German", "Italian", "Dutch"];
@@ -43,22 +45,23 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
       const userId = authData.user?.id;
       if (!userId) { alert("Sign up failed. Please try again."); setLoading(false); return; }
 
-      const slug = form.business_name.toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .slice(0, 50) + "-" + Date.now().toString(36);
-
-      await supabase.from("operators").insert({
-        id: userId, business_name: form.business_name, slug,
-        city: form.city, bio: form.bio, phone: form.phone, whatsapp: form.whatsapp || form.phone,
-        languages: form.languages, years_experience: form.years_experience,
-        verified: false, commission_rate: 10,
+      // Create the operator profile server-side (service role) so it lands as a
+      // pending operator even when email confirmation leaves the client without
+      // a session — an anon-client insert here would be denied by RLS.
+      const res = await registerOperatorAction({
+        userId,
+        business_name: form.business_name,
+        city: form.city,
+        bio: form.bio,
+        phone: form.phone,
+        whatsapp: form.whatsapp || form.phone,
+        languages: form.languages,
+        years_experience: form.years_experience,
       });
 
-      await supabase.from("user_profiles").upsert({
-        id: userId, display_name: form.business_name, role: "lister",
-      });
+      if (!res.ok) { alert(res.error); setLoading(false); return; }
 
+      track("operator_signup", { city: form.city });
       setStep("done");
     } catch (err: unknown) {
       alert(err instanceof Error ? err.message : "Something went wrong. Please try again.");
