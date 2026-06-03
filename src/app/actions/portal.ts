@@ -23,6 +23,59 @@ async function getOwnedExperience(experienceId: string) {
   return { db: supabase, exp };
 }
 
+// Verifies the authenticated user owns the booking (via its operator_id)
+async function getOwnedBooking(bookingId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthenticated");
+
+  const { data: booking } = await supabase
+    .from("bookings")
+    .select("id, operator_id, experience_id, status")
+    .eq("id", bookingId)
+    .single();
+
+  if (!booking || booking.operator_id !== user.id) throw new Error("Forbidden");
+  return { db: supabase, booking };
+}
+
+export async function confirmBookingAction(bookingId: string, locale: string) {
+  const { db, booking } = await getOwnedBooking(bookingId);
+  if (booking.status !== "pending") return; // idempotent — already handled
+
+  await db
+    .from("bookings")
+    .update({ status: "confirmed", confirmed_at: new Date().toISOString() })
+    .eq("id", bookingId);
+
+  // Increment the experience's booking counter (drives "Most Popular" + stats).
+  const { data: exp } = await db
+    .from("experiences")
+    .select("total_bookings")
+    .eq("id", booking.experience_id)
+    .single();
+  if (exp) {
+    await db
+      .from("experiences")
+      .update({ total_bookings: (exp.total_bookings ?? 0) + 1 })
+      .eq("id", booking.experience_id);
+  }
+
+  revalidatePath(`/${locale}/portal`);
+}
+
+export async function declineBookingAction(bookingId: string, locale: string) {
+  const { db, booking } = await getOwnedBooking(bookingId);
+  if (booking.status !== "pending") return;
+
+  await db
+    .from("bookings")
+    .update({ status: "cancelled", cancelled_at: new Date().toISOString(), cancellation_reason: "Declined by operator" })
+    .eq("id", bookingId);
+
+  revalidatePath(`/${locale}/portal`);
+}
+
 export async function unpublishExperienceAction(experienceId: string, locale: string) {
   const { db } = await getOwnedExperience(experienceId);
   await db.from("experiences").update({ published: false }).eq("id", experienceId);

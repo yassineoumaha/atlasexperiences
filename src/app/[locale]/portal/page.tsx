@@ -3,8 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getOperatorDashboard } from "@/lib/db";
 import { signOutAction } from "@/app/actions/auth";
-import { unpublishExperienceAction, publishExperienceAction, deleteOwnExperienceAction } from "@/app/actions/portal";
-import { Plus, Calendar, Star, TrendingUp, Eye, Clock, CheckCircle, Pencil, Trash2, EyeOff } from "lucide-react";
+import { unpublishExperienceAction, publishExperienceAction, deleteOwnExperienceAction, confirmBookingAction, declineBookingAction } from "@/app/actions/portal";
+import { Plus, Calendar, Star, TrendingUp, Eye, Clock, CheckCircle, Pencil, Trash2, EyeOff, X, Mail } from "lucide-react";
 
 const STATUS_STYLE: Record<string, string> = {
   pending:   "bg-orange-100 text-orange-700",
@@ -194,12 +194,26 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
                       <div className="font-black text-foreground text-lg">${b.operator_payout}</div>
                       <div className="text-muted-foreground text-xs">your payout (after 10%)</div>
                       {b.status === "pending" && (
-                        <div className="flex gap-2 mt-2">
-                          <a href={`mailto:${b.traveler_email}?subject=Booking Confirmed — ${b.experiences?.title}&body=Hi ${b.traveler_name},%0A%0AYour booking for ${new Date(b.requested_date).toLocaleDateString()} is confirmed!`}
-                            className="flex items-center gap-1 text-xs bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-medium transition-colors">
-                            <CheckCircle className="w-3.5 h-3.5" /> Confirm by Email
-                          </a>
+                        <div className="flex flex-wrap gap-2 mt-2 justify-end">
+                          <form action={confirmBookingAction.bind(null, b.id, locale)}>
+                            <button type="submit"
+                              className="flex items-center gap-1 text-xs bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-medium transition-colors">
+                              <CheckCircle className="w-3.5 h-3.5" /> Confirm
+                            </button>
+                          </form>
+                          <form action={declineBookingAction.bind(null, b.id, locale)}>
+                            <button type="submit"
+                              className="flex items-center gap-1 text-xs border border-red-200 text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg font-medium transition-colors">
+                              <X className="w-3.5 h-3.5" /> Decline
+                            </button>
+                          </form>
                         </div>
+                      )}
+                      {b.status === "confirmed" && (
+                        <a href={`mailto:${b.traveler_email}?subject=Booking Confirmed — ${b.experiences?.title}&body=Hi ${b.traveler_name},%0A%0AYour booking for ${new Date(b.requested_date).toLocaleDateString()} is confirmed! Looking forward to hosting you.`}
+                          className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2">
+                          <Mail className="w-3.5 h-3.5" /> Email traveler
+                        </a>
                       )}
                     </div>
                   </div>

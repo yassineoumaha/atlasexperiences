@@ -21,21 +21,27 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
   const { locale } = use(params);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<{ name: string; email: string; type: SuggestionType; message: string }>({ name: "", email: "", type: "feature", message: "" });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (form.message.length < 15) return;
     setLoading(true);
+    setError(null);
     const supabase = createClient();
-    await supabase.from("suggestions").insert({
+    const { error: insertError } = await supabase.from("suggestions").insert({
       sender_name: form.name || null,
       sender_email: form.email || null,
       type: form.type,
       message: form.message,
     });
-    setDone(true);
     setLoading(false);
+    if (insertError) {
+      setError("Couldn't send your suggestion. Please check your connection and try again.");
+      return;
+    }
+    setDone(true);
   }
 
   if (done) return (
@@ -126,6 +132,7 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
             {loading ? "Sending..." : "Send Suggestion"}
           </button>
+          {error && <p className="text-sm text-red-600 text-center">{error}</p>}
         </form>
       </div>
     </div>
