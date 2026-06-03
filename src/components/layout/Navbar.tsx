@@ -177,7 +177,7 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
       {/* ── Mobile drawer ────────────────────────────────── */}
       <div
         className={cn(
-          "fixed inset-0 z-40 md:hidden transition-all duration-300",
+          "fixed inset-0 z-[60] md:hidden transition-all duration-300",
           mobileOpen ? "pointer-events-auto" : "pointer-events-none"
         )}
       >
