@@ -41,11 +41,16 @@ create policy "exp_reviews_insert" on public.experience_reviews
 -- These are TRIGGER functions (and one internal helper). Triggers still fire
 -- after EXECUTE is revoked — revoking only removes the ability to call them
 -- directly via /rest/v1/rpc, which nothing should do.
-revoke execute on function public.handle_new_user()            from anon, authenticated;
-revoke execute on function public.update_experience_rating()   from anon, authenticated;
-revoke execute on function public.update_operator_rating()     from anon, authenticated;
+--
+-- Revoke from PUBLIC as well as anon/authenticated: PostgreSQL grants EXECUTE to
+-- PUBLIC by default on new functions, so revoking only anon/authenticated can
+-- leave the PUBLIC grant in place (and the warning returns, especially after a
+-- function is recreated). Revoking from PUBLIC covers all roles in one go.
+revoke execute on function public.handle_new_user()                  from public, anon, authenticated;
+revoke execute on function public.update_experience_rating()         from public, anon, authenticated;
+revoke execute on function public.update_operator_rating()           from public, anon, authenticated;
 -- Internal driver helper — not meant to be a public RPC.
-revoke execute on function public.get_driver_open_report_count(uuid) from anon, authenticated;
+revoke execute on function public.get_driver_open_report_count(uuid) from public, anon, authenticated;
 
 -- ── 4. Public buckets allow listing (0025) — OPTIONAL, read first ────────────
 -- For PUBLIC buckets, individual object URLs (https://.../object/public/...)
@@ -66,3 +71,12 @@ revoke execute on function public.get_driver_open_report_count(uuid) from anon, 
 -- Enable in the dashboard: Authentication → Providers/Policies → "Leaked password
 -- protection" (checks passwords against HaveIBeenPwned). Toggle it ON.
 -- ═════════════════════════════════════════════════════════════════════════════
+
+-- ── 6. "RLS enabled, no policy" (0008, INFO) — NO ACTION NEEDED ──────────────
+-- After section 2 dropped the open INSERT policies, these tables
+-- (newsletter_subscribers, suggestions, property_submissions, taxi_reports)
+-- have RLS ENABLED with NO policies. That is the intended, SECURE state: the app
+-- writes them via the service-role client (which bypasses RLS), and no anon/
+-- authenticated client should read or write them directly. The INFO warning just
+-- confirms the table is locked to client access. Do NOT "fix" it by disabling
+-- RLS — that would expose the table. Leave as-is.
