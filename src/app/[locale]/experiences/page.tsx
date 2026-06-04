@@ -138,7 +138,7 @@ export default async function ExperiencesPage({
         </div>
 
         {/* City filter — horizontal scroll on mobile, wrap on desktop */}
-        <div className="flex md:flex-wrap gap-2 mb-8 overflow-x-auto md:overflow-visible no-scrollbar pb-1">
+        <div id="city-picker" className="flex md:flex-wrap gap-2 mb-8 overflow-x-auto md:overflow-visible no-scrollbar pb-1 scroll-mt-24">
           <Link href={`/${locale}/experiences${category ? `?category=${category}` : ""}`}
             className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${!city ? "bg-accent text-accent-foreground border-accent" : "text-muted-foreground border-border hover:border-accent"}`}>
             {dict.hero.searchCity}
