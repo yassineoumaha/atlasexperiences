@@ -1,6 +1,8 @@
 import { createAdminClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { Users, Star, ShoppingBag, Mail, Clock, CheckCircle, DollarSign } from "lucide-react";
+import { Users, Star, ShoppingBag, Mail, Clock, CheckCircle, DollarSign, ShieldCheck } from "lucide-react";
+import LegalNotifyButton from "./LegalNotifyButton";
+import { LEGAL_VERSION, LEGAL_EFFECTIVE_LABEL } from "@/lib/legal";
 
 export default async function AdminDashboard({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -79,6 +81,17 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
             </Link>
           ))}
         </div>
+      </div>
+
+      {/* Legal updates */}
+      <div className="bg-card rounded-2xl border border-border shadow-sm p-5 mb-8">
+        <h2 className="font-black text-foreground mb-1 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-accent" /> Legal & Consent</h2>
+        <p className="text-muted-foreground text-sm mb-4">
+          Current agreement version: <strong>{LEGAL_VERSION}</strong> (effective {LEGAL_EFFECTIVE_LABEL}).
+          After changing the Terms or Privacy Policy, bump <code>LEGAL_VERSION</code> in <code>src/lib/legal.ts</code> —
+          everyone is re-prompted to accept automatically. Then notify account holders below.
+        </p>
+        <LegalNotifyButton version={LEGAL_VERSION} />
       </div>
 
       <div className="bg-accent/10 border border-accent/30 rounded-2xl p-5">

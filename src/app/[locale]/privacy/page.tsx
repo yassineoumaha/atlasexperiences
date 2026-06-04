@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { LEGAL_EFFECTIVE_LABEL } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Imourig",
   description: "How Imourig collects, uses, and protects your personal data. Compliant with Morocco Law 09-08, Law 07-26, and EU GDPR.",
 };
 
-const LAST_UPDATED = "4 June 2026";
+const LAST_UPDATED = LEGAL_EFFECTIVE_LABEL;
 
 export default function PrivacyPage() {
   return (

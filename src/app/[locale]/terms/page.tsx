@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LEGAL_EFFECTIVE_LABEL } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions — Imourig",
   description: "Terms and conditions for using Imourig — Morocco's local experience marketplace. Governs traveler bookings and operator listings.",
 };
 
-const LAST_UPDATED = "4 June 2026";
+const LAST_UPDATED = LEGAL_EFFECTIVE_LABEL;
 const COMMISSION = "10%";
 
 export default function TermsPage() {

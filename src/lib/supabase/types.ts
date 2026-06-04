@@ -152,6 +152,17 @@ export interface Database {
           & Partial<Omit<OperatorAreaRow, "operator_id" | "city" | "area_name" | "description" | "created_at">>;
         Update: Partial<Database["public"]["Tables"]["operator_areas"]["Insert"]>;
       };
+      legal_consents: {
+        Row: {
+          id: string; user_id: string; version: string;
+          email: string | null; accepted_at: string;
+        };
+        Insert: {
+          user_id: string; version: string;
+          email?: string | null; accepted_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["legal_consents"]["Insert"]>;
+      };
       // ── User features ──────────────────────────────────────────────────────
       user_profiles: {
         Row: {

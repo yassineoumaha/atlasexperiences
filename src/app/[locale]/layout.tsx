@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SchemaScript from "@/components/SchemaScript";
 import CookieConsent from "@/components/CookieConsent";
+import LegalConsentGate from "@/components/LegalConsentGate";
 import LocaleAttributes from "@/components/LocaleAttributes";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
@@ -95,6 +96,7 @@ export default async function LocaleLayout({
       <>
         <LocaleAttributes locale={locale} isRTL={isRTL} />
         {children}
+        <LegalConsentGate locale={locale} />
       </>
     );
   }
@@ -108,6 +110,7 @@ export default async function LocaleLayout({
       <main className="flex-1">{children}</main>
       <Footer dict={dict} locale={locale as Locale} />
       <CookieConsent />
+      <LegalConsentGate locale={locale} />
       <WhatsAppButton />
     </>
   );
