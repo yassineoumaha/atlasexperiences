@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { MapPin, Sun, Thermometer, Star, ArrowRight, ChevronLeft, X, Search } from "lucide-react";
-import "maplibre-gl/dist/maplibre-gl.css";
-import type { Map as MapLibreMap, Marker } from "maplibre-gl";
+import "leaflet/dist/leaflet.css";
+import type { Map as LeafletMap, Marker } from "leaflet";
 import { REGIONS, ALL_CITIES, type CityInfo, type RegionInfo } from "@/components/map/morocco-data";
 
 // ── Map dict type ──────────────────────────────────────────────────────────────
@@ -28,14 +28,13 @@ interface MapDict {
 
 export default function MoroccoMap({ locale, dict }: { locale: string; dict: MapDict }) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<MapLibreMap | null>(null);
+  const mapRef = useRef<LeafletMap | null>(null);
   const markersRef = useRef<
     { marker: Marker; el: HTMLElement; inner: HTMLElement | null; cityName: string; color: string }[]
   >([]);
 
   const [selectedRegion, setSelectedRegion] = useState<RegionInfo | null>(null);
   const [selectedCity, setSelectedCity] = useState<CityInfo | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"map" | "list">("map");
 
@@ -60,74 +59,78 @@ export default function MoroccoMap({ locale, dict }: { locale: string; dict: Map
   const handleCitySelect = useCallback((city: CityInfo) => {
     setSelectedCity(city);
     setSearchQuery("");
-    // Fly map to city
+    // Fly map to city (Leaflet uses [lat, lng] order)
     if (mapRef.current) {
-      mapRef.current.flyTo({ center: [city.lng, city.lat], zoom: 9, duration: 900 });
+      mapRef.current.flyTo([city.lat, city.lng], 9, { duration: 0.9 });
     }
   }, []);
 
-  // Init MapLibre
+  // Init Leaflet + OpenStreetMap tiles
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
 
-    let map: MapLibreMap;
-    import("maplibre-gl").then(maplibregl => {
-      map = new maplibregl.Map({
-        container: mapContainer.current!,
-        style: "https://tiles.openfreemap.org/styles/liberty",
-        center: [-7.0, 30.5],
+    let cancelled = false;
+    import("leaflet").then(({ default: L }) => {
+      if (cancelled || !mapContainer.current || mapRef.current) return;
+
+      const map = L.map(mapContainer.current, {
+        center: [30.5, -7.0],            // Leaflet uses [lat, lng]
         zoom: 5,
         minZoom: 4,
         maxZoom: 14,
-        attributionControl: false,
+        zoomControl: true,
+        attributionControl: true,
+        maxBounds: [[20.5, -18], [36.5, -0.8]],
+        maxBoundsViscosity: 0.8,
       });
 
-      map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-left");
-      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
-      map.setMaxBounds([[-18, 20.5], [-0.8, 36.5]]);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
+      }).addTo(map);
+
       mapRef.current = map;
 
-      map.on("load", () => {
-        setMapLoaded(true);
+      REGIONS.forEach(region => {
+        region.cities.forEach(city => {
+          // Custom emoji pin built as a Leaflet divIcon. Inner circle is what
+          // scales/colors on hover; the outer 32×32 box is the anchored frame.
+          const html = `
+            <div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+              <div data-inner style="
+                width:26px;height:26px;background:white;
+                border:2.5px solid ${region.color};border-radius:50%;
+                display:flex;align-items:center;justify-content:center;font-size:12px;
+                box-shadow:0 2px 8px rgba(0,0,0,0.18);
+                transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+                transform-origin:center center;will-change:transform;">
+                <span style="line-height:1;pointer-events:none">${city.emoji}</span>
+              </div>
+            </div>`;
 
-        REGIONS.forEach(region => {
-          region.cities.forEach(city => {
-            // Outer wrapper: fixed 32×32 box — MapLibre anchors this, never transforms it
-            const el = document.createElement("div");
-            el.style.cssText = `
-              width: 32px; height: 32px;
-              display: flex; align-items: center; justify-content: center;
-              cursor: pointer;
-            `;
+          const icon = L.divIcon({
+            html,
+            className: "",                 // strip Leaflet's default styling
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+          });
 
-            // Inner circle: this is what scales/colors on hover
-            const inner = document.createElement("div");
-            inner.style.cssText = `
-              width: 26px; height: 26px;
-              background: white;
-              border: 2.5px solid ${region.color};
-              border-radius: 50%;
-              display: flex; align-items: center; justify-content: center;
-              font-size: 12px;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-              transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
-              transform-origin: center center;
-              will-change: transform;
-            `;
-            inner.innerHTML = `<span style="line-height:1;pointer-events:none">${city.emoji}</span>`;
-            el.title = city.name;
-            el.appendChild(inner);
+          const marker = L.marker([city.lat, city.lng], { icon, title: city.name }).addTo(map);
 
-            el.addEventListener("click", () => {
-              const reg = REGIONS.find(r => r.cities.some(c => c.name === city.name)) ?? region;
-              setSelectedRegion(reg);
-              setSelectedCity(city);
-            });
+          const el = marker.getElement() as HTMLElement;
+          const inner = el?.querySelector("[data-inner]") as HTMLElement | null;
+
+          marker.on("click", () => {
+            const reg = REGIONS.find(r => r.cities.some(c => c.name === city.name)) ?? region;
+            setSelectedRegion(reg);
+            setSelectedCity(city);
+          });
+          if (el && inner) {
             el.addEventListener("mouseenter", () => {
               if (el.getAttribute("data-selected") !== "true") {
                 inner.style.transform = "scale(1.25)";
                 inner.style.background = region.color;
-                inner.style.boxShadow = `0 3px 12px rgba(0,0,0,0.25)`;
+                inner.style.boxShadow = "0 3px 12px rgba(0,0,0,0.25)";
               }
             });
             el.addEventListener("mouseleave", () => {
@@ -137,24 +140,29 @@ export default function MoroccoMap({ locale, dict }: { locale: string; dict: Map
                 inner.style.boxShadow = "0 2px 8px rgba(0,0,0,0.18)";
               }
             });
+          }
 
-            const marker = new maplibregl.Marker({ element: el, anchor: "center" })
-              .setLngLat([city.lng, city.lat])
-              .addTo(map);
-
-            markersRef.current.push({ marker, el, inner, cityName: city.name, color: region.color });
-          });
+          markersRef.current.push({ marker, el, inner, cityName: city.name, color: region.color });
         });
       });
     });
 
     return () => {
+      cancelled = true;
       markersRef.current.forEach(({ marker }) => marker.remove());
       markersRef.current = [];
       if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Leaflet renders gray tiles if the container was hidden (mobile list tab)
+  // when it initialised — recompute size whenever the map tab becomes visible.
+  useEffect(() => {
+    if (activeTab === "map" && mapRef.current) {
+      const id = setTimeout(() => mapRef.current?.invalidateSize(), 50);
+      return () => clearTimeout(id);
+    }
+  }, [activeTab]);
 
   // Sync selected city marker visual — only scale inner, never the outer wrapper
   useEffect(() => {
