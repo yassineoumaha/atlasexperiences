@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShieldCheck, FileText, Loader2 } from "lucide-react";
 import { LEGAL_VERSION, LEGAL_EFFECTIVE_LABEL, LEGAL_CONSENT_KEY } from "@/lib/legal";
 import { recordLegalConsentAction } from "@/app/actions/legal";
+
+// Routes a visitor must be able to read BEFORE consenting — never gate these,
+// otherwise the "review our terms" links loop straight back to the gate.
+const ALLOWED_WHILE_PENDING = ["/terms", "/privacy", "/affiliate-disclosure"];
 
 /**
  * Hard-block consent gate. On first visit — and again whenever LEGAL_VERSION
@@ -20,6 +25,13 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
   const [needsConsent, setNeedsConsent] = useState(false);
   const [checked, setChecked] = useState(false);
   const [saving, setSaving] = useState(false);
+  const pathname = usePathname();
+
+  // Strip the locale prefix so "/en/terms" matches "/terms".
+  const pathWithoutLocale = "/" + (pathname || "").split("/").slice(2).join("/");
+  const onLegalPage = ALLOWED_WHILE_PENDING.some(
+    (p) => pathWithoutLocale === p || pathWithoutLocale.startsWith(p + "/"),
+  );
 
   useEffect(() => {
     const stored = localStorage.getItem(LEGAL_CONSENT_KEY);
@@ -29,13 +41,14 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
     setChecked(true);
   }, []);
 
-  // Lock body scroll while the gate is open.
+  // Lock body scroll while the gate is open (but never on the legal pages,
+  // which must stay readable and scrollable before consent).
   useEffect(() => {
-    if (needsConsent && checked) {
+    if (needsConsent && checked && !onLegalPage) {
       document.body.style.overflow = "hidden";
       return () => { document.body.style.overflow = ""; };
     }
-  }, [needsConsent, checked]);
+  }, [needsConsent, checked, onLegalPage]);
 
   async function accept() {
     setSaving(true);
@@ -46,6 +59,9 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
     setNeedsConsent(false);
   }
 
+  // Don't gate the legal pages themselves — visitors must be able to read the
+  // Terms/Privacy they're being asked to accept.
+  if (onLegalPage) return null;
   if (!checked || !needsConsent) return null;
 
   return (
