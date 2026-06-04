@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, MessageCircle, Clock, HelpCircle } from "lucide-react";
+import { whatsappLink, WHATSAPP_DISPLAY } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Contact Imourig",
@@ -46,7 +47,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="https://wa.me/212600000000?text=Hello%20Imourig"
+            href={whatsappLink("Hello Imourig")}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-4 bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-green-200 transition-all group"
@@ -56,7 +57,7 @@ export default function ContactPage() {
             </div>
             <div>
               <div className="font-bold text-foreground mb-0.5">WhatsApp</div>
-              <div className="text-green-600 text-sm font-medium">+212 600 000 000</div>
+              <div className="text-green-600 text-sm font-medium">{WHATSAPP_DISPLAY}</div>
               <div className="text-muted-foreground text-xs mt-1 flex items-center gap-1">
                 <Clock className="w-3 h-3" /> Usually within a few hours
               </div>
