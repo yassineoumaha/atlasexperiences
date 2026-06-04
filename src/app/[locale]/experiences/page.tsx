@@ -10,6 +10,7 @@ import {
 import { Star, Clock, Users, MapPin } from "lucide-react";
 import SchemaScript from "@/components/SchemaScript";
 import { DiscoveryFilters } from "@/components/experience/DiscoveryFilters";
+import { NearMeButton } from "@/components/experience/NearMeButton";
 import { getDictionary, hasLocale, type Locale } from "@/lib/dictionaries";
 import { ScrollScene } from "@/components/sketch/ScrollScene";
 import { SCENES, type SceneKey } from "@/components/sketch/scenes";
@@ -48,13 +49,14 @@ export default async function ExperiencesPage({
   searchParams: Promise<{
     category?: string; city?: string;
     duration?: string; price?: string; language?: string;
-    verified?: string; sort?: string;
+    verified?: string; sort?: string; near?: string;
   }>;
 }) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
   const sp = await searchParams;
   const { category, city } = sp;
+  const nearMe = sp.near === "1" && !!city;
 
   // Map URL buckets → concrete numeric filters for the data layer.
   const durationBucket = DURATION_BUCKETS.find((b) => b.key === sp.duration);
@@ -98,6 +100,17 @@ export default async function ExperiencesPage({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        {/* Near-me locator + "showing near you" banner */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <NearMeButton locale={locale} label={f.nearMe} />
+          {nearMe && (
+            <div className="flex items-center gap-2 text-sm bg-accent/10 border border-accent/30 text-accent-foreground rounded-full px-4 py-2">
+              📍 {f.showingNear} <span className="font-bold">{city}</span>
+              <Link href={`/${locale}/experiences`} className="ml-1 underline opacity-70 hover:opacity-100">{f.clear}</Link>
+            </div>
+          )}
+        </div>
 
         {/* Category filters */}
         <div className="mb-6 overflow-x-auto">

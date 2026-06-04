@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "How Imourig collects, uses, and protects your personal data. Compliant with Morocco Law 09-08, Law 07-26, and EU GDPR.",
 };
 
-const LAST_UPDATED = "31 May 2026";
+const LAST_UPDATED = "4 June 2026";
 
 export default function PrivacyPage() {
   return (
@@ -49,6 +49,7 @@ export default function PrivacyPage() {
                   ["Experience listings content (title, description, photos, pricing)", "Displaying operator services on the platform", "Contractual necessity"],
                   ["Booking history", "Commission tracking, dispute resolution, operator invoicing", "Contractual necessity + Legitimate interest"],
                   ["Chat messages (traveler ↔ operator)", "Facilitating booking communication", "Contractual necessity"],
+                  ["Approximate location (GPS), only when you tap “Experiences near me”", "Show experiences in the Morocco city nearest you", "Consent (browser permission prompt)"],
                   ["IP address, browser/device type", "Security, fraud prevention, analytics", "Legitimate interest (GDPR Art. 6(1)(f))"],
                   ["Pages visited, time on site", "Analytics — aggregate only", "Consent (via cookie banner)"],
                   ["Review content", "Displaying verified traveler reviews publicly", "Consent"],
@@ -81,7 +82,19 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">5. Data Retention</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">5. Location Data (GPS)</h2>
+            <p>The experiences page offers an optional <strong>&ldquo;Experiences near me&rdquo;</strong> feature. It is <strong>off by default</strong> and only runs when you tap the button and grant your browser&apos;s location permission. When you do:</p>
+            <ul className="list-disc list-inside space-y-1.5 text-foreground/80 mt-2">
+              <li>Your device&apos;s approximate coordinates are read <strong>once</strong> and processed entirely in your browser to find the nearest Moroccan city.</li>
+              <li>We <strong>do not store</strong> your raw GPS coordinates on our servers, and we do not track your location continuously or in the background.</li>
+              <li>The result is only the matched city name, which is added to the page URL (e.g. <code>?city=Agadir</code>) to filter listings.</li>
+              <li>You can decline the permission, revoke it in your browser settings at any time, or simply pick a city manually instead — the platform works fully without location access.</li>
+            </ul>
+            <p className="mt-2">Legal basis: your explicit consent (Law 09-08 / GDPR Art. 6(1)(a)), given through the browser permission prompt.</p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-black text-foreground mb-3">6. Data Retention</h2>
             <ul className="list-disc list-inside space-y-1 text-foreground/80">
               <li><strong>Newsletter subscriptions:</strong> Until you unsubscribe, then deleted within 30 days</li>
               <li><strong>Account data:</strong> Duration of account + 2 years after deletion request (for dispute resolution)</li>
@@ -94,7 +107,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">6. Your Rights</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">7. Your Rights</h2>
             <p>Under Morocco Law 09-08 and GDPR (EU residents), you have the right to:</p>
             <ul className="list-disc list-inside space-y-1 text-foreground/80 mt-2">
               <li><strong>Access</strong> — request a copy of your personal data we hold</li>
@@ -110,14 +123,14 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">7. Cross-Border Data Transfers</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">8. Cross-Border Data Transfers</h2>
             <p>Your data is stored on servers operated by Supabase (AWS EU regions, primarily Frankfurt).
             Supabase is GDPR-compliant and processes data under Standard Contractual Clauses (SCCs).
             For Morocco Law 09-08, transfers outside Morocco are conducted with appropriate CNDP-notified safeguards.</p>
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">8. Data Breach Notification (Law 07-26)</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">9. Data Breach Notification (Law 07-26)</h2>
             <p>Under Morocco Law 07-26, in the event of a data breach that affects your rights, we will:</p>
             <ul className="list-disc list-inside space-y-1 text-foreground/80 mt-2">
               <li>Notify the CNDP within <strong>72 hours</strong> of discovery</li>
@@ -127,17 +140,17 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">9. Children&apos;s Privacy</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">10. Children&apos;s Privacy</h2>
             <p>This platform is not directed at children under 16. We do not knowingly collect personal data from children under 16. If you believe a child has provided personal data, contact us immediately and we will delete it.</p>
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">10. Security</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">11. Security</h2>
             <p>We implement industry-standard security measures including encrypted data transmission (HTTPS/TLS), row-level security on our database (Supabase RLS), hashed passwords managed by Supabase Auth, and regular security reviews. No system is 100% secure; we encourage you to use a strong password and not share your credentials.</p>
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">11. Complaints</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">12. Complaints</h2>
             <p>If you believe we have not handled your data correctly:</p>
             <ul className="list-disc list-inside space-y-1 text-foreground/80">
               <li><strong>Morocco:</strong> File a complaint with CNDP at <a href="https://cndp.ma" target="_blank" rel="noopener noreferrer" className="text-primary underline">cndp.ma</a></li>
@@ -146,7 +159,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-foreground mb-3">12. Changes to This Policy</h2>
+            <h2 className="text-xl font-black text-foreground mb-3">13. Changes to This Policy</h2>
             <p>We may update this policy when the platform changes or new legal requirements arise. Material changes will be notified by email (registered users) or by a prominent notice on this page. The &ldquo;Last updated&rdquo; date at the top always reflects the current version.</p>
           </section>
 

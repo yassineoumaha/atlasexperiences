@@ -16,6 +16,7 @@ export type AnalyticsEvent =
   | "hero_cta_become_operator"
   // discovery
   | "search"
+  | "near_me_used"
   | "experience_view"
   | "operator_profile_view"
   | "category_view"

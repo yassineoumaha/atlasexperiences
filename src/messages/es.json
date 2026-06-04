@@ -123,7 +123,9 @@
     "duration": "Duración",
     "price": "Precio",
     "language": "Idioma",
-    "any": "Cualquiera"
+    "any": "Cualquiera",
+    "nearMe": "Experiencias cerca de mí",
+    "showingNear": "Mostrando experiencias cerca de ti en"
   },
   "common": {
     "loading": "Cargando...",

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions — Imourig",
   description: "Terms and conditions for using Imourig — Morocco's local experience marketplace. Governs traveler bookings and operator listings.",
 };
 
-const LAST_UPDATED = "31 May 2026";
+const LAST_UPDATED = "4 June 2026";
 const COMMISSION = "10%";
 
 export default function TermsPage() {
@@ -31,6 +32,7 @@ export default function TermsPage() {
             <p>Imourig (&ldquo;the Platform&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is an online marketplace connecting travelers with local experience operators in Morocco.
             We provide the technology that enables travelers to discover, inquire, and book activities such as surf lessons, desert tours, cooking classes, and other local experiences.</p>
             <p className="mt-2">We are <strong>not</strong> a tour operator, travel agency, or transport provider. We do not directly deliver any experience listed on this platform. Each operator is an independent third party.</p>
+            <p className="mt-2">Some discovery features are optional conveniences. For example, &ldquo;Experiences near me&rdquo; uses your device location only when you choose to enable it, solely to suggest the nearest Moroccan city; it is never required to use the platform. See our <Link href="/en/privacy" className="text-primary underline">Privacy Policy</Link> for details.</p>
           </section>
 
           <section>

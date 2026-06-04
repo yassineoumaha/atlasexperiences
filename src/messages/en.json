@@ -123,7 +123,9 @@
     "duration": "Duration",
     "price": "Price",
     "language": "Language",
-    "any": "Any"
+    "any": "Any",
+    "nearMe": "Experiences near me",
+    "showingNear": "Showing experiences near you in"
   },
   "common": {
     "loading": "Loading...",
