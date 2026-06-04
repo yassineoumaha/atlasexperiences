@@ -22,7 +22,11 @@
     "trustVerified": "Verified operators",
     "trustRated": "Rated by real travelers",
     "trustCommission": "Only 10% commission",
-    "trustCities": "13 cities"
+    "trustCities": "13 cities",
+    "citiesSuffix": "cities",
+    "spotlightTopRated": "Top rated",
+    "spotlightFeatured": "Featured experience",
+    "spotlightView": "View experience →"
   },
   "trustSection": {
     "eyebrow": "Why Imourig",
@@ -54,7 +58,47 @@
     "listCta": "List Your Experience — Free",
     "operatorCta": "Are you a local guide or instructor?",
     "operatorCtaSub": "List your experiences on Imourig. We charge 10% commission — half what other platforms charge. Free to list, zero monthly fees.",
-    "listBtn": "List Your Experience →"
+    "listBtn": "List Your Experience →",
+    "discoverBadge": "Verified local operators · 100% authentic experiences",
+    "discoverTitle1": "Discover the most",
+    "discoverTitle2": "attractive places",
+    "exploreMap": "Explore map",
+    "browseAll": "Browse all experiences",
+    "operatorCtaShort": "List your experiences and reach international travelers.",
+    "listFree": "List Free →",
+    "morocco": "Morocco"
+  },
+  "categories": {
+    "surf": "Surf",
+    "desert": "Desert",
+    "culture": "Culture",
+    "food": "Food & Cooking",
+    "wellness": "Wellness",
+    "adventure": "Adventure",
+    "water": "Water Sports",
+    "photography": "Photography",
+    "transport": "Transport",
+    "day-trip": "Day Trips",
+    "other": "Other"
+  },
+  "discoverCards": {
+    "desert": "Sahara Desert",
+    "surf": "Atlantic Coast",
+    "culture": "Imperial Cities",
+    "food": "Moroccan Cuisine",
+    "wellness": "Hammam & Spa",
+    "adventure": "Atlas Mountains"
+  },
+  "stats": {
+    "eyebrow": "By the numbers",
+    "heading1": "A growing network",
+    "heading2": "across Morocco.",
+    "operators": "Local\nOperators",
+    "operatorsDesc": "Verified guides",
+    "experiences": "Authentic\nExperiences",
+    "experiencesDesc": "Listed & approved",
+    "destinations": "Moroccan\nDestinations",
+    "destinationsDesc": "Across all regions"
   },
   "operators": {
     "registerTitle": "List Your Morocco Experience",
@@ -90,18 +134,27 @@
     "legend2": "Hover or click to explore"
   },
   "testimonials": {
+    "eyebrow": "Travelers say",
     "title": "Real travelers. Real experiences.",
     "subtitle": "What our travelers say — in their own words.",
     "featured": "Want to be featured?",
     "featuredSub": "Loved your experience? Share a short video testimonial and we'll feature you here."
   },
   "newsletter": {
+    "badge": "Newsletter",
     "title": "Get Insider Morocco Tips",
     "subtitle": "Monthly guides, seasonal alerts, and exclusive deals — no spam, ever.",
     "placeholder": "Your email address",
     "subscribe": "Subscribe",
+    "subscribing": "Subscribing…",
     "success": "You're in! Check your inbox.",
-    "privacy": "We respect your privacy."
+    "successSub": "Check your inbox — your first Morocco guide is on its way.",
+    "privacy": "We respect your privacy.",
+    "formTitle": "Be the first to know",
+    "formSub": "One monthly Morocco guide. No spam, unsubscribe anytime.",
+    "perk1": "Hidden gems locals keep secret",
+    "perk2": "Exclusive early-access deals",
+    "perk3": "Monthly Morocco travel guides"
   },
   "footer": {
     "tagline": "Morocco's local experience marketplace — verified operators, fair prices.",

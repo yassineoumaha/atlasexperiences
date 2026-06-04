@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { EXPERIENCE_CITIES } from "@/lib/experiences-data";
+import type { Dictionary } from "@/lib/dictionaries";
 
 async function getPlatformStats() {
   try {
@@ -18,26 +19,27 @@ async function getPlatformStats() {
   }
 }
 
-export default async function StatsSection() {
+export default async function StatsSection({ dict }: { dict: Dictionary }) {
   const stats = await getPlatformStats();
+  const t = dict.stats;
 
   const STATS = [
     {
       value: stats.operators > 0 ? `${stats.operators}` : "—",
-      label: "Local\nOperators",
-      desc: "Verified guides",
+      label: t.operators,
+      desc: t.operatorsDesc,
       show: true,
     },
     {
       value: stats.experiences > 0 ? `${stats.experiences}` : "—",
-      label: "Authentic\nExperiences",
-      desc: "Listed & approved",
+      label: t.experiences,
+      desc: t.experiencesDesc,
       show: true,
     },
     {
       value: `${EXPERIENCE_CITIES.length}`,
-      label: "Moroccan\nDestinations",
-      desc: "Across all regions",
+      label: t.destinations,
+      desc: t.destinationsDesc,
       show: true,
     },
   ];
@@ -52,11 +54,11 @@ export default async function StatsSection() {
           {/* Left: why us + stats */}
           <div>
             <span className="block text-primary font-semibold text-sm mb-3 uppercase tracking-wider">
-              By the numbers
+              {t.eyebrow}
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-foreground section-title mb-8">
-              A growing network<br />
-              <span className="text-accent">across Morocco.</span>
+              {t.heading1}<br />
+              <span className="text-accent">{t.heading2}</span>
             </h2>
 
             {/* Live stats — only shown when we have real data */}

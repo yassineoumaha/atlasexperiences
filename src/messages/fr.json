@@ -22,7 +22,11 @@
     "trustVerified": "Opérateurs vérifiés",
     "trustRated": "Évalué par de vrais voyageurs",
     "trustCommission": "Seulement 10% de commission",
-    "trustCities": "13 villes"
+    "trustCities": "13 villes",
+    "citiesSuffix": "villes",
+    "spotlightTopRated": "Les mieux notés",
+    "spotlightFeatured": "Expérience à la une",
+    "spotlightView": "Voir l'expérience →"
   },
   "trustSection": {
     "eyebrow": "Pourquoi Imourig",
@@ -54,7 +58,47 @@
     "listCta": "Listez votre expérience — gratuitement",
     "operatorCta": "Êtes-vous un guide ou instructeur local ?",
     "operatorCtaSub": "Listez vos expériences sur Imourig. Nous prélevons 10% de commission — moitié moins que les autres plateformes. Gratuit pour lister, zéro frais mensuel.",
-    "listBtn": "Listez votre expérience →"
+    "listBtn": "Listez votre expérience →",
+    "discoverBadge": "Opérateurs locaux vérifiés · 100% expériences authentiques",
+    "discoverTitle1": "Découvrez les lieux",
+    "discoverTitle2": "les plus attractifs",
+    "exploreMap": "Explorer la carte",
+    "browseAll": "Voir toutes les expériences",
+    "operatorCtaShort": "Listez vos expériences et atteignez des voyageurs internationaux.",
+    "listFree": "Lister gratuitement →",
+    "morocco": "Maroc"
+  },
+  "categories": {
+    "surf": "Surf",
+    "desert": "Désert",
+    "culture": "Culture",
+    "food": "Cuisine",
+    "wellness": "Bien-être",
+    "adventure": "Aventure",
+    "water": "Sports nautiques",
+    "photography": "Photographie",
+    "transport": "Transport",
+    "day-trip": "Excursions",
+    "other": "Autre"
+  },
+  "discoverCards": {
+    "desert": "Désert du Sahara",
+    "surf": "Côte Atlantique",
+    "culture": "Villes impériales",
+    "food": "Cuisine marocaine",
+    "wellness": "Hammam & Spa",
+    "adventure": "Montagnes de l'Atlas"
+  },
+  "stats": {
+    "eyebrow": "En chiffres",
+    "heading1": "Un réseau en pleine croissance",
+    "heading2": "à travers le Maroc.",
+    "operators": "Opérateurs\nlocaux",
+    "operatorsDesc": "Guides vérifiés",
+    "experiences": "Expériences\nauthentiques",
+    "experiencesDesc": "Listées & approuvées",
+    "destinations": "Destinations\nmarocaines",
+    "destinationsDesc": "Dans toutes les régions"
   },
   "operators": {
     "registerTitle": "Listez votre expérience au Maroc",
@@ -90,18 +134,27 @@
     "legend2": "Survolez ou cliquez pour explorer"
   },
   "testimonials": {
+    "eyebrow": "Les voyageurs en parlent",
     "title": "Vrais voyageurs. Vraies expériences.",
     "subtitle": "Ce que disent nos voyageurs — en leurs propres mots.",
     "featured": "Vous voulez être mis en avant ?",
     "featuredSub": "Vous avez adoré votre expérience ? Partagez une courte vidéo témoignage et nous vous mettrons en avant ici."
   },
   "newsletter": {
+    "badge": "Newsletter",
     "title": "Recevez des conseils exclusifs sur le Maroc",
     "subtitle": "Guides mensuels, alertes saisonnières et offres exclusives — jamais de spam.",
     "placeholder": "Votre adresse email",
     "subscribe": "S'abonner",
+    "subscribing": "Inscription…",
     "success": "Vous êtes inscrit ! Vérifiez votre boîte de réception.",
-    "privacy": "Nous respectons votre vie privée."
+    "successSub": "Vérifiez votre boîte de réception — votre premier guide Maroc arrive.",
+    "privacy": "Nous respectons votre vie privée.",
+    "formTitle": "Soyez le premier informé",
+    "formSub": "Un guide Maroc par mois. Pas de spam, désinscription à tout moment.",
+    "perk1": "Trésors cachés que les locaux gardent secrets",
+    "perk2": "Offres exclusives en avant-première",
+    "perk3": "Guides de voyage Maroc mensuels"
   },
   "footer": {
     "tagline": "La marketplace d'expériences locales au Maroc — opérateurs vérifiés, prix justes.",

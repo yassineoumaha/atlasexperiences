@@ -56,7 +56,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Stats — a wave swells and a surfer rides across */}
       <div className="relative overflow-hidden isolate bg-background">
         <ScrollScene scene="surf" direction="ltr" colorClass="text-foreground" />
-        <div className="relative z-10"><StatsSection /></div>
+        <div className="relative z-10"><StatsSection dict={dict} /></div>
       </div>
 
       <ZellijDivider />
@@ -70,6 +70,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <ZellijDivider />
 
       <TestimonialsStrip
+        eyebrow={dict.testimonials.eyebrow}
         title={dict.testimonials.title}
         subtitle={dict.testimonials.subtitle}
         featuredLabel={dict.testimonials.featured}

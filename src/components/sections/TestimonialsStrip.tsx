@@ -109,13 +109,14 @@ function QuoteCard({ t, index }: { t: Testimonial; index: number }) {
 }
 
 interface StripProps {
+  eyebrow?: string;
   title?: string;
   subtitle?: string;
   featuredLabel?: string;
   featuredSub?: string;
 }
 
-export default function TestimonialsStrip({ title, subtitle, featuredLabel, featuredSub }: StripProps) {
+export default function TestimonialsStrip({ eyebrow, title, subtitle, featuredLabel, featuredSub }: StripProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   function scroll(dir: "left" | "right") {
@@ -132,7 +133,7 @@ export default function TestimonialsStrip({ title, subtitle, featuredLabel, feat
         <div className="flex items-end justify-between mb-8">
           <div>
             <span className="block text-amber-400 font-semibold text-sm mb-2 uppercase tracking-wider">
-              Travelers say
+              {eyebrow ?? "Travelers say"}
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-white section-title">
               {title ?? "Real travelers.\nReal experiences."}

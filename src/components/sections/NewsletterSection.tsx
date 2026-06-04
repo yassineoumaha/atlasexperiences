@@ -6,17 +6,18 @@ import type { Dictionary } from "@/lib/dictionaries";
 
 interface Props { dict: Dictionary; }
 
-const PERKS = [
-  { icon: MapPin,   text: "Hidden gems locals keep secret" },
-  { icon: Star,     text: "Exclusive early-access deals" },
-  { icon: Compass,  text: "Monthly Morocco travel guides" },
-];
-
 export default function NewsletterSection({ dict }: Props) {
+  const n = dict.newsletter;
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const PERKS = [
+    { icon: MapPin,  text: n.perk1 },
+    { icon: Star,    text: n.perk2 },
+    { icon: Compass, text: n.perk3 },
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,14 +53,14 @@ export default function NewsletterSection({ dict }: Props) {
           {/* Left: copy */}
           <div>
             <div className="inline-flex items-center gap-2 bg-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wider">
-              <Mail className="w-3.5 h-3.5" /> Newsletter
+              <Mail className="w-3.5 h-3.5" /> {n.badge}
             </div>
             <h2
               className="text-4xl sm:text-5xl font-black text-white mb-4 leading-tight section-title"
             >
-              {dict.newsletter.title}
+              {n.title}
             </h2>
-            <p className="text-white/80 text-lg mb-8 leading-relaxed">{dict.newsletter.subtitle}</p>
+            <p className="text-white/80 text-lg mb-8 leading-relaxed">{n.subtitle}</p>
 
             {/* Perks */}
             <div className="space-y-3">
@@ -81,20 +82,20 @@ export default function NewsletterSection({ dict }: Props) {
                 <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-white font-black text-xl mb-2">{dict.newsletter.success}</h3>
-                <p className="text-white/70 text-sm">Check your inbox — your first Morocco guide is on its way.</p>
+                <h3 className="text-white font-black text-xl mb-2">{n.success}</h3>
+                <p className="text-white/70 text-sm">{n.successSub}</p>
               </div>
             ) : (
               <>
-                <h3 className="text-white font-black text-lg mb-1">Be the first to know</h3>
-                <p className="text-white/70 text-sm mb-6">One monthly Morocco guide. No spam, unsubscribe anytime.</p>
+                <h3 className="text-white font-black text-lg mb-1">{n.formTitle}</h3>
+                <p className="text-white/70 text-sm mb-6">{n.formSub}</p>
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder={dict.newsletter.placeholder}
+                    placeholder={n.placeholder}
                     className="w-full px-5 py-4 rounded-xl outline-none text-stone-800 placeholder-stone-400 bg-white text-base shadow-sm focus:ring-2 focus:ring-white/50 transition-all"
                   />
                   <button
@@ -102,7 +103,7 @@ export default function NewsletterSection({ dict }: Props) {
                     disabled={loading}
                     className="w-full bg-accent hover:brightness-105 text-accent-foreground px-6 min-h-[3.25rem] rounded-xl font-bold transition-all disabled:opacity-60 shadow-sm active:scale-[0.98]"
                   >
-                    {loading ? "Subscribing…" : dict.newsletter.subscribe}
+                    {loading ? n.subscribing : n.subscribe}
                   </button>
                 </form>
 
@@ -110,7 +111,7 @@ export default function NewsletterSection({ dict }: Props) {
                   <p className="text-white/80 text-sm mt-3 bg-white/10 rounded-lg px-3 py-2">{error}</p>
                 )}
 
-                <p className="text-white/50 text-xs mt-4 text-center">{dict.newsletter.privacy}</p>
+                <p className="text-white/50 text-xs mt-4 text-center">{n.privacy}</p>
               </>
             )}
           </div>

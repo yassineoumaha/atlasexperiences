@@ -155,7 +155,7 @@ export default function MarketplaceHero({
                         : "glass text-white/90 hover:bg-white/20"
                     }`}
                   >
-                    <span>{c.emoji}</span> {c.label}
+                    <span>{c.emoji}</span> {dict.categories[c.key]}
                   </button>
                 );
               })}
@@ -200,7 +200,7 @@ export default function MarketplaceHero({
               <Star className="w-4 h-4 text-amber-400 shrink-0 fill-amber-400" /> {dict.hero.trustRated}
             </span>
             <span className="flex items-center gap-1.5 glass px-3.5 py-1.5 rounded-full text-white/90">
-              <MapPin className="w-4 h-4 text-red-400 shrink-0" /> {CITY_COUNT} cities
+              <MapPin className="w-4 h-4 text-red-400 shrink-0" /> {CITY_COUNT} {dict.hero.citiesSuffix}
             </span>
           </div>
         </div>
@@ -221,14 +221,14 @@ export default function MarketplaceHero({
           <div className="min-w-0">
             <span className="flex items-center gap-1 text-xs font-semibold opacity-80 mb-0.5">
               {spotlight.rating ? (
-                <><Star className="w-3 h-3 fill-white" /> Top rated · {spotlight.rating}</>
+                <><Star className="w-3 h-3 fill-white" /> {dict.hero.spotlightTopRated} · {spotlight.rating}</>
               ) : (
-                <>Featured experience</>
+                <>{dict.hero.spotlightFeatured}</>
               )}
             </span>
             <span className="block text-sm font-bold leading-tight truncate">{spotlight.title}</span>
             <span className="flex items-center gap-1 text-xs mt-1 opacity-80 group-hover:opacity-100 transition-opacity">
-              View experience →
+              {dict.hero.spotlightView}
             </span>
           </div>
         </Link>

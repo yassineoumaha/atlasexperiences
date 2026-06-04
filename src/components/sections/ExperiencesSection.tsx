@@ -4,24 +4,26 @@ import { listFeaturedExperiences } from "@/lib/db";
 import { CATEGORIES, CATEGORY_LIST } from "@/lib/experiences-data";
 import { Star, Clock, MapPin, ArrowRight } from "lucide-react";
 import type { Locale, Dictionary } from "@/lib/dictionaries";
-import { ZellijDivider } from "@/components/zellij/Zellij";
 
 interface Props { locale: Locale; dict: Dictionary; }
 
-// Category cards with Morocco-specific destination images
-const DISCOVER_CARDS = [
-  { key: "desert",    label: "Sahara Desert",     img: "https://images.pexels.com/photos/1703314/pexels-photo-1703314.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
-  { key: "surf",      label: "Atlantic Coast",     img: "https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
-  { key: "culture",   label: "Imperial Cities",    img: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
-  { key: "food",      label: "Moroccan Cuisine",   img: "https://images.pexels.com/photos/5560779/pexels-photo-5560779.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
-  { key: "wellness",  label: "Hammam & Spa",       img: "https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
-  { key: "adventure", label: "Atlas Mountains",    img: "https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+// Category cards with Morocco-specific destination images. Labels come from the
+// dictionary (dict.discoverCards) keyed by `key`, so they localize per locale.
+const DISCOVER_CARDS: { key: keyof Dictionary["discoverCards"]; img: string }[] = [
+  { key: "desert",    img: "https://images.pexels.com/photos/1703314/pexels-photo-1703314.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "surf",      img: "https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "culture",   img: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "food",      img: "https://images.pexels.com/photos/5560779/pexels-photo-5560779.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "wellness",  img: "https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
+  { key: "adventure", img: "https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=400&h=560&fit=crop" },
 ];
 
 export default async function ExperiencesSection({ locale, dict }: Props) {
   const experiences = await listFeaturedExperiences();
   const d = dict.experiences;
   const c = dict.common;
+  const catLabels = dict.categories;
+  const cards = dict.discoverCards;
 
   return (
     <>
@@ -32,20 +34,20 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
           <div className="flex items-end justify-between mb-10">
             <div>
               <span className="block text-primary font-semibold text-sm mb-2 uppercase tracking-wider">
-                {d.badge}
+                {d.discoverBadge}
               </span>
               <h2
                 className="text-3xl sm:text-4xl text-foreground section-title"
               >
-                Discover the most<br />
-                <span className="text-accent">attractive places</span>
+                {d.discoverTitle1}<br />
+                <span className="text-accent">{d.discoverTitle2}</span>
               </h2>
             </div>
             <Link
               href={`/${locale}/map`}
               className="hidden sm:flex items-center gap-1.5 text-muted-foreground hover:text-primary text-sm font-semibold transition-colors"
             >
-              Explore map <ArrowRight className="w-4 h-4" />
+              {d.exploreMap} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -59,14 +61,14 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
               >
                 <Image
                   src={card.img}
-                  alt={card.label}
+                  alt={cards[card.key]}
                   fill
                   sizes="(max-width: 640px) 176px, 208px"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent rounded-2xl" />
                 <div className="absolute bottom-0 left-0 p-4">
-                  <h3 className="text-white font-bold text-base leading-tight">{card.label}</h3>
+                  <h3 className="text-white font-bold text-base leading-tight">{cards[card.key]}</h3>
                 </div>
               </Link>
             ))}
@@ -99,13 +101,13 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
 
           {/* Category pills */}
           <div className="flex gap-2 overflow-x-auto pb-2 mb-8 no-scrollbar">
-            {CATEGORY_LIST.slice(0, 7).map((cat) => (
+            {CATEGORY_LIST.slice(0, 7).map((pill) => (
               <Link
-                key={cat.key}
-                href={`/${locale}/experiences?category=${cat.key}`}
+                key={pill.key}
+                href={`/${locale}/experiences?category=${pill.key}`}
                 className="flex items-center gap-1.5 px-4 py-2 bg-card hover:bg-accent/10 border border-border hover:border-accent rounded-full text-sm font-medium text-foreground/70 hover:text-accent-foreground min-h-[2.5rem] transition-all whitespace-nowrap"
               >
-                {cat.emoji} {cat.label}
+                {pill.emoji} {catLabels[pill.key]}
               </Link>
             ))}
           </div>
@@ -122,7 +124,7 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                 >
                   <Image
                     src={card.img}
-                    alt={card.label}
+                    alt={cards[card.key]}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="place-img object-cover"
@@ -130,8 +132,8 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
                   <div className="place-overlay" />
                   <div className="absolute inset-0 flex flex-col justify-end p-4">
                     <div>
-                      <h3 className="text-white font-bold text-base mb-0.5">{card.label}</h3>
-                      <span className="text-white/70 text-xs">Morocco</span>
+                      <h3 className="text-white font-bold text-base mb-0.5">{cards[card.key]}</h3>
+                      <span className="text-white/70 text-xs">{d.morocco}</span>
                     </div>
                   </div>
                   <div className="absolute bottom-0 right-0 w-10 h-10 bg-accent group-hover:brightness-105 flex items-center justify-center transition-colors rounded-tl-xl">
@@ -207,20 +209,20 @@ export default async function ExperiencesSection({ locale, dict }: Props) {
               href={`/${locale}/experiences`}
               className="flex items-center gap-2 bg-primary hover:brightness-110 text-primary-foreground font-bold px-6 min-h-[3rem] rounded-xl transition-colors"
             >
-              Browse all experiences <ArrowRight className="w-4 h-4" />
+              {d.browseAll} <ArrowRight className="w-4 h-4" />
             </Link>
 
             {/* Local operator CTA — no commission details shown here */}
             <div className="flex items-center gap-4 bg-accent/10 border border-accent/30 rounded-2xl px-6 py-4">
               <div>
                 <p className="font-bold text-foreground text-sm">{d.operatorCta}</p>
-                <p className="text-muted-foreground text-xs">List your experiences and reach international travelers.</p>
+                <p className="text-muted-foreground text-xs">{d.operatorCtaShort}</p>
               </div>
               <Link
                 href={`/${locale}/operators/register`}
                 className="shrink-0 bg-accent hover:brightness-105 text-accent-foreground font-bold px-4 py-2 rounded-xl text-sm transition-colors whitespace-nowrap min-h-[2.5rem] inline-flex items-center"
               >
-                List Free →
+                {d.listFree}
               </Link>
             </div>
           </div>
