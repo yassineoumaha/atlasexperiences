@@ -25,7 +25,11 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   h.set("X-Frame-Options", "SAMEORIGIN");
   h.set("X-XSS-Protection", "1; mode=block");
   h.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  h.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  // geolocation=(self): allow THIS origin to use the Geolocation API (the
+  // "Experiences near me" button) while still blocking it in third-party
+  // iframes. An empty allowlist `geolocation=()` disables it everywhere,
+  // including our own pages — which silently broke "near me".
+  h.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(self)");
   h.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
   h.set(
     "Content-Security-Policy",

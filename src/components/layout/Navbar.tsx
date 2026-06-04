@@ -72,7 +72,6 @@ export default function Navbar({ dict, locale }: { dict: Dictionary; locale: Loc
                 alt="Imourig"
                 width={1066}
                 height={320}
-                priority
                 sizes="180px"
                 className={cn(
                   "h-9 lg:h-10 w-auto transition-[filter]",
