@@ -12,6 +12,9 @@ const LANGUAGES = ["English", "French", "Arabic", "Spanish", "German", "Italian"
 
 export default function OperatorRegisterClient({ locale, dict }: { locale: string; dict: Dictionary }) {
   const d = dict.operators;
+  const r = d.register;
+  const lang = d.languages;
+  const catLabels = dict.categories;
   const [step, setStep] = useState<"intro" | "form" | "done">("intro");
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -33,9 +36,9 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (form.categories.length === 0) { alert("Please select at least one activity category."); return; }
+    if (form.categories.length === 0) { alert(r.errNoCategory); return; }
     if (!attest.licences || !attest.docs) {
-      alert("Please confirm the compliance statements before submitting.");
+      alert(r.errNoAttest);
       return;
     }
     setLoading(true);
@@ -51,7 +54,7 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
       if (authError) { alert(authError.message); setLoading(false); return; }
 
       const userId = authData.user?.id;
-      if (!userId) { alert("Sign up failed. Please try again."); setLoading(false); return; }
+      if (!userId) { alert(r.errSignupFailed); setLoading(false); return; }
 
       // Create the operator profile server-side (service role) so it lands as a
       // pending operator even when email confirmation leaves the client without
@@ -73,7 +76,7 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
       track("operator_signup", { city: form.city });
       setStep("done");
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      alert(err instanceof Error ? err.message : r.errGeneric);
     }
     setLoading(false);
   }
@@ -82,16 +85,11 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
     <div className="pt-20 min-h-screen bg-muted/40 flex items-center justify-center px-4">
       <div className="text-center max-w-lg">
         <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-black text-foreground mb-2">Application Received!</h2>
-        <p className="text-foreground/80 mb-4">
-          Our team will review and verify your operator profile within 48 hours.
-          Once approved, you can log in and create your experience listings.
-        </p>
-        <p className="text-muted-foreground text-sm mb-6">
-          Check your email to confirm your account, then use the Portal to start adding experiences.
-        </p>
+        <h2 className="text-2xl font-black text-foreground mb-2">{r.doneTitle}</h2>
+        <p className="text-foreground/80 mb-4">{r.doneBody}</p>
+        <p className="text-muted-foreground text-sm mb-6">{r.doneEmail}</p>
         <Link href={`/${locale}/portal`} className="bg-accent hover:brightness-105 text-white font-bold px-6 py-3 rounded-xl transition-colors">
-          Go to My Portal
+          {r.donePortal}
         </Link>
       </div>
     </div>
@@ -137,19 +135,19 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
               <table className="w-full text-sm">
                 <thead className="bg-muted/40 border-b border-border">
                   <tr>
-                    <th className="text-left px-5 py-3 font-semibold text-foreground/80">Feature</th>
-                    <th className="text-center px-5 py-3 font-semibold text-foreground/80">Other Platforms</th>
-                    <th className="text-center px-5 py-3 font-bold text-primary">Imourig</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground/80">{r.compareFeature}</th>
+                    <th className="text-center px-5 py-3 font-semibold text-foreground/80">{r.compareOther}</th>
+                    <th className="text-center px-5 py-3 font-bold text-primary">{r.compareUs}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-50">
                   {[
-                    ["Commission rate",         "20–30%",      "10% ✅"],
-                    ["Monthly fee",             "$29+ listing fee", "Free ✅"],
-                    ["Morocco SEO focus",       "Global, diluted", "Morocco-only ✅"],
-                    ["Arabic/French support",   "Limited",     "4 languages ✅"],
-                    ["Direct traveler contact", "Through platform", "WhatsApp / direct ✅"],
-                    ["Payout timing",           "Weekly delays",  "Monthly invoice ✅"],
+                    [r.rowCommission, r.rowCommissionOther, r.rowCommissionUs],
+                    [r.rowFee,        r.rowFeeOther,        r.rowFeeUs],
+                    [r.rowSeo,        r.rowSeoOther,        r.rowSeoUs],
+                    [r.rowLang,       r.rowLangOther,       r.rowLangUs],
+                    [r.rowContact,    r.rowContactOther,    r.rowContactUs],
+                    [r.rowPayout,     r.rowPayoutOther,     r.rowPayoutUs],
                   ].map(([feature, them, us]) => (
                     <tr key={feature} className="hover:bg-muted/40">
                       <td className="px-5 py-3 font-medium text-foreground/80">{feature}</td>
@@ -173,87 +171,87 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
 
         {step === "form" && (
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
-            <h2 className="text-2xl font-black text-foreground">Create Your Operator Account</h2>
+            <h2 className="text-2xl font-black text-foreground">{r.formTitle}</h2>
 
             <div className="bg-card border border-border rounded-2xl p-5 shadow-sm space-y-4">
-              <h3 className="font-bold text-foreground/80 text-sm uppercase tracking-wide">Account</h3>
+              <h3 className="font-bold text-foreground/80 text-sm uppercase tracking-wide">{r.sectionAccount}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-foreground/80 mb-1">Email *</label>
+                  <label className="block text-xs font-medium text-foreground/80 mb-1">{r.email} *</label>
                   <input required type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                     className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-foreground/80 mb-1">Password *</label>
+                  <label className="block text-xs font-medium text-foreground/80 mb-1">{r.password} *</label>
                   <input required type="password" minLength={8} value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-                    placeholder="Min 8 characters" className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
+                    placeholder={r.passwordPlaceholder} className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
                 </div>
               </div>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-5 shadow-sm space-y-4">
-              <h3 className="font-bold text-foreground/80 text-sm uppercase tracking-wide">Business Info</h3>
+              <h3 className="font-bold text-foreground/80 text-sm uppercase tracking-wide">{r.sectionBusiness}</h3>
               <div>
-                <label className="block text-xs font-medium text-foreground/80 mb-1">Business / Guide Name *</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">{r.businessName} *</label>
                 <input required value={form.business_name} onChange={(e) => setForm((f) => ({ ...f, business_name: e.target.value }))}
-                  placeholder="e.g. Youssef Surf Academy" className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
+                  placeholder={r.businessNamePlaceholder} className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-foreground/80 mb-1">Base City *</label>
+                  <label className="block text-xs font-medium text-foreground/80 mb-1">{r.baseCity} *</label>
                   <select value={form.city} onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))}
                     className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card">
                     {EXPERIENCE_CITIES.map((c) => <option key={c}>{c}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-foreground/80 mb-1">Years of Experience</label>
+                  <label className="block text-xs font-medium text-foreground/80 mb-1">{r.yearsExperience}</label>
                   <input type="number" min={1} max={40} value={form.years_experience}
                     onChange={(e) => setForm((f) => ({ ...f, years_experience: parseInt(e.target.value) || 1 }))}
                     className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-foreground/80 mb-1">Phone *</label>
+                  <label className="block text-xs font-medium text-foreground/80 mb-1">{r.phone} *</label>
                   <input required type="tel" value={form.phone} onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                    placeholder="+212..." className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
+                    placeholder={r.phonePlaceholder} className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-foreground/80 mb-1">WhatsApp</label>
+                  <label className="block text-xs font-medium text-foreground/80 mb-1">{r.whatsapp}</label>
                   <input type="tel" value={form.whatsapp} onChange={(e) => setForm((f) => ({ ...f, whatsapp: e.target.value }))}
-                    placeholder="Same as phone?" className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
+                    placeholder={r.whatsappPlaceholder} className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card" />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-foreground/80 mb-1">Short Bio</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-1">{r.shortBio}</label>
                 <textarea value={form.bio} onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
-                  rows={3} placeholder="Tell travelers about yourself and your experience in Morocco..."
+                  rows={3} placeholder={r.shortBioPlaceholder}
                   className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 resize-none bg-card" />
               </div>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
-              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-3">Activity Categories *</label>
+              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-3">{r.activityCategories} *</label>
               <div className="flex flex-wrap gap-2">
                 {CATEGORY_LIST.filter((c) => c.key !== "other").map((cat) => (
                   <button key={cat.key} type="button" onClick={() => toggleCategory(cat.key)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
                       form.categories.includes(cat.key) ? "bg-accent text-white border-amber-500" : "bg-card text-foreground/80 border-border hover:border-amber-300"
                     }`}>
-                    {cat.emoji} {cat.label}
+                    {cat.emoji} {catLabels[cat.key]}
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
-              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-3">Languages Spoken</label>
+              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-3">{r.languagesSpoken}</label>
               <div className="flex flex-wrap gap-2">
                 {LANGUAGES.map((l) => (
                   <button key={l} type="button" onClick={() => toggleLanguage(l)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
                       form.languages.includes(l) ? "bg-accent text-white border-amber-500" : "bg-card text-foreground/80 border-border hover:border-amber-300"
                     }`}>
-                    {l}
+                    {lang[l as keyof typeof lang]}
                   </button>
                 ))}
               </div>
@@ -261,22 +259,18 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
 
             {/* Compliance documents (Morocco) */}
             <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
-              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-1">Compliance & Documents</label>
-              <p className="text-muted-foreground text-xs mb-4">
-                To keep the platform compliant with Moroccan law, verified operators must hold valid
-                business registration and the licences required for their activities. Provide your
-                registration number now; our team will request copies during verification.
-              </p>
+              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-1">{r.complianceTitle}</label>
+              <p className="text-muted-foreground text-xs mb-4">{r.complianceIntro}</p>
 
               <div className="mb-4">
                 <label className="block text-xs font-medium text-foreground/80 mb-1">
-                  Business registration / RC / ICE number
+                  {r.registrationNumber}
                 </label>
                 <input
                   type="text"
                   value={form.license_number}
                   onChange={(e) => setForm((f) => ({ ...f, license_number: e.target.value }))}
-                  placeholder="e.g. RC 12345 / ICE 00000000000000"
+                  placeholder={r.registrationPlaceholder}
                   className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card"
                 />
               </div>
@@ -286,28 +280,26 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
                   <input type="checkbox" checked={attest.licences}
                     onChange={(e) => setAttest((a) => ({ ...a, licences: e.target.checked }))}
                     className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--accent)]" />
-                  I confirm I hold all licences/permits legally required in Morocco for the activities I offer
-                  (e.g. official guide licence, instructor certification, transport permit), where applicable.
+                  {r.attestLicences}
                 </label>
                 <label className="flex items-start gap-2.5 cursor-pointer text-sm text-foreground/80">
                   <input type="checkbox" checked={attest.docs}
                     onChange={(e) => setAttest((a) => ({ ...a, docs: e.target.checked }))}
                     className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--accent)]" />
-                  I agree to provide supporting documents (registration, licences, proof of professional status)
-                  on request during verification, and to keep my insurance and tax obligations up to date.
+                  {r.attestDocs}
                 </label>
               </div>
             </div>
 
             <div className="bg-accent/10 border border-amber-100 rounded-xl p-4 text-xs text-amber-700">
-              By registering, you agree to pay Imourig <strong>10% of each confirmed booking value</strong>, invoiced monthly.
-              Free to list. No payment until you earn. See our <Link href={`/${locale}/terms`} className="underline">Terms & Conditions</Link>.
+              {r.commissionNoticePre} <strong>{r.commissionNoticeBold}</strong>{r.commissionNoticePost}{" "}
+              <Link href={`/${locale}/terms`} className="underline">{r.termsLink}</Link>.
             </div>
 
             <button type="submit" disabled={loading}
               className="w-full bg-accent hover:brightness-105 disabled:opacity-60 text-white font-bold text-lg py-4 rounded-2xl transition-colors flex items-center justify-center gap-2">
               {loading && <Loader2 className="w-5 h-5 animate-spin" />}
-              {loading ? "Creating your account..." : "Create Operator Account"}
+              {loading ? r.submitting : r.submit}
             </button>
           </form>
         )}
