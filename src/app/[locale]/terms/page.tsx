@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LEGAL_EFFECTIVE_LABEL } from "@/lib/legal";
+import { TERMS_CONTENT } from "@/lib/legal-content";
+import LocalizedLegalDoc from "@/components/LocalizedLegalDoc";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions — Imourig",
@@ -10,7 +12,19 @@ export const metadata: Metadata = {
 const LAST_UPDATED = LEGAL_EFFECTIVE_LABEL;
 const COMMISSION = "10%";
 
-export default function TermsPage() {
+export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (locale === "ar" || locale === "fr") {
+    return (
+      <LocalizedLegalDoc
+        title={locale === "ar" ? "الشروط والأحكام" : "Conditions Générales"}
+        lastUpdated={(locale === "ar" ? "آخر تحديث: " : "Dernière mise à jour : ") + LAST_UPDATED}
+        doc={TERMS_CONTENT[locale]}
+        englishHref="/en/terms"
+        isRTL={locale === "ar"}
+      />
+    );
+  }
   return (
     <div className="pt-20 min-h-screen bg-card">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">

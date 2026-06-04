@@ -18,7 +18,11 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
     business_name: "", city: "Agadir", bio: "", phone: "", whatsapp: "",
     languages: ["English"] as string[], years_experience: 1,
     categories: [] as string[], email: "", password: "",
+    // Compliance (Morocco): collected at signup, copies verified during review.
+    license_number: "",
   });
+  // Compliance attestations — must be ticked to submit.
+  const [attest, setAttest] = useState({ licences: false, docs: false });
 
   function toggleLanguage(l: string) {
     setForm((f) => ({ ...f, languages: f.languages.includes(l) ? f.languages.filter((x) => x !== l) : [...f.languages, l] }));
@@ -30,6 +34,10 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (form.categories.length === 0) { alert("Please select at least one activity category."); return; }
+    if (!attest.licences || !attest.docs) {
+      alert("Please confirm the compliance statements before submitting.");
+      return;
+    }
     setLoading(true);
     try {
       const { createClient } = await import("@/lib/supabase/client");
@@ -57,6 +65,7 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
         whatsapp: form.whatsapp || form.phone,
         languages: form.languages,
         years_experience: form.years_experience,
+        license_number: form.license_number,
       });
 
       if (!res.ok) { alert(res.error); setLoading(false); return; }
@@ -247,6 +256,46 @@ export default function OperatorRegisterClient({ locale, dict }: { locale: strin
                     {l}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            {/* Compliance documents (Morocco) */}
+            <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+              <label className="block text-xs font-bold uppercase tracking-wide text-foreground/80 mb-1">Compliance & Documents</label>
+              <p className="text-muted-foreground text-xs mb-4">
+                To keep the platform compliant with Moroccan law, verified operators must hold valid
+                business registration and the licences required for their activities. Provide your
+                registration number now; our team will request copies during verification.
+              </p>
+
+              <div className="mb-4">
+                <label className="block text-xs font-medium text-foreground/80 mb-1">
+                  Business registration / RC / ICE number
+                </label>
+                <input
+                  type="text"
+                  value={form.license_number}
+                  onChange={(e) => setForm((f) => ({ ...f, license_number: e.target.value }))}
+                  placeholder="e.g. RC 12345 / ICE 00000000000000"
+                  className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-amber-400 bg-card"
+                />
+              </div>
+
+              <div className="space-y-2.5">
+                <label className="flex items-start gap-2.5 cursor-pointer text-sm text-foreground/80">
+                  <input type="checkbox" checked={attest.licences}
+                    onChange={(e) => setAttest((a) => ({ ...a, licences: e.target.checked }))}
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--accent)]" />
+                  I confirm I hold all licences/permits legally required in Morocco for the activities I offer
+                  (e.g. official guide licence, instructor certification, transport permit), where applicable.
+                </label>
+                <label className="flex items-start gap-2.5 cursor-pointer text-sm text-foreground/80">
+                  <input type="checkbox" checked={attest.docs}
+                    onChange={(e) => setAttest((a) => ({ ...a, docs: e.target.checked }))}
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--accent)]" />
+                  I agree to provide supporting documents (registration, licences, proof of professional status)
+                  on request during verification, and to keep my insurance and tax obligations up to date.
+                </label>
               </div>
             </div>
 

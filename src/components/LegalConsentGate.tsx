@@ -25,6 +25,7 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
   const [needsConsent, setNeedsConsent] = useState(false);
   const [checked, setChecked] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [agreed, setAgreed] = useState(false); // click-wrap: affirmative tick
   const pathname = usePathname();
 
   // Strip the locale prefix so "/en/terms" matches "/terms".
@@ -51,6 +52,7 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
   }, [needsConsent, checked, onLegalPage]);
 
   async function accept() {
+    if (!agreed) return; // click-wrap guard
     setSaving(true);
     localStorage.setItem(LEGAL_CONSENT_KEY, LEGAL_VERSION);
     // Record server-side for logged-in users; harmless no-op for anonymous.
@@ -84,12 +86,9 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
 
         <div className="p-6 space-y-4">
           <p className="text-foreground/80 text-sm leading-relaxed">
-            By using Imourig you agree to our{" "}
-            <Link href={`/${locale}/terms`} target="_blank" className="text-primary font-semibold underline">Terms &amp; Conditions</Link>{" "}
-            and{" "}
-            <Link href={`/${locale}/privacy`} target="_blank" className="text-primary font-semibold underline">Privacy Policy</Link>.
-            These explain how the marketplace works, that operators are independent third parties,
-            and how we handle your data under Morocco Law 09-08 and EU GDPR.
+            Please review our Terms &amp; Conditions and Privacy Policy. They explain how the
+            marketplace works, that operators are independent third parties, and how we handle
+            your data under Morocco Law 09-08 and EU GDPR. Tick the box below to confirm.
           </p>
 
           <div className="flex flex-wrap gap-2">
@@ -109,10 +108,27 @@ export default function LegalConsentGate({ locale }: { locale: string }) {
             </Link>
           </div>
 
+          {/* Click-wrap: an explicit, affirmative tick is required before the
+              accept button is enabled — strengthens enforceability. */}
+          <label className="flex items-start gap-3 cursor-pointer select-none rounded-xl border border-input p-3 hover:bg-muted/30 transition-colors">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--accent)] cursor-pointer"
+            />
+            <span className="text-sm text-foreground/80 leading-snug">
+              I have read and agree to the{" "}
+              <Link href={`/${locale}/terms`} target="_blank" className="text-primary font-semibold underline">Terms &amp; Conditions</Link>{" "}
+              and{" "}
+              <Link href={`/${locale}/privacy`} target="_blank" className="text-primary font-semibold underline">Privacy Policy</Link>.
+            </span>
+          </label>
+
           <button
             onClick={accept}
-            disabled={saving}
-            className="w-full inline-flex items-center justify-center gap-2 bg-accent hover:brightness-105 text-accent-foreground font-bold py-3.5 rounded-xl transition-all active:scale-[0.99] disabled:opacity-60"
+            disabled={saving || !agreed}
+            className="w-full inline-flex items-center justify-center gap-2 bg-accent hover:brightness-105 text-accent-foreground font-bold py-3.5 rounded-xl transition-all active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
             I Agree &amp; Continue

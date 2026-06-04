@@ -19,6 +19,7 @@ export interface RegisterOperatorInput {
   whatsapp?: string;
   languages: string[];
   years_experience: number;
+  license_number?: string;
 }
 
 export async function registerOperatorAction(
@@ -47,6 +48,7 @@ export async function registerOperatorAction(
     whatsapp: input.whatsapp?.trim() || input.phone.trim(),
     languages: input.languages?.length ? input.languages : ["English"],
     years_experience: input.years_experience || 1,
+    license_number: input.license_number?.trim() || null,
     verified: false,
     verification_status: "pending",
     commission_rate: 10,
