@@ -242,9 +242,11 @@ async function seed() {
         featured: !!e.featured,
         published: true,
         approved: true,
-        avg_rating: (4 + Math.random()).toFixed(2),
-        review_count: Math.floor(8 + Math.random() * 40),
-        total_bookings: Math.floor(5 + Math.random() * 60),
+        // Honest defaults — no fake ratings/reviews. Ratings appear only once
+        // real reviews exist (the UI gates on review_count > 0).
+        avg_rating: null,
+        review_count: 0,
+        total_bookings: 0,
       }, { onConflict: "slug" });
       if (eErr) throw new Error(`experience "${e.title}": ${eErr.message}`);
       expCount++;

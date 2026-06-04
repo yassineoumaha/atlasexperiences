@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { use } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { submitSuggestionAction } from "@/app/actions/content";
 import type { SuggestionRow } from "@/lib/supabase/types";
 import { CheckCircle, Loader2, Lightbulb } from "lucide-react";
 import Link from "next/link";
@@ -29,16 +29,15 @@ export default function SuggestPage({ params }: { params: Promise<{ locale: stri
     if (form.message.length < 15) return;
     setLoading(true);
     setError(null);
-    const supabase = createClient();
-    const { error: insertError } = await supabase.from("suggestions").insert({
-      sender_name: form.name || null,
-      sender_email: form.email || null,
+    const res = await submitSuggestionAction({
+      name: form.name,
+      email: form.email,
       type: form.type,
       message: form.message,
     });
     setLoading(false);
-    if (insertError) {
-      setError("Couldn't send your suggestion. Please check your connection and try again.");
+    if (!res.ok) {
+      setError(res.error ?? "Couldn't send your suggestion. Please try again.");
       return;
     }
     setDone(true);

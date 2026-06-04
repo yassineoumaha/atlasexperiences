@@ -3,6 +3,32 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/server";
 
+// ─── Public suggestion form ────────────────────────────────────────────────
+// Uses the service-role client so the public form works regardless of whether
+// the anon INSERT RLS policy was applied to the live DB. Server-side validated.
+const SUGGESTION_TYPES = ["feature", "content", "operator", "bug", "other"] as const;
+
+export async function submitSuggestionAction(input: {
+  name?: string;
+  email?: string;
+  type: string;
+  message: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  const message = input.message?.trim() ?? "";
+  if (message.length < 15) return { ok: false, error: "Please write at least 15 characters." };
+  const type = (SUGGESTION_TYPES as readonly string[]).includes(input.type) ? input.type : "other";
+
+  const db = await createAdminClient();
+  const { error } = await db.from("suggestions").insert({
+    sender_name: input.name?.trim() || null,
+    sender_email: input.email?.trim() || null,
+    type: type as (typeof SUGGESTION_TYPES)[number],
+    message,
+  });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
+}
+
 // â”€â”€â”€ Operator profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export async function updateOperatorProfileAction(data: {
